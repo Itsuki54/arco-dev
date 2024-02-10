@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// pages
-import './src/pages/setting/settings.dart';
-import './src/pages/setting/party.dart';
+import './src/pages/first_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,8 +29,8 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const SettingsPage(),
-      //home: PartyPage(),
+      //home: SettingsPage(),
+      home: FirstPage(),
     );
   }
 }
