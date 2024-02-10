@@ -35,7 +35,9 @@ class BackpackRouteButton extends StatelessWidget {
                     const SizedBox(width: 32),
                     Text(title,
                         style: const TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.bold))
+                            fontSize: 32, fontWeight: FontWeight.bold)),
+                    const Expanded(child: SizedBox()),
+                    const Icon(Icons.arrow_forward_ios),
                   ],
                 ))));
   }

@@ -51,7 +51,7 @@ class PartyRouteButton extends StatelessWidget {
                         Text("職業: $job", style: propertyTextStyle),
                       ],
                     ),
-                    const SizedBox(width: 32),
+                    const Expanded(child: SizedBox()),
                     const Icon(Icons.arrow_forward_ios),
                   ],
                 ))));
