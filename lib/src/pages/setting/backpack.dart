@@ -7,14 +7,14 @@ import './members.dart';
 import './items.dart';
 import './weapons.dart';
 
-class BackpacksPage extends StatefulWidget {
-  const BackpacksPage({super.key});
+class BackpackPage extends StatefulWidget {
+  const BackpackPage({super.key});
 
   @override
-  State<BackpacksPage> createState() => _BackpacksPageState();
+  State<BackpackPage> createState() => _BackpackPageState();
 }
 
-class _BackpacksPageState extends State<BackpacksPage> {
+class _BackpackPageState extends State<BackpackPage> {
   int _currentindex = 2;
 
   void _changeIndex(int value) {

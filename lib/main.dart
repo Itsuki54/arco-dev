@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const BackpacksPage(),
+      home: const BackpackPage(),
       //home: PartyPage(),
     );
   }
