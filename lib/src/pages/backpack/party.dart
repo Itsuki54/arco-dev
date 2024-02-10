@@ -42,6 +42,11 @@ class _PartyPage extends State<PartyPage> {
         name: "望月 美咲",
         level: 12,
         job: "妖術師"),
+    Character(
+        icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
+        name: " 岡田 龍之介",
+        level: 6,
+        job: "茶道士兼剣術家"),
   ];
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // components
-import '../../components/backpack_route_button.dart';
+import '../../components/simple_route_button.dart';
 // pages
 import './party.dart';
 import './members.dart';
@@ -29,22 +29,22 @@ class _BackpackPageState extends State<BackpackPage> {
         appBar: AppBar(toolbarHeight: 30),
         body: const Center(
           child: Column(children: [
-            BackpackRouteButton(
+            SimpleRouteButton(
               title: "Party",
               icon: Icon(Icons.assignment_ind, size: 45),
               nextPage: PartyPage(),
             ),
-            BackpackRouteButton(
+            SimpleRouteButton(
               title: "Members",
               icon: Icon(Icons.group, size: 45),
               nextPage: MembersPage(),
             ),
-            BackpackRouteButton(
+            SimpleRouteButton(
               title: "Weapons",
               icon: Icon(Icons.build, size: 45),
               nextPage: WeaponsPage(),
             ),
-            BackpackRouteButton(
+            SimpleRouteButton(
               title: "Items",
               icon: Icon(Icons.home_repair_service, size: 45),
               nextPage: ItemsPage(),

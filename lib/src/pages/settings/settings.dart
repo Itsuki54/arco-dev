@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // components
-
+import '../../components/child_appbar.dart';
 // pages
 
 class SettingsPage extends StatefulWidget {
@@ -14,7 +14,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 30),
+      appBar: const ChildAppBar(
+          title: "Settings", icon: Icon(Icons.settings, size: 45)),
       body: const Center(
         child: Column(children: []),
       ),

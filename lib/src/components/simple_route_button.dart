@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-// Backpack画面で一覧されるボタン
-class BackpackRouteButton extends StatelessWidget {
-  const BackpackRouteButton(
+// アイコンとページ名のついたNavigation用のボタン
+class SimpleRouteButton extends StatelessWidget {
+  const SimpleRouteButton(
       {super.key,
       required this.title,
       required this.icon,
