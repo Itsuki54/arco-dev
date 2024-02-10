@@ -13,7 +13,7 @@ class _ToolPage extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: SettingChildAppBar(
+      appBar: ChildAppBar(
           icon: Icon(
             Icons.home_repair_service,
             size: 45,

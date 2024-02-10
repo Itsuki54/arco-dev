@@ -45,7 +45,7 @@ class _PartyPage extends State<PartyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const SettingChildAppBar(
+      appBar: const ChildAppBar(
           icon: Icon(
             Icons.assignment_ind,
             size: 42,

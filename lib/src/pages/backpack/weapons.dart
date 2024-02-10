@@ -13,7 +13,7 @@ class _WeaponsPage extends State<WeaponsPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: SettingChildAppBar(
+      appBar: ChildAppBar(
           icon: Icon(
             Icons.build,
             size: 45,

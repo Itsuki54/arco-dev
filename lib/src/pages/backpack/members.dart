@@ -13,7 +13,7 @@ class _MemberPage extends State<MembersPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: SettingChildAppBar(
+      appBar: ChildAppBar(
           icon: Icon(
             Icons.group,
             size: 45,
