@@ -10,6 +10,7 @@ class PartyPage extends StatefulWidget {
   State<PartyPage> createState() => _PartyPage();
 }
 
+// キャラクターの仮のクラス
 class Character {
   Character({
     required this.icon,
@@ -24,6 +25,7 @@ class Character {
 }
 
 class _PartyPage extends State<PartyPage> {
+  // キャラクターのダミーデータ
   List<Character> characters = [
     Character(
         icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
