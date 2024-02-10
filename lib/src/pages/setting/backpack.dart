@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 // components
-import '../../components/setting_route_button.dart';
+import '../../components/backpack_route_button.dart';
 // pages
 import './party.dart';
 import './members.dart';
 import './items.dart';
 import './weapons.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+class BackpacksPage extends StatefulWidget {
+  const BackpacksPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<BackpacksPage> createState() => _BackpacksPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _BackpacksPageState extends State<BackpacksPage> {
   int _currentindex = 2;
 
   void _changeIndex(int value) {
@@ -29,22 +29,22 @@ class _SettingsPageState extends State<SettingsPage> {
         appBar: AppBar(toolbarHeight: 30),
         body: const Center(
           child: Column(children: [
-            SettingRouteButton(
+            BackpackRouteButton(
               title: "Party",
               icon: Icon(Icons.assignment_ind, size: 45),
               nextPage: PartyPage(),
             ),
-            SettingRouteButton(
+            BackpackRouteButton(
               title: "Members",
               icon: Icon(Icons.group, size: 45),
               nextPage: MembersPage(),
             ),
-            SettingRouteButton(
+            BackpackRouteButton(
               title: "Weapons",
               icon: Icon(Icons.build, size: 45),
               nextPage: WeaponsPage(),
             ),
-            SettingRouteButton(
+            BackpackRouteButton(
               title: "Items",
               icon: Icon(Icons.home_repair_service, size: 45),
               nextPage: ItemsPage(),

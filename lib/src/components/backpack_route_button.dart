@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SettingRouteButton extends StatelessWidget {
-  const SettingRouteButton(
+class BackpackRouteButton extends StatelessWidget {
+  const BackpackRouteButton(
       {super.key,
       required this.title,
       required this.icon,
@@ -11,7 +11,6 @@ class SettingRouteButton extends StatelessWidget {
   final String title;
   final Icon icon;
   final Widget nextPage;
-  //final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
