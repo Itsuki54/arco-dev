@@ -57,7 +57,7 @@ class _PartyPage extends State<PartyPage> {
         child: Column(
           children: [
             const SizedBox(height: 32),
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < characters.length; i++)
               PartyRouteButton(
                   title: characters[i].name,
                   icon: characters[i].icon,
