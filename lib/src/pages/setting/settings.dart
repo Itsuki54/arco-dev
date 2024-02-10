@@ -4,7 +4,7 @@ import '../../components/setting_route_button.dart';
 // pages
 import './party.dart';
 import './members.dart';
-import './tools.dart';
+import './items.dart';
 import './weapons.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -45,9 +45,9 @@ class _SettingsPageState extends State<SettingsPage> {
               nextPage: WeaponsPage(),
             ),
             SettingRouteButton(
-              title: "Tools",
+              title: "Items",
               icon: Icon(Icons.home_repair_service, size: 45),
-              nextPage: ToolsPage(),
+              nextPage: ItemsPage(),
             )
           ]),
         ),
