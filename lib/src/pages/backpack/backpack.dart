@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // components
 import '../../components/simple_route_button.dart';
 // pages
+import '../settings/settings.dart';
 import './party.dart';
 import './members.dart';
 import './items.dart';
@@ -56,7 +57,10 @@ class _BackpackPageState extends State<BackpackPage> {
           elevation: 5,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => SettingsPage()));
+          },
           child: const Icon(Icons.settings),
         ), // This trailing comma makes auto-formatting nicer for build methods.
         bottomNavigationBar: BottomNavigationBar(
