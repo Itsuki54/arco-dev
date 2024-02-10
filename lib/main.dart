@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 // pages
-import 'src/pages/setting/backpack.dart';
+import './src/pages/backpack/backpack.dart';
 
 // for test
-import './src/pages/setting/party.dart';
+import './src/pages/settings/settings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const BackpackPage(),
+      home: const SettingsPage(),
       //home: PartyPage(),
     );
   }
