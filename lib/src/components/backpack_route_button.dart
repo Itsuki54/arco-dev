@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Backpack画面で一覧されるボタン
 class BackpackRouteButton extends StatelessWidget {
   const BackpackRouteButton(
       {super.key,

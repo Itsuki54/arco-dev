@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Backpackから派生する画面で共通しているAppBar
 class SettingChildAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   const SettingChildAppBar({
@@ -36,6 +37,7 @@ class SettingChildAppBar extends StatelessWidget
     );
   }
 
+  // AppBarのWidgetを作る時は、下の記述が必要らしい
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

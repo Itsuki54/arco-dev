@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // components
-import '../../components/setting_child_appbar.dart';
+import '../../components/backpack_child_appbar.dart';
 import '../../components/party_route_button.dart';
 
 class PartyPage extends StatefulWidget {
