@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      //home: SettingsPage(),
-      home: PartyPage(),
+      home: const SettingsPage(),
+      //home: PartyPage(),
     );
   }
 }

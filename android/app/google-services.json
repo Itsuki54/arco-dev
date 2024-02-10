@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "520183629776",
+    "project_id": "arco-health",
+    "storage_bucket": "arco-health.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520183629776:android:7fa150b493b4ddebf79bd5",
+        "android_client_info": {
+          "package_name": "com.example.arco_dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520183629776-r5scka6p0v1fning2sihll1hc1nju38a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDVu8ri3kNioWbOiVlX8-MzZplYBc8_Rg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520183629776-r5scka6p0v1fning2sihll1hc1nju38a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
