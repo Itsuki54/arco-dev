@@ -36,11 +36,10 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: BackpackPage(),
-      home: const BackpackPage(),
+      //home: BackpackPage(),
       //home: PartyPage(),
       //home: SettingsPage(),
-      home: SignUpPage(),
+      //home: SignUpPage(),
     );
   }
 }
