@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import './signin_page.dart';
 
 void main() {
   runApp(const SignUpPage());
@@ -180,7 +181,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      print("pressed");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignInPage()),
+                      );
                     },
                     style: ButtonStyle(
                       overlayColor:

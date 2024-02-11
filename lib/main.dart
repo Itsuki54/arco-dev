@@ -4,9 +4,9 @@ import './src/pages/backpack/backpack.dart';
 
 // for test
 import './src/pages/backpack/members.dart';
-import './src/pages/setting/party.dart';
 import './src/pages/first_page.dart';
 import './src/pages/signup_page.dart';
+import './src/pages/signin_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +39,9 @@ class MyApp extends StatelessWidget {
       //home: BackpackPage(),
       //home: PartyPage(),
       //home: SettingsPage(),
+      home: FirstPage(),
       //home: SignUpPage(),
+      //home: SignInPage(),
     );
   }
 }
