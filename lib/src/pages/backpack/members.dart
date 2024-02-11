@@ -36,8 +36,13 @@ class _MemberPage extends State<MembersPage> {
                 icon: const Icon(Icons.person, size: 45, color: Colors.white),
                 color: Colors.red.shade300,
                 onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => CharacterInfo()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CharacterInfo(
+                          name: "桜井 雪音",
+                          level: 32,
+                          description:
+                              "和風の世界で生まれ育った若き剣士である。彼女は銀色の髪と氷のような青い目を持ち、優美な美しさと優れた剣術で知られている。雪音は厳しい修行の末に、氷の力を操る特殊な剣術を身につけた。彼女は氷のエネルギーを武器として利用し、敵を凍りつかせる技術を極めている。冷静沈着でありながら、心の中には熱い情熱と義侠心を秘めている。彼女は旅の中で己の力を試し、正義を貫くために戦い続ける。",
+                          exp: 0.3)));
                 },
               ),
           ],
