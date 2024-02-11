@@ -40,6 +40,39 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 42,
                   theme: const SvgTheme(currentColor: Colors.black)),
               nextPage: Scaffold(appBar: AppBar())),
+          Container(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                              appBar: AppBar(),
+                            )));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  child: SizedBox(
+                      width: 250,
+                      height: 110,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.delete,
+                            size: 45,
+                            color: Colors.red.shade400,
+                          ),
+                          const SizedBox(width: 32),
+                          Text("Delete",
+                              style: TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red.shade400)),
+                          const Expanded(child: SizedBox()),
+                          const Icon(Icons.arrow_forward_ios),
+                        ],
+                      )))),
         ]),
       ),
     );
