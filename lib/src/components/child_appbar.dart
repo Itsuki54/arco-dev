@@ -8,7 +8,7 @@ class ChildAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
   });
 
-  final Icon icon;
+  final dynamic icon;
   final String title;
 
   @override
