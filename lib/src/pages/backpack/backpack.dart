@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 // components
 import '../../components/simple_route_button.dart';
 // pages
@@ -28,24 +29,27 @@ class _BackpackPageState extends State<BackpackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(toolbarHeight: 30),
-        body: const Center(
+        body: Center(
           child: Column(children: [
-            SimpleRouteButton(
+            const SimpleRouteButton(
               title: "Party",
               icon: Icon(Icons.assignment_ind, size: 45),
               nextPage: PartyPage(),
             ),
-            SimpleRouteButton(
+            const SimpleRouteButton(
               title: "Members",
               icon: Icon(Icons.group, size: 45),
               nextPage: MembersPage(),
             ),
             SimpleRouteButton(
               title: "Weapons",
-              icon: Icon(Icons.build, size: 45),
+              icon: SvgPicture.asset("assets/images/swords.svg",
+                  width: 42,
+                  height: 42,
+                  theme: const SvgTheme(currentColor: Colors.black)),
               nextPage: WeaponsPage(),
             ),
-            SimpleRouteButton(
+            const SimpleRouteButton(
               title: "Items",
               icon: Icon(Icons.home_repair_service, size: 45),
               nextPage: ItemsPage(),
