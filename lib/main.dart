@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './src/pages/first_page.dart';
+import './src/pages/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: SettingsPage(),
-      home: FirstPage(),
+      home: SignUpPage(),
     );
   }
 }
