@@ -17,7 +17,7 @@ class Hub extends StatefulWidget {
 }
 
 class _Hub extends State<Hub> {
-  int pageIndex = 0;
+  int pageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
