@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class BackpackContentChip extends StatelessWidget {
-  BackpackContentChip({
-    super.key,
-    required this.name,
-    required this.level,
-    required this.icon,
-    required this.color,
-  });
+  BackpackContentChip(
+      {super.key,
+      required this.name,
+      required this.level,
+      required this.icon,
+      required this.color,
+      required this.onPressed});
 
   final String name;
   final int level;
   final dynamic icon;
   final Color color;
+  final VoidCallback onPressed;
 
   TextStyle textStyle =
       const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
@@ -29,7 +30,7 @@ class BackpackContentChip extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 backgroundColor: color),
-            onPressed: () {},
+            onPressed: onPressed,
             child: icon,
           )),
       Text(name, style: textStyle),
