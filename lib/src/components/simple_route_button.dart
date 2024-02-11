@@ -10,7 +10,7 @@ class SimpleRouteButton extends StatelessWidget {
       required this.nextPage});
 
   final String title;
-  final Icon icon;
+  final dynamic icon;
   final Widget nextPage;
 
   @override
