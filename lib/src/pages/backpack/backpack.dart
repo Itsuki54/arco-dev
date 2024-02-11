@@ -28,55 +28,44 @@ class _BackpackPageState extends State<BackpackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(toolbarHeight: 30),
-        body: Center(
-          child: Column(children: [
-            const SimpleRouteButton(
-              title: "Party",
-              icon: Icon(Icons.assignment_ind, size: 45),
-              nextPage: PartyPage(),
-            ),
-            const SimpleRouteButton(
-              title: "Members",
-              icon: Icon(Icons.group, size: 45),
-              nextPage: MembersPage(),
-            ),
-            SimpleRouteButton(
-              title: "Weapons",
-              icon: SvgPicture.asset("assets/images/swords.svg",
-                  width: 42,
-                  height: 42,
-                  theme: const SvgTheme(currentColor: Colors.black)),
-              nextPage: WeaponsPage(),
-            ),
-            const SimpleRouteButton(
-              title: "Items",
-              icon: Icon(Icons.home_repair_service, size: 45),
-              nextPage: ItemsPage(),
-            )
-          ]),
-        ),
-        //floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        floatingActionButton: FloatingActionButton(
-          elevation: 5,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => SettingsPage()));
-          },
-          child: const Icon(Icons.settings),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.map), label: "Map"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.content_paste), label: "ToDo"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.backpack), label: "Backpack")
-          ],
-          currentIndex: _currentindex,
-          onTap: _changeIndex,
-        ));
+      appBar: AppBar(toolbarHeight: 30),
+      body: Center(
+        child: Column(children: [
+          const SimpleRouteButton(
+            title: "Party",
+            icon: Icon(Icons.assignment_ind, size: 45),
+            nextPage: PartyPage(),
+          ),
+          const SimpleRouteButton(
+            title: "Members",
+            icon: Icon(Icons.group, size: 45),
+            nextPage: MembersPage(),
+          ),
+          SimpleRouteButton(
+            title: "Weapons",
+            icon: SvgPicture.asset("assets/images/swords.svg",
+                width: 42,
+                height: 42,
+                theme: const SvgTheme(currentColor: Colors.black)),
+            nextPage: WeaponsPage(),
+          ),
+          const SimpleRouteButton(
+            title: "Items",
+            icon: Icon(Icons.home_repair_service, size: 45),
+            nextPage: ItemsPage(),
+          )
+        ]),
+      ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: FloatingActionButton(
+        elevation: 5,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => SettingsPage()));
+        },
+        child: const Icon(Icons.settings),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
