@@ -37,7 +37,7 @@ class _MemberPage extends State<MembersPage> {
                 color: Colors.red.shade300,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CharacterInfo(
+                      builder: (context) => const CharacterInfo(
                           name: "桜井 雪音",
                           level: 32,
                           description:

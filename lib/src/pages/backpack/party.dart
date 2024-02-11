@@ -71,7 +71,7 @@ class _PartyPage extends State<PartyPage> {
                 icon: characters[i].icon,
                 level: characters[i].level,
                 job: characters[i].job,
-                nextPage: CharacterInfo(
+                nextPage: const CharacterInfo(
                     name: "桜井 雪音",
                     level: 32,
                     description:

@@ -38,8 +38,13 @@ class _WeaponsPage extends State<WeaponsPage> {
                           Colors.white, BlendMode.srcIn)),
                   color: Colors.blue.shade800,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => WeaponInfo()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const WeaponInfo(
+                              name: "疾風剣",
+                              level: 32,
+                              description:
+                                  "その刀身は煌めく青い光を放ち、鋭利な刃を持つ。この剣は空気を切り裂くような速さで振るわれ、風の力を操ることができる。振るう者の意志に従って風の刃を生み出し、遠くの敵にも届く攻撃を可能にする。疾風剣の真の力は、その扱い手の心の力と結びついており、正しい意図で用いられることでより強力な力を発揮する。",
+                            )));
                   },
                 ),
             ],

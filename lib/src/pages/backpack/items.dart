@@ -37,8 +37,12 @@ class _ToolPage extends State<ItemsPage> {
                       const Icon(Icons.category, size: 45, color: Colors.white),
                   color: Colors.green.shade800,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ItemInfo()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ItemInfo(
+                              name: "疾風剣",
+                              description:
+                                  "その刀身は煌めく青い光を放ち、鋭利な刃を持つ。この剣は空気を切り裂くような速さで振るわれ、風の力を操ることができる。振るう者の意志に従って風の刃を生み出し、遠くの敵にも届く攻撃を可能にする。疾風剣の真の力は、その扱い手の心の力と結びついており、正しい意図で用いられることでより強力な力を発揮する。",
+                            )));
                   },
                 ),
             ],
