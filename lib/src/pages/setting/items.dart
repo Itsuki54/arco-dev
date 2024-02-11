@@ -1,15 +1,15 @@
 import "package:flutter/material.dart";
 // components
-import '../../components/setting_child_appbar.dart';
+import '../../components/backpack_child_appbar.dart';
 
-class ToolsPage extends StatefulWidget {
-  const ToolsPage({super.key});
+class ItemsPage extends StatefulWidget {
+  const ItemsPage({super.key});
 
   @override
-  State<ToolsPage> createState() => _ToolPage();
+  State<ItemsPage> createState() => _ToolPage();
 }
 
-class _ToolPage extends State<ToolsPage> {
+class _ToolPage extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -19,7 +19,7 @@ class _ToolPage extends State<ToolsPage> {
             size: 45,
             color: Colors.black,
           ),
-          title: "Tools"),
+          title: "Items"),
       body: Center(),
     );
   }

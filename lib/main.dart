@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+// pages
+import 'src/pages/setting/backpack.dart';
+
+// for test
+import './src/pages/setting/party.dart';
 import './src/pages/first_page.dart';
 import './src/pages/signup_page.dart';
 
@@ -30,6 +35,8 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+      home: const BackpackPage(),
+      //home: PartyPage(),
       //home: SettingsPage(),
       home: SignUpPage(),
     );
