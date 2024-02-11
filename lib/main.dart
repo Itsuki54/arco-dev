@@ -4,6 +4,9 @@ import './src/pages/backpack/backpack.dart';
 
 // for test
 import './src/pages/backpack/members.dart';
+import './src/pages/setting/party.dart';
+import './src/pages/first_page.dart';
+import './src/pages/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +37,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BackpackPage(),
+      home: const BackpackPage(),
+      //home: PartyPage(),
+      //home: SettingsPage(),
+      home: SignUpPage(),
     );
   }
 }
