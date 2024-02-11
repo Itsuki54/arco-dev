@@ -26,12 +26,12 @@ class _SettingsPageState extends State<SettingsPage> {
               nextPage: Scaffold(
                 appBar: AppBar(),
               )),
-          SimpleRouteButton(
+          /*SimpleRouteButton(
               title: "Visibility",
               icon: const Icon(Icons.visibility, size: 45),
               nextPage: Scaffold(
                 appBar: AppBar(),
-              )),
+              )),*/
           SimpleRouteButton(
               title: "Battle",
               //icon: const Icon(Icons.grain, size: 45),

@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import './signin_page.dart';
+import './signup_page.dart';
 
 void main() {
-  runApp(const SignUpPage());
+  runApp(const SignInPage());
 }
 
 const googleIcon = 'assets/images/google.svg';
 Color backgroundColorGray = const Color(0xFF363636);
 Color fillColorGray = const Color(0xFF656565);
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key});
+class SignInPage extends StatelessWidget {
+  const SignInPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class SignUpPage extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Sign Up'),
+      home: const MyHomePage(title: 'Sign In'),
     );
   }
 }
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Sign Up',
+                      child: Text('Sign In',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 32,
@@ -105,15 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     )),
                 SizedBox(height: 20),
                 SizedBox(
-                    height: 50,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: fillColorGray,
-                        labelText: 'Re-type Password',
-                        prefixIcon: Icon(Icons.key),
-                      ),
-                    )),
+                  height: 50,
+                ),
                 Align(
                     alignment: Alignment.centerRight,
                     child: Text('Forgot password',
@@ -130,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             backgroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(0))),
-                        child: Text('Sign Up',
+                        child: Text('Sign In',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 24)),
                         onPressed: () {
@@ -184,14 +177,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SignInPage()),
+                            builder: (context) => const SignUpPage()),
                       );
                     },
                     style: ButtonStyle(
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    child: Text('Sign In',
+                    child: Text('Sign Up',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,

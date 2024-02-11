@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'signin_page.dart';
 
 void main() {
   runApp(const FirstPage());
@@ -73,7 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            //画面遷移実装
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SignInPage()),
+            );
           },
           child: Icon(
             Icons.navigate_next,
