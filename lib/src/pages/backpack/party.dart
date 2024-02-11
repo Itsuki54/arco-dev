@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 // components
-import '../../components/backpack_child_appbar.dart';
+import '../../components/child_appbar.dart';
 import '../../components/party_route_button.dart';
+// pages
+import './character_info.dart';
 
 class PartyPage extends StatefulWidget {
   const PartyPage({super.key});
@@ -10,6 +12,7 @@ class PartyPage extends StatefulWidget {
   State<PartyPage> createState() => _PartyPage();
 }
 
+// キャラクターの仮のクラス
 class Character {
   Character({
     required this.icon,
@@ -24,6 +27,7 @@ class Character {
 }
 
 class _PartyPage extends State<PartyPage> {
+  // キャラクターのダミーデータ
   List<Character> characters = [
     Character(
         icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
@@ -40,12 +44,17 @@ class _PartyPage extends State<PartyPage> {
         name: "望月 美咲",
         level: 12,
         job: "妖術師"),
+    Character(
+        icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
+        name: " 岡田 龍之介",
+        level: 6,
+        job: "茶道士兼剣術家"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const SettingChildAppBar(
+      appBar: const ChildAppBar(
           icon: Icon(
             Icons.assignment_ind,
             size: 42,
@@ -58,11 +67,12 @@ class _PartyPage extends State<PartyPage> {
             const SizedBox(height: 32),
             for (int i = 0; i < characters.length; i++)
               PartyRouteButton(
-                  title: characters[i].name,
-                  icon: characters[i].icon,
-                  level: characters[i].level,
-                  job: characters[i].job,
-                  nextPage: Scaffold(appBar: AppBar())),
+                title: characters[i].name,
+                icon: characters[i].icon,
+                level: characters[i].level,
+                job: characters[i].job,
+                nextPage: CharacterInfo(),
+              ),
           ],
         ),
       ),

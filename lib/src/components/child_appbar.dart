@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 // Backpackから派生する画面で共通しているAppBar
-class SettingChildAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
-  const SettingChildAppBar({
+class ChildAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const ChildAppBar({
     super.key,
     required this.icon,
     required this.title,
   });
 
-  final Icon icon;
+  final dynamic icon;
   final String title;
 
   @override

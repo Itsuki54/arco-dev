@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 // components
-import '../../components/backpack_route_button.dart';
+import '../../components/simple_route_button.dart';
 // pages
+import '../settings/settings.dart';
 import './party.dart';
 import './members.dart';
 import './items.dart';
@@ -27,24 +29,27 @@ class _BackpackPageState extends State<BackpackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(toolbarHeight: 30),
-        body: const Center(
+        body: Center(
           child: Column(children: [
-            BackpackRouteButton(
+            const SimpleRouteButton(
               title: "Party",
               icon: Icon(Icons.assignment_ind, size: 45),
               nextPage: PartyPage(),
             ),
-            BackpackRouteButton(
+            const SimpleRouteButton(
               title: "Members",
               icon: Icon(Icons.group, size: 45),
               nextPage: MembersPage(),
             ),
-            BackpackRouteButton(
+            SimpleRouteButton(
               title: "Weapons",
-              icon: Icon(Icons.build, size: 45),
+              icon: SvgPicture.asset("assets/images/swords.svg",
+                  width: 42,
+                  height: 42,
+                  theme: const SvgTheme(currentColor: Colors.black)),
               nextPage: WeaponsPage(),
             ),
-            BackpackRouteButton(
+            const SimpleRouteButton(
               title: "Items",
               icon: Icon(Icons.home_repair_service, size: 45),
               nextPage: ItemsPage(),
@@ -56,7 +61,10 @@ class _BackpackPageState extends State<BackpackPage> {
           elevation: 5,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => SettingsPage()));
+          },
           child: const Icon(Icons.settings),
         ), // This trailing comma makes auto-formatting nicer for build methods.
         bottomNavigationBar: BottomNavigationBar(
