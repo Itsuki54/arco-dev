@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // components
 import '../../components/child_appbar.dart';
 import '../../components/party_route_button.dart';
+// pages
+import './character_info.dart';
 
 class PartyPage extends StatefulWidget {
   const PartyPage({super.key});
@@ -65,11 +67,12 @@ class _PartyPage extends State<PartyPage> {
             const SizedBox(height: 32),
             for (int i = 0; i < characters.length; i++)
               PartyRouteButton(
-                  title: characters[i].name,
-                  icon: characters[i].icon,
-                  level: characters[i].level,
-                  job: characters[i].job,
-                  nextPage: Scaffold(appBar: AppBar())),
+                title: characters[i].name,
+                icon: characters[i].icon,
+                level: characters[i].level,
+                job: characters[i].job,
+                nextPage: CharacterInfo(),
+              ),
           ],
         ),
       ),

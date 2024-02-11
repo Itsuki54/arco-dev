@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 // components
 import '../../components/child_appbar.dart';
 import '../../components/backpack_content_chip.dart';
+// pages
+import './character_info.dart';
 
 class MembersPage extends StatefulWidget {
   const MembersPage({super.key});
@@ -29,10 +31,15 @@ class _MemberPage extends State<MembersPage> {
           children: [
             for (int i = 0; i < 32; i++)
               BackpackContentChip(
-                  name: "キャラ名 $i",
-                  level: 32,
-                  icon: const Icon(Icons.person, size: 45, color: Colors.white),
-                  color: Colors.red.shade300),
+                name: "キャラ名 $i",
+                level: 32,
+                icon: const Icon(Icons.person, size: 45, color: Colors.white),
+                color: Colors.red.shade300,
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CharacterInfo()));
+                },
+              ),
           ],
         ),
       )),

@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 // components
 import '../../components/child_appbar.dart';
 import '../../components/backpack_content_chip.dart';
+// pages
+import './item_info.dart';
 
 class ItemsPage extends StatefulWidget {
   const ItemsPage({super.key});
@@ -29,11 +31,16 @@ class _ToolPage extends State<ItemsPage> {
             children: [
               for (int i = 0; i < 32; i++)
                 BackpackContentChip(
-                    name: "アイテム名 $i",
-                    level: 32,
-                    icon: const Icon(Icons.category,
-                        size: 45, color: Colors.white),
-                    color: Colors.green.shade800),
+                  name: "アイテム名 $i",
+                  level: 32,
+                  icon:
+                      const Icon(Icons.category, size: 45, color: Colors.white),
+                  color: Colors.green.shade800,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ItemInfo()));
+                  },
+                ),
             ],
           ),
         )));
