@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './src/pages/backpack/backpack.dart';
 
 // for test
-import './src/pages/settings/settings.dart';
+import './src/pages/backpack/members.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: SettingsPage(),
-      //home: BackpackPage(),
+      home: BackpackPage(),
     );
   }
 }
