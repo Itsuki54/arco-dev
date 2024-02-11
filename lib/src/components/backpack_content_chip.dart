@@ -15,7 +15,7 @@ class BackpackContentChip extends StatelessWidget {
   final Color color;
 
   TextStyle textStyle =
-      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
