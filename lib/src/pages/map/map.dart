@@ -119,7 +119,51 @@ class _MapPageState extends State<MapPage> {
           position: LatLng(spot["geometry"]["location"]["lat"],
               spot["geometry"]["location"]["lng"]),
           onTap: () {
-            debugPrint("MARKER TAPPED!!!");
+            showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                              height: 4,
+                              width: 80,
+                              child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(4)))),
+                          const SizedBox(height: 12),
+                          spot["photos"].length > 0
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Image.network(
+                                      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${spot["photos"][0]["photo_reference"]}&key=${dotenv.env["MAPS_API"]}"))
+                              : const SizedBox(),
+                          spot["photos"].length > 0
+                              ? const SizedBox(height: 16)
+                              : const SizedBox(),
+                          Text(spot["name"],
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold)),
+                          Text(spot["vicinity"],
+                              style: const TextStyle(fontSize: 16)),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black,
+                                      foregroundColor: Colors.white),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("閉じる")))
+                        ],
+                      ));
+                });
           },
           flat: true);
       markers.add(spotMarker);
