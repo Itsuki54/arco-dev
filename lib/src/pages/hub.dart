@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 // pages
 import './backpack/backpack.dart';
 import './todo/todo.dart';
+import './map/map.dart';
 
 class Hub extends StatefulWidget {
   Hub({super.key});
 
   final List<Widget> pages = [
-    Scaffold(),
+    MapPage(),
     ToDoPage(),
     BackpackPage(),
   ];
@@ -23,15 +24,14 @@ class _Hub extends State<Hub> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget.pages[pageIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.map), label: "Map"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.content_paste), label: "ToDo"),
-          BottomNavigationBarItem(icon: Icon(Icons.backpack), label: "Backpack")
+      bottomNavigationBar: NavigationBar(
+        destinations: const <Widget>[
+          NavigationDestination(icon: Icon(Icons.map), label: "Map"),
+          NavigationDestination(icon: Icon(Icons.content_paste), label: "ToDo"),
+          NavigationDestination(icon: Icon(Icons.backpack), label: "Backpack")
         ],
-        currentIndex: pageIndex,
-        onTap: (int index) {
+        selectedIndex: pageIndex,
+        onDestinationSelected: (int index) {
           setState(() {
             pageIndex = index;
           });

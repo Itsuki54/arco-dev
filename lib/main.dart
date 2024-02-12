@@ -1,8 +1,16 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // pages
 import './src/pages/hub.dart';
+import './firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -25,7 +33,7 @@ class MyApp extends StatelessWidget {
             onSecondary: Colors.black, // セカンダリ色の上でのテキスト色
             onSurface: Colors.black, // 表面色の上でのテキスト色
             onBackground: Colors.black, // 背景色の上でのテキスト色
-            onError: Colors.white, // エラー色の上でのテキスト色
+            onError: Colors.red, // エラー色の上でのテキスト色
             brightness: Brightness.light, // 明るさ
           ),
           useMaterial3: true,
