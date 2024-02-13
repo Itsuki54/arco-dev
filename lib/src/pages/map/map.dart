@@ -117,6 +117,34 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
+  String _getSpotIcon(List<String> types) {
+    if (types.contains("bank")) {
+      return "bank";
+    } else if (types.contains("court")) {
+      return "court";
+    } else if (types.contains("restaurant")) {
+      return "fastfood";
+    } else if (types.contains("fire_station")) {
+      return "fire";
+    } else if (types.contains("food")) {
+      return "food";
+    } else if (types.contains("local_government_office")) {
+      return "gov";
+    } else if (types.contains("hospital")) {
+      return "hospital";
+    } else if (types.contains("lodging")) {
+      return "hotel";
+    } else if (types.contains("mountain")) {
+      return "mountain";
+    } else if (types.contains("park")) {
+      return "park";
+    } else if (types.contains("police")) {
+      return "police";
+    } else {
+      return "food";
+    }
+  }
+
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
@@ -157,7 +185,7 @@ class _MapPageState extends State<MapPage> {
           markerId: MarkerId(spot.placeId!),
           position:
               LatLng(spot.geometry!.location.lat, spot.geometry!.location.lng),
-          icon: _markerIcons["hotel"]!,
+          icon: _markerIcons[_getSpotIcon(spot.types!)]!,
           onTap: () {
             showModalBottomSheet(
                 context: context,
