@@ -5,7 +5,7 @@ class QuestStateChip extends StatefulWidget {
 
   /* ボタンの状態
     - "未完了"
-    - "受取る"
+    - "受取り"
     - "完了"
   */
   final String state;
@@ -24,7 +24,7 @@ class _QuestStateChip extends State<QuestStateChip> {
     switch (state) {
       case "未完了":
         return Colors.red.shade300;
-      case "受取る":
+      case "受取り":
         return Colors.yellow.shade800;
       case "完了":
         return Colors.green.shade400;
@@ -37,8 +37,8 @@ class _QuestStateChip extends State<QuestStateChip> {
   String transState(String state) {
     switch (state) {
       case "未完了":
-        return "受取る";
-      case "受取る":
+        return "受取り";
+      case "受取り":
         return "完了";
       case "完了":
         return "未完了";
