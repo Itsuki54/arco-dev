@@ -66,10 +66,10 @@ class _CharacterInfo extends State<CharacterInfo> {
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   )))),
-              const SizedBox(height: 8),
+              const SizedBox(height: 42),
               const Text("装備",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 24),
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 28),
               Wrap(
                 spacing: 4,
                 runSpacing: 8,
