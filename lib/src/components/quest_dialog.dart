@@ -33,8 +33,8 @@ class QuestDialog extends StatelessWidget {
                 onPressed: quest.state == "受取り" ? () {} : null,
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.yellow.shade800),
-                child: const Text("ポイントを受け取る",
-                    style: TextStyle(
+                child: Text("${quest.point} pointを受け取る",
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold)))),
