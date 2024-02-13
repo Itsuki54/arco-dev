@@ -1,16 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart' as permission;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -28,9 +24,8 @@ class _MapPageState extends State<MapPage> {
   late GoogleMapController mapController;
   Location location = Location();
   StreamSubscription? _locationChangedListen;
-  List<NearBy.Place> _spots = [];
+  List<dynamic> _spots = [];
   Set<Marker> markers = Set();
-  Map<String, BitmapDescriptor> _markerIcons = {};
 
   void showCurrentLocation() {
     mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
@@ -117,75 +112,12 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
-  String _getSpotIcon(List<String> types) {
-    if (types.contains("bank")) {
-      return "bank";
-    } else if (types.contains("court")) {
-      return "court";
-    } else if (types.contains("restaurant")) {
-      return "fastfood";
-    } else if (types.contains("fire_station")) {
-      return "fire";
-    } else if (types.contains("food")) {
-      return "food";
-    } else if (types.contains("local_government_office")) {
-      return "gov";
-    } else if (types.contains("hospital")) {
-      return "hospital";
-    } else if (types.contains("lodging")) {
-      return "hotel";
-    } else if (types.contains("mountain")) {
-      return "mountain";
-    } else if (types.contains("park")) {
-      return "park";
-    } else if (types.contains("police")) {
-      return "police";
-    } else {
-      return "food";
-    }
-  }
-
-  Future<Uint8List> getBytesFromAsset(String path, int width) async {
-    ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetWidth: width);
-    ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
-        .buffer
-        .asUint8List();
-  }
-
-  Future<void> _setMarkerIcons() async {
-    List icons = [
-      "bank",
-      "bowl",
-      "court",
-      "fastfood",
-      "fire",
-      "food",
-      "gov",
-      "hospital",
-      "hotel",
-      "mountain",
-      "park",
-      "police"
-    ];
-    for (String icon in icons) {
-      Uint8List iconBytes =
-          await getBytesFromAsset('assets/markers/icon-$icon.png', 100);
-      _markerIcons[icon] = BitmapDescriptor.fromBytes(iconBytes);
-    }
-  }
-
   Future<void> _showSpots() async {
-    await _setMarkerIcons();
-    for (NearBy.Place spot in _spots) {
-      debugPrint(spot.types!.join(","));
+    for (Map<String, dynamic> spot in _spots) {
       Marker spotMarker = Marker(
-          markerId: MarkerId(spot.placeId!),
-          position:
-              LatLng(spot.geometry!.location.lat, spot.geometry!.location.lng),
-          icon: _markerIcons[_getSpotIcon(spot.types!)]!,
+          markerId: MarkerId(spot["place_id"]),
+          position: LatLng(spot["geometry"]["location"]["lat"],
+              spot["geometry"]["location"]["lng"]),
           onTap: () {
             showModalBottomSheet(
                 context: context,
@@ -204,19 +136,19 @@ class _MapPageState extends State<MapPage> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(4)))),
                           const SizedBox(height: 12),
-                          spot.photos!.isNotEmpty
+                          spot["photos"].length > 0
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
-                                      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${spot.photos![0].photoReference}&key=${dotenv.env["MAPS_API"]}"))
+                                      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${spot["photos"][0]["photo_reference"]}&key=${dotenv.env["MAPS_API"]}"))
                               : const SizedBox(),
-                          spot.photos!.isNotEmpty
+                          spot["photos"].length > 0
                               ? const SizedBox(height: 16)
                               : const SizedBox(),
-                          Text(spot.name!,
+                          Text(spot["name"],
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold)),
-                          Text(spot.vicinity!,
+                          Text(spot["vicinity"],
                               style: const TextStyle(fontSize: 16)),
                           const SizedBox(height: 16),
                           SizedBox(
@@ -247,14 +179,12 @@ class _MapPageState extends State<MapPage> {
         final spotsRes = await http.get(Uri.parse(
             'https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=$nextPageToken&key=$mapsApiKey'));
         if (spotsRes.statusCode == 200) {
-          NearBy.PlacesNearbySearchResponse spotsData =
-              NearBy.PlacesNearbySearchResponse.fromJson(
-                  jsonDecode(spotsRes.body));
-          if (spotsData.status != "ZERO_RESULTS") {
-            List<NearBy.Place> spots = spotsData.results;
+          Map<String, dynamic> spotsData = jsonDecode(spotsRes.body);
+          if (spotsData["status"] != "ZERO_RESULTS") {
+            List<dynamic> spots = spotsData["results"];
             _spots += spots;
-            if (spotsData.nextPageToken != null) {
-              nextPageToken = spotsData.nextPageToken!;
+            if (spotsData.containsKey("next_page_token")) {
+              nextPageToken = spotsData["next_page_token"];
             } else {
               break;
             }
@@ -271,14 +201,12 @@ class _MapPageState extends State<MapPage> {
         final spotsRes = await http.get(Uri.parse(
             'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${_myPosition.latitude},${_myPosition.longitude}&radius=1500&language=ja&key=$mapsApiKey'));
         if (spotsRes.statusCode == 200) {
-          NearBy.PlacesNearbySearchResponse spotsData =
-              NearBy.PlacesNearbySearchResponse.fromJson(
-                  jsonDecode(spotsRes.body));
-          if (spotsData.status != "ZERO_RESULTS") {
-            List<NearBy.Place> spots = spotsData.results;
+          Map<String, dynamic> spotsData = jsonDecode(spotsRes.body);
+          if (spotsData["status"] != "ZERO_RESULTS") {
+            List<dynamic> spots = spotsData["results"];
             _spots += spots;
-            if (spotsData.nextPageToken != null) {
-              nextPageToken = spotsData.nextPageToken!;
+            if (spotsData.containsKey("next_page_token")) {
+              nextPageToken = spotsData["next_page_token"];
             } else {
               break;
             }
