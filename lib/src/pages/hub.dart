@@ -11,6 +11,7 @@ class Hub extends StatefulWidget {
     MapPage(),
     ToDoPage(),
     BackpackPage(),
+    Scaffold(),
   ];
 
   @override
@@ -28,7 +29,9 @@ class _Hub extends State<Hub> {
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.map), label: "Map"),
           NavigationDestination(icon: Icon(Icons.content_paste), label: "ToDo"),
-          NavigationDestination(icon: Icon(Icons.backpack), label: "Backpack")
+          NavigationDestination(icon: Icon(Icons.backpack), label: "Backpack"),
+          NavigationDestination(
+              icon: Icon(Icons.bluetooth), label: "Bluetooth"),
         ],
         selectedIndex: pageIndex,
         onDestinationSelected: (int index) {
