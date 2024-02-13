@@ -51,5 +51,9 @@
 	<string>このアプリは位置情報を使用します</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>このアプリは位置情報を使用します</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>このアプリはAppleヘルスケアと連携して動作します</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>このアプリはAppleヘルスケアと連携して動作します</string>
 </dict>
 </plist>
