@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BackpackContentChip extends StatelessWidget {
-  BackpackContentChip(
+  const BackpackContentChip(
       {super.key,
       required this.name,
       required this.level,
@@ -15,7 +15,7 @@ class BackpackContentChip extends StatelessWidget {
   final Color color;
   final VoidCallback onPressed;
 
-  TextStyle textStyle =
+  final TextStyle textStyle =
       const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 
   @override

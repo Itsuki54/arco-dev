@@ -5,22 +5,13 @@ class Quest {
     required this.description,
     required this.point,
     required this.id,
+    this.state = "未完了",
   });
 
   final String name;
   final String description;
   final int point;
   final int id;
-  bool done = false;
+  final String state;
   dynamic options;
-
-  // 完了にする
-  void markAsDone() {
-    done = true;
-  }
-
-  // 未完了にする
-  void markAsUnfinished() {
-    done = false;
-  }
 }
