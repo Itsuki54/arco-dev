@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 
-class QuestStateChip extends StatefulWidget {
-  const QuestStateChip({super.key, this.state = "未完了"});
+class QuestStateChip extends StatelessWidget {
+  QuestStateChip({super.key, this.state = "未完了"});
 
   /* ボタンの状態
     - "未完了"
-    - "受取り"
+    - "受取る"
     - "完了"
   */
   final String state;
-
-  @override
-  State<QuestStateChip> createState() => _QuestStateChip();
-}
-
-class _QuestStateChip extends State<QuestStateChip> {
-  late String state = widget.state;
-  late String buttonText = widget.state;
-  late Color buttonColor = colorFromState(widget.state);
+  late Color buttonColor = colorFromState(state);
 
   // 各状態の色を指定
   Color colorFromState(String state) {
@@ -33,32 +25,6 @@ class _QuestStateChip extends State<QuestStateChip> {
     }
   }
 
-  // 状態を遷移させる
-  String transState(String state) {
-    switch (state) {
-      case "未完了":
-        return "受取り";
-      case "受取り":
-        return "完了";
-      case "完了":
-        return "未完了";
-      default:
-        return state;
-    }
-  }
-
-  void onChange({String inputState = 'null'}) {
-    setState(() {
-      if (inputState != 'null') {
-        state = transState(inputState);
-      } else {
-        state = transState(state);
-      }
-      buttonText = state;
-      buttonColor = colorFromState(state);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -69,7 +35,7 @@ class _QuestStateChip extends State<QuestStateChip> {
           width: 78,
           height: 40,
           child: Center(
-              child: Text(buttonText,
+              child: Text(state,
                   style: const TextStyle(
                       //color: canTap ? Colors.white : Colors.grey.shade300,
                       color: Colors.white,
