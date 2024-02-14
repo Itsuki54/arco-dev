@@ -1,10 +1,9 @@
-import 'dart:io';
-import 'dart:typed_data';
+import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:arco_dev/src/lib/bluetooth_controller.dart';
-import 'package:ble_peripheral/ble_peripheral.dart' as BP;
+import 'package:ble_peripheral/ble_peripheral.dart' as bp;
+import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 
 class BluetoothTest extends StatefulWidget {
   BluetoothTest({Key? key}) : super(key: key);
@@ -14,22 +13,13 @@ class BluetoothTest extends StatefulWidget {
 }
 
 class _BluetoothTestState extends State<BluetoothTest> {
-  Stream<List<ScanResult>>? scanResults;
-  String serviceArco = "FA2DBDC2-409A-4DD3-95F6-698758FBBB0B";
-  String characteristicArco = "20FF1B73-4807-466E-971B-E4CA982055D3";
-  BluetoothController bluetoothController = BluetoothController();
-
-  Future<void> startScan() async {
-    if (await FlutterBluePlus.isSupported) {
-      await bluetoothController.requestPermission();
-      if (Platform.isAndroid) {
-        await FlutterBluePlus.turnOn();
-      }
-      await bluetoothController.scanDevices();
-    } else {
-      debugPrint('Bluetooth is not supported');
-    }
-  }
+  String serviceArco = "FA2DBDC2-409A-4DD3-95F6-698758FCCC0B";
+  String characteristicArco = "20FF0003-4807-466E-971B-E4CA982055D3";
+  final FlutterReactiveBle _ble = FlutterReactiveBle();
+  late StreamSubscription<ConnectionStateUpdate> _connection;
+  String advertisingError = '';
+  String _uid = '';
+  final List<String> _connectedDevices = [];
 
   String generateNonce([int length = 32]) {
     const charset =
@@ -41,72 +31,108 @@ class _BluetoothTestState extends State<BluetoothTest> {
     return randomStr;
   }
 
-  Uint8List stringToBytes(String str) {
-    final Uint8List uint8list = Uint8List.fromList(str.codeUnits);
-    return uint8list;
-  }
-
-  String bytesToString(Uint8List bytes) {
-    final String str = String.fromCharCodes(bytes);
-    return str;
-  }
-
   Future<void> initBle() async {
-    bluetoothController.serviceUuids = [serviceArco, characteristicArco];
-    await BP.BlePeripheral.initialize();
-    await BP.BlePeripheral.addService(
-        BP.BleService(uuid: serviceArco, primary: true, characteristics: [
-      BP.BleCharacteristic(
+    await bp.BlePeripheral.initialize();
+    await bp.BlePeripheral.addService(
+        bp.BleService(uuid: serviceArco, primary: true, characteristics: [
+      bp.BleCharacteristic(
           uuid: characteristicArco,
           properties: [
-            BP.CharacteristicProperties.read.index,
-            BP.CharacteristicProperties.notify.index
+            bp.CharacteristicProperties.read.index,
           ],
-          value: stringToBytes('N7B3bek9a8WL9lYXMJhh'),
+          value: null,
           permissions: [
-            BP.AttributePermissions.readable.index,
+            bp.AttributePermissions.readable.index,
           ])
     ]));
+    bp.BlePeripheral.setReadRequestCallback(
+        (deviceId, characteristicId, offset, value) {
+      // ユーザーIDを取得
+      return bp.ReadRequestResult(value: utf8.encode("N7B3bek9a8WL9lYXMJhh"));
+    });
+    bp.BlePeripheral.setAdvertingStartedCallback((String? error) {
+      if (error != null) {
+        print("AdvertisingFailed: $error");
+        setState(() {
+          advertisingError = error;
+        });
+      }
+    });
   }
 
   Future<void> startAdvertising() async {
-    await BP.BlePeripheral.startAdvertising(
+    await bp.BlePeripheral.startAdvertising(
       services: [serviceArco],
-      localName: "ARCO-${generateNonce(4)}",
+      localName: "arco${generateNonce(3)}",
     );
   }
 
   Future<void> stopAdvertising() async {
-    await BP.BlePeripheral.stopAdvertising();
+    await bp.BlePeripheral.stopAdvertising();
   }
 
-  Future<String?> connectAndRead(BluetoothDevice device) async {
-    await device.connect();
-    List<BluetoothService> services = await device.discoverServices();
-    for (var service in services) {
-      if (service.uuid.toString() == serviceArco) {
-        List<BluetoothCharacteristic> characteristics = service.characteristics;
-        for (var characteristic in characteristics) {
-          if (characteristic.uuid.toString() == characteristicArco) {
-            List<int> c = await characteristic.read();
-            debugPrint('Read: ${bytesToString(Uint8List.fromList(c))}');
-            return bytesToString(Uint8List.fromList(c));
-          }
-        }
+  Future<void> readUid(DiscoveredDevice device) async {
+    final characteristic = QualifiedCharacteristic(
+        characteristicId: Uuid.parse(characteristicArco),
+        serviceId: Uuid.parse(serviceArco),
+        deviceId: device.id);
+    final response = await _ble.readCharacteristic(characteristic);
+    if (response.isEmpty) {
+      debugPrint('Failed to read characteristic');
+    } else {
+      final value = utf8.decode(response);
+      debugPrint('Read value: $value');
+      setState(() {
+        _uid = value;
+      });
+    }
+    await disconnectFromDevice();
+  }
+
+  Future<void> searchForDevices() async {
+    await for (final scanResult in _ble.scanForDevices(
+        withServices: [Uuid.parse(serviceArco)],
+        scanMode: ScanMode.lowLatency)) {
+      if (!_connectedDevices.contains(scanResult.id)) {
+        debugPrint('Found device: ${scanResult.name}');
+        _connectedDevices.add(scanResult.id);
+        connectToDevice(scanResult);
       }
     }
-    return null;
+  }
+
+  Future<void> connectToDevice(DiscoveredDevice device) async {
+    _connection = _ble
+        .connectToDevice(
+            id: device.id,
+            servicesWithCharacteristicsToDiscover: {
+              Uuid.parse(serviceArco): [Uuid.parse(characteristicArco)]
+            },
+            connectionTimeout: const Duration(seconds: 5))
+        .listen((event) {
+      print("Connection state: ${event.connectionState}");
+      if (event.connectionState == DeviceConnectionState.connecting) {
+        debugPrint('Connected to device');
+        readUid(device);
+      }
+    });
+  }
+
+  Future<void> disconnectFromDevice() async {
+    debugPrint('Disconnecting from device');
+    await _connection.cancel();
   }
 
   @override
   void initState() {
     super.initState();
     initBle().then((value) {
-      startAdvertising().then(
-        (value) {
-          startScan();
-        },
-      );
+      if (advertisingError.isNotEmpty) {
+        debugPrint('Advertising error: $advertisingError');
+      } else {
+        startAdvertising();
+        searchForDevices();
+      }
     });
   }
 
@@ -120,7 +146,7 @@ class _BluetoothTestState extends State<BluetoothTest> {
   }
 
   Future<void> checkAdvertising() async {
-    bool? isAdvertising = await BP.BlePeripheral.isAdvertising();
+    bool? isAdvertising = await bp.BlePeripheral.isAdvertising();
     debugPrint('Is advertising: $isAdvertising');
   }
 
@@ -130,23 +156,15 @@ class _BluetoothTestState extends State<BluetoothTest> {
       appBar: AppBar(
         title: const Text('Bluetooth Test'),
       ),
-      body: StreamBuilder<List<ScanResult>>(
-        stream: bluetoothController.scanResults,
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-            final List<ScanResult> scanResults = snapshot.data!;
-            connectAndRead(scanResults.first.device);
-          }
-          return const Center(
+      body: _uid != ""
+          ? Center(child: Text('UID: $_uid'))
+          : const Center(
               child: Column(
-            children: [
-              Icon(Icons.bluetooth_searching, size: 100),
-              SizedBox(height: 16),
-              Text('Searching for devices...')
-            ],
-          ));
-        },
-      ),
+              children: [
+                Icon(Icons.bluetooth, size: 100),
+                Text('Scanning for devices...'),
+              ],
+            )),
     );
   }
 }
