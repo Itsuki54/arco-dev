@@ -42,7 +42,6 @@ dependencies:
   location: ^5.0.3
   permission_handler: ^11.2.1
   flutter_dotenv: ^5.1.0
-  get: ^4.6.6
   device_info_plus: ^9.1.2
   ble_peripheral: ^2.0.0
   flutter_reactive_ble: ^5.3.1

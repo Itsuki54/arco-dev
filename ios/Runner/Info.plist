@@ -56,8 +56,8 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>このアプリは位置情報を使用します</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-  <string>This app always needs Bluetooth to function</string>
+  <string>このアプリはBluetoothを使用します</string>
   <key>NSBluetoothPeripheralUsageDescription</key>
-  <string>This app needs Bluetooth Peripheral to function</string>
+  <string>このアプリはBluetoothを使用します</string>
 </dict>
 </plist>
