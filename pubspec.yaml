@@ -43,6 +43,10 @@ dependencies:
   permission_handler: ^11.2.1
   flutter_dotenv: ^5.1.0
   flutter_blue_plus: ^1.31.13
+  get: ^4.6.6
+  device_info_plus: ^9.1.2
+  flutter_ble_peripheral: ^1.2.3
+  ble_peripheral: ^2.0.0
 
 dev_dependencies:
   flutter_test:

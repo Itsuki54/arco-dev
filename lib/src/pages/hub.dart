@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/pages/bluetooth_test/test.dart';
 import 'package:flutter/material.dart';
 // pages
 import './backpack/backpack.dart';
@@ -11,6 +12,7 @@ class Hub extends StatefulWidget {
     MapPage(),
     ToDoPage(),
     BackpackPage(),
+    BluetoothTest()
   ];
 
   @override
@@ -28,7 +30,9 @@ class _Hub extends State<Hub> {
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.map), label: "Map"),
           NavigationDestination(icon: Icon(Icons.content_paste), label: "ToDo"),
-          NavigationDestination(icon: Icon(Icons.backpack), label: "Backpack")
+          NavigationDestination(icon: Icon(Icons.backpack), label: "Backpack"),
+          NavigationDestination(
+              icon: Icon(Icons.bluetooth), label: "Bluetooth"),
         ],
         selectedIndex: pageIndex,
         onDestinationSelected: (int index) {
