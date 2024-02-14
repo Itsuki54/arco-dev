@@ -92,9 +92,6 @@ class _ToDoPageState extends State<ToDoPage> {
       } else {
         displayedQuests = quests;
       }
-      //for (int i = 0; i < displayedQuests.length; i++) {
-      //  print(displayedQuests[i].state);
-      //}
     });
   }
 
