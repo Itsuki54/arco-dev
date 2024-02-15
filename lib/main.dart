@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // pages
 import './src/pages/hub.dart';
 import './firebase_options.dart';
+import './src/pages/battle/battle.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: Hub());
+        //home: Hub());
+        home: BattlePage());
   }
 }
