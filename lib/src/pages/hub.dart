@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './backpack/backpack.dart';
 import './todo/todo.dart';
 import './map/map.dart';
-import 'battle/battle.dart';
+import './battle/battle.dart';
 
 class Hub extends StatefulWidget {
   Hub({super.key});
