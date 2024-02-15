@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:flutter_svg/flutter_svg.dart";
+// components
+import '../../components/exp_bar.dart';
 
 class BattlePage extends StatefulWidget {
   const BattlePage({super.key});
@@ -40,8 +42,36 @@ class _BattlePage extends State<BattlePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Column(children: [
+        body: Container(
+      decoration: BoxDecoration(),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        //const Expanded(child: SizedBox()),
+        const SizedBox(height: 100),
+        SizedBox(
+            width: 250,
+            height: 350,
+            child: Column(children: [
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: Column(children: [
+                    Text("Invader",
+                        style: const TextStyle(
+                            fontSize: 32, fontWeight: FontWeight.bold)),
+                    Text("HP: 638",
+                        style: const TextStyle(
+                            fontSize: 21, fontWeight: FontWeight.bold)),
+                    const ExpBar(
+                        width: 100,
+                        height: 10,
+                        expValue: 0.5,
+                        color: Colors.green),
+                  ])),
+              SvgPicture.asset("assets/images/invader.svg",
+                  width: 250,
+                  height: 250,
+                  colorFilter:
+                      const ColorFilter.mode(Colors.black87, BlendMode.srcIn)),
+            ])),
         const Expanded(child: SizedBox()),
         SizedBox(
             width: 400,
@@ -109,8 +139,8 @@ class _BattlePage extends State<BattlePage> {
                         ))),
               ],
             )),
-        const SizedBox(height: 10)
-      ])),
-    );
+        const SizedBox(height: 30)
+      ]),
+    ));
   }
 }
