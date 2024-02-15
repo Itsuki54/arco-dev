@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        //home: Hub());
-        home: BattlePage());
+        home: Hub());
   }
 }
