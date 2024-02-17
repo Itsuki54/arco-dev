@@ -21,7 +21,7 @@ class Enemy extends StatelessWidget {
   final int enemyFullHp;
   final int enemyCrtHp;
 
-  final SvgPicture image;
+  final dynamic image;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +45,13 @@ class Enemy extends StatelessWidget {
                     color: Colors.green),
               ])),
           image,
-          //svgpicture.asset("assets/images/invader.svg",
-          //    width: 120,
-          //    colorfilter:
-          //        const colorfilter.mode(colors.black87, blendmode.srcin)),
         ]));
   }
 }
+
+//SvgPicture.asset("assets/images/invader.svg",
+//        width: 120,
+//        colorFilter: ColorFilter.mode(Colors.black87, BlendMode.srcIn))
 
 class BattleCharacter {
   BattleCharacter({
@@ -62,6 +62,7 @@ class BattleCharacter {
     this.defense = 1,
     this.offensive = 1,
     this.helth = 1,
+    this.image = const Icon(Icons.bug_report, size: 120),
   }) {
     crtHP = fullHP;
   }
@@ -74,6 +75,7 @@ class BattleCharacter {
   final int defense;
   final int offensive;
   final double helth;
+  final dynamic image;
 }
 
 class BattlePage extends StatefulWidget {
@@ -91,7 +93,14 @@ class _BattlePage extends State<BattlePage> {
   BattleCharacter player = BattleCharacter(name: "player", fullHP: 30);
 
   List<BattleCharacter> enemies = [
-    BattleCharacter(name: "Invader", fullHP: 30),
+    BattleCharacter(
+        name: "bug",
+        fullHP: 30,
+        image: const Icon(Icons.bug_report, size: 120)),
+    BattleCharacter(
+        name: "rabbit",
+        fullHP: 40,
+        image: const Icon(Icons.cruelty_free, size: 120)),
   ];
   List<BattleCharacter> party = [
     BattleCharacter(name: "player", fullHP: 30),
@@ -120,13 +129,11 @@ class _BattlePage extends State<BattlePage> {
               children: [
                 for (int i = 0; i < enemies.length; i++)
                   Enemy(
-                      enemyName: enemies[i].name,
-                      enemyFullHp: enemies[i].fullHP,
-                      enemyCrtHp: enemies[i].crtHP,
-                      image: SvgPicture.asset("assets/images/invader.svg",
-                          width: 120,
-                          colorFilter: const ColorFilter.mode(
-                              Colors.black87, BlendMode.srcIn))),
+                    enemyName: enemies[i].name,
+                    enemyFullHp: enemies[i].fullHP,
+                    enemyCrtHp: enemies[i].crtHP,
+                    image: enemies[i].image,
+                  ),
               ],
             ),
             const Expanded(child: SizedBox()),
