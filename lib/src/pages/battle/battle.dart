@@ -95,21 +95,22 @@ class _BattlePage extends State<BattlePage> {
   late int enemyCrtHp = enemyFullHp;
   late int playerCrtHp = playerFullHp ~/ 2;
 
-  // テスト
-  BattleCharacter invader = BattleCharacter(name: "Invader", fullHP: 30);
-  BattleCharacter player = BattleCharacter(name: "player", fullHP: 30);
-
   List<BattleCharacter> enemies = [
     BattleCharacter(name: "Invader", fullHP: 30),
   ];
   List<BattleCharacter> party = [
     BattleCharacter(name: "player", fullHP: 30),
+    BattleCharacter(name: "player2", fullHP: 30),
   ];
 
   String turn = "party";
+  int currentTurn = 0;
   String battleMessage = "コマンド？";
 
   bool showShade = true;
+
+  List<Map> battleLog = [];
+  List<Map> commandList = [];
 
   @override
   void initState() {
@@ -147,44 +148,68 @@ class _BattlePage extends State<BattlePage> {
             Stack(
               children: [
                 BattleController(
-                    playerCrtHp: player.crtHP,
-                    playerFullHp: player.fullHP,
-                    onAttack: () {
-                      setState(() {
-                        turn = "enemy";
-                        battleMessage = "${player.name}の攻撃！";
-                      });
-                      Future.delayed(const Duration(seconds: 2), () {
-                        setState(() {
-                          invader.crtHP -= player.offensive;
-                          battleMessage =
-                              "${invader.name}に${player.offensive}のダメージ";
+                    playerCrtHp: party[currentTurn].crtHP,
+                    playerFullHp: party[currentTurn].fullHP,
+                    playerName: party[currentTurn].name,
+                    onAttack: () async {
+                      if (currentTurn == party.length - 1) {
+                        commandList.add({
+                          "player": party[currentTurn],
+                          "command": "attack"
                         });
+                        setState(() {
+                          turn = "enemy";
+                        });
+                        debugPrint(commandList.length.toString());
+                        for (int i = 0; i < commandList.length; i++) {
+                          if (commandList[i]["command"] == "attack") {
+                            BattleCharacter player = commandList[i]["player"];
+                            debugPrint("${player.name} attack");
+                            await Future.delayed(
+                                const Duration(seconds: 2), () {});
+                            setState(() {
+                              enemies[0].crtHP -= player.offensive;
+                              battleMessage =
+                                  "${enemies[0].name}に${player.offensive}のダメージ";
+                            });
+                          }
+                        }
                         Future.delayed(const Duration(seconds: 2), () {
                           setState(() {
-                            battleMessage = "${invader.name}の攻撃！";
+                            battleMessage = "${enemies[0].name}の攻撃！";
                           });
                           Future.delayed(const Duration(seconds: 2), () {
                             setState(() {
-                              player.crtHP -= invader.offensive;
+                              party[currentTurn].crtHP -= enemies[0].offensive;
                               battleMessage =
-                                  "${player.name}に${invader.offensive}のダメージ";
+                                  "${party[currentTurn].name}に${enemies[0].offensive}のダメージ";
                               Future.delayed(const Duration(seconds: 2), () {
                                 setState(() {
                                   battleMessage = "コマンド？";
                                   turn = "party";
+                                  currentTurn = 0;
+                                  commandList = [];
                                 });
                               });
                             });
                           });
                         });
-                      });
+                      } else {
+                        commandList.add({
+                          "player": party[currentTurn],
+                          "command": "attack"
+                        });
+                        setState(() {
+                          turn = "party";
+                          currentTurn++;
+                        });
+                      }
                     },
                     onItem: () {},
                     onShield: () {},
                     onEscape: () {}),
                 Visibility(
-                    visible: turn != "party",
+                    visible: turn == "enemy",
                     child: Card(
                       elevation: 0,
                       color: Colors.black.withOpacity(0.2),
