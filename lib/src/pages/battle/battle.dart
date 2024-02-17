@@ -52,6 +52,29 @@ class Enemy extends StatelessWidget {
   }
 }
 
+class BattleCharacter {
+  BattleCharacter({
+    required this.fullHP,
+    this.attribute = "nemo",
+    this.power = 1,
+    this.defense = 1,
+    this.offensive = 1,
+    this.helth = 1,
+  }) {
+    crtHP = fullHP;
+  }
+
+  late int crtHP;
+  final int fullHP;
+  final String attribute;
+  final int power;
+  final int defense;
+  final int offensive;
+  final double helth;
+}
+
+class Battle {}
+
 class BattlePage extends StatefulWidget {
   const BattlePage({super.key});
 
