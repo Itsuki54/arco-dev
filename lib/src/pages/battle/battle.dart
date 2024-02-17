@@ -60,7 +60,7 @@ class BattleCharacter {
     this.attribute = "nemo",
     this.power = 1,
     this.defense = 1,
-    this.offensive = 1,
+    this.offensive = 15,
     this.helth = 1,
   }) {
     crtHP = fullHP;
@@ -114,6 +114,51 @@ class _BattlePage extends State<BattlePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void updateDialogMessage(String message) {
+    String dialogMessage = "";
+    setState(() {
+      dialogMessage = message;
+    });
+
+    // ダイアログを表示
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("バトル結果"),
+          content: Text(message),
+        );
+      },
+    );
+  }
+
+  void updateBattleState() {
+    int enemyNum = enemies.length;
+    int partyNum = party.length;
+
+    String newDialogMessage = "";
+
+    if (enemyNum == 0) {
+      newDialogMessage = "敵を全滅させた！";
+    } else {
+      enemies.removeWhere((enemy) => enemy.crtHP <= 0);
+      for (BattleCharacter enemy in enemies) {
+        newDialogMessage = "${enemy.name}を倒した！";
+      }
+    }
+
+    party.removeWhere((character) => character.crtHP <= 0);
+    for (BattleCharacter character in party) {
+      newDialogMessage = "${character.name}は倒れた！";
+    }
+
+    if (partyNum == 0) {
+      newDialogMessage = "全滅した！";
+    }
+
+    updateDialogMessage(newDialogMessage);
   }
 
   @override
