@@ -144,9 +144,7 @@ class UserPartyCollection extends BaseCollection {
 }
 
 class Database {
-  final FirebaseFirestore firestore;
-
-  Database(this.firestore);
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   CharactersCollection charactersCollection() {
     return CharactersCollection(firestore);
