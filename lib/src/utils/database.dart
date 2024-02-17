@@ -142,3 +142,53 @@ class UserPartyCollection extends BaseCollection {
   UserPartyCollection(FirebaseFirestore firestore, String uid)
       : super('USERS/$uid/PARTY', firestore);
 }
+
+class Database {
+  final FirebaseFirestore firestore;
+
+  Database(this.firestore);
+
+  CharactersCollection charactersCollection() {
+    return CharactersCollection(firestore);
+  }
+
+  ItemsCollection itemsCollection() {
+    return ItemsCollection(firestore);
+  }
+
+  EnemiesCollection enemiesCollection() {
+    return EnemiesCollection(firestore);
+  }
+
+  QuestsCollection questsCollection() {
+    return QuestsCollection(firestore);
+  }
+
+  UsersCollection usersCollection() {
+    return UsersCollection(firestore);
+  }
+
+  UserItemsCollection userItemsCollection(String uid) {
+    return UserItemsCollection(firestore, uid);
+  }
+
+  UserMembersCollection userMembersCollection(String uid) {
+    return UserMembersCollection(firestore, uid);
+  }
+
+  UserQuestsCollection userQuestsCollection(String uid) {
+    return UserQuestsCollection(firestore, uid);
+  }
+
+  UserWeaponsCollection userWeaponsCollection(String uid) {
+    return UserWeaponsCollection(firestore, uid);
+  }
+
+  UserHealthCollection userHealthCollection(String uid) {
+    return UserHealthCollection(firestore, uid);
+  }
+
+  UserPartyCollection userPartyCollection(String uid) {
+    return UserPartyCollection(firestore, uid);
+  }
+}
