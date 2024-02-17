@@ -1,30 +1,338 @@
 [
   {
-    "description": "説明1",
+    "description": "肉食動物を飼育している飼育員 お肉を食べさせるのが大好き",
     "image": "CHARACTER_ICONS/character_1.png",
-    "job": "職業1",
+    "job": "attacker",
+    "level": 15,
+    "name": "飼育員",
+    "rarity": 3,
+    "status": {
+      "atk": 13,
+      "def": 8,
+      "hp": 10,
+      "spd": 9
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "attacker",
     "level": 5,
-    "name": "キャラ名1",
+    "name": "駅員",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "消防士 家事に駆けつけるヒーロー",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "attacker",
+    "level": 5,
+    "name": "消防士",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 4,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "警察官 人々を守るために日々奮闘",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "attacker",
+    "level": 5,
+    "name": "警察官",
+    "rarity": 1,
+    "status": {
+      "atk": 6,
+      "def": 5,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "電気屋 機械のエキスパート",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "attacker",
+    "level": 0,
+    "name": "電気屋",
     "rarity": 0,
     "status": {
-      "atk": 1,
+      "atk": 4,
+      "def": 2,
+      "hp": 2,
+      "spd": 2
+    }
+  },
+  {
+    "description": "ハリウッド俳優 アクションスター",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "attacker",
+    "level": 0,
+    "name": "俳優",
+    "rarity": 0,
+    "status": {
+      "atk": 4,
       "def": 1,
-      "hp": 1,
+      "hp": 2,
+      "spd": 3
+    }
+  },
+  {
+    "description": "パーソナルトレーナー 鋼の肉体の持ち主",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "tank",
+    "level": 5,
+    "name": "トレーナー",
+    "rarity": 1,
+    "status": {
+      "atk": 5,
+      "def": 8,
+      "hp": 6,
       "spd": 1
     }
   },
   {
-    "description": "説明2",
+    "description": "駅の駅長。大量の電車を整備している",
     "image": "CHARACTER_ICONS/character_2.png",
-    "job": "職業2",
-    "level": 8,
-    "name": "キャラ名2",
+    "job": "tank",
+    "level": 5,
+    "name": "ハット",
     "rarity": 1,
     "status": {
-      "atk": 3,
-      "def": 2,
-      "hp": 5,
-      "spd": 2
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "教師 生徒を守るヒーロー",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "attacker",
+    "level": 0,
+    "name": "教師",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 3,
+      "hp": 3,
+      "spd": 3
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/character_2.png",
+    "job": "駅員",
+    "level": 5,
+    "name": "ハット",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
     }
   }
 ]
