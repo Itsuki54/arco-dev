@@ -96,11 +96,11 @@ class _BattlePage extends State<BattlePage> {
         name: "bug", fullHP: 30, image: const Icon(Icons.bug_report, size: 80)),
     BattleCharacter(
         name: "rabbit",
-        fullHP: 40,
+        fullHP: 30,
         image: const Icon(Icons.cruelty_free, size: 80)),
     BattleCharacter(
         name: "rabbit",
-        fullHP: 40,
+        fullHP: 30,
         image: const Icon(Icons.cruelty_free, size: 80)),
   ];
   List<BattleCharacter> party = [
@@ -145,26 +145,29 @@ class _BattlePage extends State<BattlePage> {
     int partyNum = party.length;
 
     String newDialogMessage = "";
-
     if (enemyNum == 0) {
       newDialogMessage = "敵を全滅させた！";
     } else {
-      enemies.removeWhere((enemy) => enemy.crtHP <= 0);
       for (BattleCharacter enemy in enemies) {
-        newDialogMessage = "${enemy.name}を倒した！";
+        if (enemy.crtHP <= 0) {
+          newDialogMessage = "${enemy.name}を倒した！";
+          updateDialogMessage(newDialogMessage);
+        }
       }
-    }
-
-    party.removeWhere((character) => character.crtHP <= 0);
-    for (BattleCharacter character in party) {
-      newDialogMessage = "${character.name}は倒れた！";
+      enemies.removeWhere((enemy) => enemy.crtHP <= 0);
     }
 
     if (partyNum == 0) {
       newDialogMessage = "全滅した！";
+    } else {
+      for (BattleCharacter character in party) {
+        if (character.crtHP <= 0) {
+          newDialogMessage = "${character.name}は倒れた！";
+          updateDialogMessage(newDialogMessage);
+        }
+      }
+      party.removeWhere((character) => character.crtHP <= 0);
     }
-
-    updateDialogMessage(newDialogMessage);
   }
 
   @override
@@ -229,6 +232,7 @@ class _BattlePage extends State<BattlePage> {
                                   enemies[0].crtHP -= player.offensive;
                                   battleMessage =
                                       "${enemies[0].name}に${player.offensive}のダメージ";
+                                  updateBattleState();
                                 });
                                 battleLog.add(commandList[i]);
                               }
@@ -247,6 +251,7 @@ class _BattlePage extends State<BattlePage> {
                                       enemies[0].offensive;
                                   battleMessage =
                                       "${party[currentTurn].name}に${enemies[0].offensive}のダメージ";
+                                  updateBattleState();
                                   Future.delayed(const Duration(seconds: 2),
                                       () {
                                     setState(() {
