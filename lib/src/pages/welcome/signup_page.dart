@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import './signin_page.dart';
 
 void main() {
@@ -51,6 +53,71 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  String email = '';
+  String password = '';
+  String confirmPassword = '';
+  bool visible = false;
+  bool visible2 = false;
+
+  Future<UserCredential?> signInWithGoogle() async {
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    if (googleSignInAccount == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Sign in failed. Please try again.'),
+        ),
+      );
+      return null;
+    }
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    return await _auth.signInWithCredential(credential);
+  }
+
+  Future<void> signUpWithEmailAndPassword() async {
+    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all fields.'),
+        ),
+      );
+      return;
+    }
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('The password provided is too weak.'),
+          ),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('The account already exists.'),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred while signing up.'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,6 +152,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                     height: 50,
                     child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email is required';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          email = value;
+                        });
+                      },
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: fillColorGray,
@@ -96,22 +174,67 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                     height: 50,
                     child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          password = value;
+                        });
+                      },
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: fillColorGray,
                         labelText: 'Password',
                         prefixIcon: Icon(Icons.key),
+                        suffix: IconButton(
+                          icon: Icon(
+                            visible ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              visible = !visible;
+                            });
+                          },
+                        ),
                       ),
                     )),
                 SizedBox(height: 20),
                 SizedBox(
                     height: 50,
                     child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (value != password) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          confirmPassword = value;
+                        });
+                      },
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: fillColorGray,
                         labelText: 'Re-type Password',
                         prefixIcon: Icon(Icons.key),
+                        suffix: IconButton(
+                          icon: Icon(
+                            visible2 ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              visible2 = !visible2;
+                            });
+                          },
+                        ),
                       ),
                     )),
                 Align(
@@ -134,11 +257,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             style:
                                 TextStyle(color: Colors.white, fontSize: 24)),
                         onPressed: () {
-                          print("pressed");
+                          signUpWithEmailAndPassword();
                         })),
                 SizedBox(height: 32),
                 Row(
-                  children: <Widget>[
+                  children: const <Widget>[
                     Expanded(child: Divider(color: Colors.white)),
                     SizedBox(width: 40),
                     Text(
@@ -167,7 +290,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             style:
                                 TextStyle(color: Colors.black, fontSize: 20)),
                         onPressed: () {
-                          print("pressed");
+                          signInWithGoogle().then((result) {
+                            if (result != null) {
+                              // ログイン後の処理
+                            }
+                          });
                         })),
                 SizedBox(height: 32),
                 SizedBox(
@@ -181,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const SignInPage()),
