@@ -1,14 +1,29 @@
 [
   {
     "description": "説明",
-    "image": "ITEM_ICONS/potion.png"
+    "image": "ITEM_ICONS/potion.png",
+    "avility": {
+      "heal": "10",
+      "attack": "0",
+      "defence": "0"
+    }
   },
   {
     "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png"
+    "image": "ITEM_ICONS/other_item.png",
+    "avility": {
+      "heal": "0",
+      "attack": "10",
+      "defence": "0"
+    }
   },
   {
     "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png"
+    "image": "ITEM_ICONS/another_item.png",
+    "avility": {
+      "heal": "0",
+      "attack": "0",
+      "defence": "10"
+    }
   }
 ]
