@@ -37,7 +37,6 @@ class _HealthAppState extends State<HealthApp> {
     HealthDataType.STEPS,
     HealthDataType.SLEEP_DEEP,
     HealthDataType.SLEEP_REM,
-    HealthDataType.EXERCISE_TIME,
     HealthDataType.DISTANCE_DELTA,
   ];
 
