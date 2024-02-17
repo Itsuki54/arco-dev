@@ -35,7 +35,6 @@ class _HealthAppState extends State<HealthApp> {
     HealthDataType.STEPS,
     HealthDataType.SLEEP_DEEP,
     HealthDataType.SLEEP_REM,
-    HealthDataType.EXERCISE_TIME,
     HealthDataType.DISTANCE_DELTA,
   ];
 
@@ -72,7 +71,7 @@ class _HealthAppState extends State<HealthApp> {
   Future<void> fetchData() async {
     // データ取得中の状態に設定
     setState(() => _state = AppState.FETCHING_DATA);
-
+    debugPrint('Fetching data');
     // 現在の日時と24時間前の日時を取得
     final now = DateTime.now();
     final yesterday = now.subtract(Duration(hours: 24));
@@ -246,7 +245,9 @@ class _HealthAppState extends State<HealthApp> {
                 spacing: 10,
                 children: [
                   TextButton(
-                      onPressed: authorize,
+                      onPressed: () {
+                        authorize();
+                      },
                       child:
                           Text("Auth", style: TextStyle(color: Colors.white)),
                       style: ButtonStyle(
