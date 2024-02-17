@@ -7,10 +7,10 @@ import 'package:permission_handler/permission_handler.dart';
 void main() => runApp(HealthApp());
 
 class HealthApp extends StatefulWidget {
-  const HealthApp();
+  const HealthApp({super.key});
 
   @override
-  HealthApp createState() => _HealthAppState();
+  State<HealthApp> createState() => _HealthAppState();
 }
 
 enum AppState {
