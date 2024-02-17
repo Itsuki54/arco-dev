@@ -4,6 +4,53 @@ import 'package:audioplayers/audioplayers.dart';
 // components
 import '../../components/exp_bar.dart';
 import '../../components/battle_controller.dart';
+// structs
+import '../../structs/battle_package.dart';
+
+class Enemy extends StatelessWidget {
+  const Enemy({
+    super.key,
+    required this.enemyName,
+    required this.enemyFullHp,
+    required this.enemyCrtHp,
+    required this.image,
+  });
+
+  final String enemyName;
+  final int enemyFullHp;
+  final int enemyCrtHp;
+
+  final SvgPicture image;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: 180,
+        height: 190,
+        child: Column(children: [
+          Align(
+              alignment: Alignment.center,
+              child: Column(children: [
+                Text(enemyName,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold)),
+                Text("HP: $enemyCrtHp",
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                ExpBar(
+                    width: 80,
+                    height: 10,
+                    expValue: enemyCrtHp / enemyFullHp,
+                    color: Colors.green),
+              ])),
+          image,
+          //svgpicture.asset("assets/images/invader.svg",
+          //    width: 120,
+          //    colorfilter:
+          //        const colorfilter.mode(colors.black87, blendmode.srcin)),
+        ]));
+  }
+}
 
 class BattlePage extends StatefulWidget {
   const BattlePage({super.key});
@@ -13,6 +60,8 @@ class BattlePage extends StatefulWidget {
 }
 
 class _BattlePage extends State<BattlePage> {
+  _BattlePage();
+
   bool canControl = true;
 
   String enemyName = "Invader";
@@ -22,7 +71,12 @@ class _BattlePage extends State<BattlePage> {
   late int enemyCrtHp = enemyFullHp;
   late int playerCrtHp = playerFullHp ~/ 2;
 
-  final audioPlayer = AudioPlayer();
+  bool showShade = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,55 +86,44 @@ class _BattlePage extends State<BattlePage> {
           decoration: const BoxDecoration(),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            //const Expanded(child: SizedBox()),
             const SizedBox(height: 80),
-            SizedBox(
-                width: 250,
-                height: 350,
-                child: Column(children: [
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: Column(children: [
-                        Text(enemyName,
-                            style: const TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold)),
-                        Text("HP: $enemyCrtHp",
-                            style: const TextStyle(
-                                fontSize: 21, fontWeight: FontWeight.bold)),
-                        ExpBar(
-                            width: 100,
-                            height: 10,
-                            expValue: enemyCrtHp / enemyFullHp,
-                            color: Colors.green),
-                      ])),
-                  SvgPicture.asset("assets/images/invader.svg",
-                      width: 250,
-                      height: 250,
-                      colorFilter: const ColorFilter.mode(
-                          Colors.black87, BlendMode.srcIn)),
-                ])),
+            Wrap(
+              children: [
+                for (int i = 0; i < 2; i++)
+                  Enemy(
+                      enemyName: enemyName,
+                      enemyFullHp: enemyFullHp,
+                      enemyCrtHp: enemyCrtHp,
+                      image: SvgPicture.asset("assets/images/invader.svg",
+                          width: 120,
+                          colorFilter: const ColorFilter.mode(
+                              Colors.black87, BlendMode.srcIn))),
+              ],
+            ),
             const Expanded(child: SizedBox()),
-            BattleController(
-                playerCrtHp: playerCrtHp,
-                playerFullHp: playerFullHp,
-                onAttack: () {
-                  setState(() {
-                    enemyCrtHp -= 2;
-                    if (enemyCrtHp <= 0) {
-                      Navigator.of(context).pop();
-                    }
-                    // 動かない!!
-                    //audioPlayer
-                    //    .play(AssetSource("assets/sounds/battle/attack.mp3"));
-                  });
-                },
-                onItem: () {
-                  setState(() {
-                    playerCrtHp += 2;
-                  });
-                },
-                onShield: () {},
-                onEscape: () {}),
+            Stack(
+              children: [
+                BattleController(
+                    playerCrtHp: playerCrtHp,
+                    playerFullHp: playerFullHp,
+                    onAttack: () {},
+                    onItem: () {},
+                    onShield: () {},
+                    onEscape: () {}),
+                Visibility(
+                    visible: !showShade,
+                    child: Card(
+                      elevation: 0,
+                      color: Colors.black.withOpacity(0.2),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(3)),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 260,
+                      ),
+                    ))
+              ],
+            ),
             const SizedBox(height: 30)
           ]),
         ));
