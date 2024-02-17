@@ -172,6 +172,7 @@ class _BattlePage extends State<BattlePage> {
                               battleMessage =
                                   "${enemies[0].name}に${player.offensive}のダメージ";
                             });
+                            battleLog.add(commandList[i]);
                           }
                         }
                         Future.delayed(const Duration(seconds: 2), () {
@@ -179,6 +180,8 @@ class _BattlePage extends State<BattlePage> {
                             battleMessage = "${enemies[0].name}の攻撃！";
                           });
                           Future.delayed(const Duration(seconds: 2), () {
+                            battleLog.add(
+                                {"player": enemies[0], "command": "attack"});
                             setState(() {
                               party[currentTurn].crtHP -= enemies[0].offensive;
                               battleMessage =
