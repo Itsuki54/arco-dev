@@ -1,0 +1,14 @@
+[
+  {
+    "description": "説明",
+    "image": "ITEM_ICONS/potion.png"
+  },
+  {
+    "description": "別の説明",
+    "image": "ITEM_ICONS/other_item.png"
+  },
+  {
+    "description": "さらに別の説明",
+    "image": "ITEM_ICONS/another_item.png"
+  }
+]
