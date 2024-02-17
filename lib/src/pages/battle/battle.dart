@@ -76,11 +76,6 @@ class BattleCharacter {
   final double helth;
 }
 
-class Battle {
-  List<BattleCharacter> party = [BattleCharacter(name: "Player", fullHP: 100)];
-  List<BattleCharacter> enemies = [BattleCharacter(name: "Enemy", fullHP: 10)];
-}
-
 class BattlePage extends StatefulWidget {
   const BattlePage({super.key});
 
@@ -103,6 +98,14 @@ class _BattlePage extends State<BattlePage> {
   // テスト
   BattleCharacter invader = BattleCharacter(name: "Invader", fullHP: 30);
   BattleCharacter player = BattleCharacter(name: "player", fullHP: 30);
+
+  List<BattleCharacter> enemies = [
+    BattleCharacter(name: "Invader", fullHP: 30),
+  ];
+  List<BattleCharacter> party = [
+    BattleCharacter(name: "player", fullHP: 30),
+  ];
+
   String turn = "party";
   String battleMessage = "コマンド？";
 
@@ -124,11 +127,11 @@ class _BattlePage extends State<BattlePage> {
             const SizedBox(height: 80),
             Wrap(
               children: [
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < enemies.length; i++)
                   Enemy(
-                      enemyName: invader.name,
-                      enemyFullHp: invader.fullHP,
-                      enemyCrtHp: invader.crtHP,
+                      enemyName: enemies[i].name,
+                      enemyFullHp: enemies[i].fullHP,
+                      enemyCrtHp: enemies[i].crtHP,
                       image: SvgPicture.asset("assets/images/invader.svg",
                           width: 120,
                           colorFilter: const ColorFilter.mode(
