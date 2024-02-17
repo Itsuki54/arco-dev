@@ -86,15 +86,6 @@ class BattlePage extends StatefulWidget {
 class _BattlePage extends State<BattlePage> {
   _BattlePage();
 
-  bool canControl = true;
-
-  String enemyName = "Invader";
-  final int enemyFullHp = 20;
-  final int playerFullHp = 100;
-
-  late int enemyCrtHp = enemyFullHp;
-  late int playerCrtHp = playerFullHp ~/ 2;
-
   // テスト
   BattleCharacter invader = BattleCharacter(name: "Invader", fullHP: 30);
   BattleCharacter player = BattleCharacter(name: "player", fullHP: 30);
