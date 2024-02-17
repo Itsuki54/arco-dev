@@ -25,22 +25,21 @@ class Enemy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: 180,
-        height: 190,
+    return Container(
+        margin: const EdgeInsets.all(2),
         child: Column(children: [
           Align(
               alignment: Alignment.center,
               child: Column(children: [
                 Text(enemyName,
                     style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold)),
+                        fontSize: 20, fontWeight: FontWeight.bold)),
                 Text("HP: $enemyCrtHp",
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
+                        fontSize: 16, fontWeight: FontWeight.bold)),
                 ExpBar(
                     width: 80,
-                    height: 10,
+                    height: 5,
                     expValue: enemyCrtHp / enemyFullHp,
                     color: Colors.green),
               ])),
@@ -94,13 +93,15 @@ class _BattlePage extends State<BattlePage> {
 
   List<BattleCharacter> enemies = [
     BattleCharacter(
-        name: "bug",
-        fullHP: 30,
-        image: const Icon(Icons.bug_report, size: 120)),
+        name: "bug", fullHP: 30, image: const Icon(Icons.bug_report, size: 80)),
     BattleCharacter(
         name: "rabbit",
         fullHP: 40,
-        image: const Icon(Icons.cruelty_free, size: 120)),
+        image: const Icon(Icons.cruelty_free, size: 80)),
+    BattleCharacter(
+        name: "rabbit",
+        fullHP: 40,
+        image: const Icon(Icons.cruelty_free, size: 80)),
   ];
   List<BattleCharacter> party = [
     BattleCharacter(name: "player", fullHP: 30),
@@ -122,81 +123,90 @@ class _BattlePage extends State<BattlePage> {
         appBar: AppBar(),
         body: Container(
           decoration: const BoxDecoration(),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const SizedBox(height: 80),
-            Wrap(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < enemies.length; i++)
-                  Enemy(
-                    enemyName: enemies[i].name,
-                    enemyFullHp: enemies[i].fullHP,
-                    enemyCrtHp: enemies[i].crtHP,
-                    image: enemies[i].image,
-                  ),
-              ],
-            ),
-            const Expanded(child: SizedBox()),
-            Text(
-              battleMessage,
-              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-            ),
-            const Expanded(child: SizedBox()),
-            Stack(
-              children: [
-                BattleController(
-                    playerCrtHp: player.crtHP,
-                    playerFullHp: player.fullHP,
-                    onAttack: () {
-                      setState(() {
-                        turn = "enemy";
-                        battleMessage = "${player.name}の攻撃！";
-                      });
-                      Future.delayed(const Duration(seconds: 2), () {
-                        setState(() {
-                          invader.crtHP -= player.offensive;
-                          battleMessage =
-                              "${invader.name}に${player.offensive}のダメージ";
-                        });
-                        Future.delayed(const Duration(seconds: 2), () {
+                SizedBox(
+                    width: 360,
+                    height: 380,
+                    child: Wrap(
+                      direction: Axis.vertical,
+                      runAlignment: WrapAlignment.center,
+                      spacing: 2.0,
+                      runSpacing: 2.0,
+                      children: [
+                        for (int i = 0; i < enemies.length; i++)
+                          Enemy(
+                            enemyName: enemies[i].name,
+                            enemyFullHp: enemies[i].fullHP,
+                            enemyCrtHp: enemies[i].crtHP,
+                            image: enemies[i].image,
+                          ),
+                      ],
+                    )),
+                Text(
+                  battleMessage,
+                  style: const TextStyle(
+                      fontSize: 32, fontWeight: FontWeight.bold),
+                ),
+                const Expanded(child: SizedBox()),
+                Stack(
+                  children: [
+                    BattleController(
+                        playerCrtHp: player.crtHP,
+                        playerFullHp: player.fullHP,
+                        onAttack: () {
                           setState(() {
-                            battleMessage = "${invader.name}の攻撃！";
+                            turn = "enemy";
+                            battleMessage = "${player.name}の攻撃！";
                           });
                           Future.delayed(const Duration(seconds: 2), () {
                             setState(() {
-                              player.crtHP -= invader.offensive;
+                              invader.crtHP -= player.offensive;
                               battleMessage =
-                                  "${player.name}に${invader.offensive}のダメージ";
+                                  "${invader.name}に${player.offensive}のダメージ";
+                            });
+                            Future.delayed(const Duration(seconds: 2), () {
+                              setState(() {
+                                battleMessage = "${invader.name}の攻撃！";
+                              });
                               Future.delayed(const Duration(seconds: 2), () {
                                 setState(() {
-                                  battleMessage = "コマンド？";
-                                  turn = "party";
+                                  player.crtHP -= invader.offensive;
+                                  battleMessage =
+                                      "${player.name}に${invader.offensive}のダメージ";
+                                  Future.delayed(const Duration(seconds: 2),
+                                      () {
+                                    setState(() {
+                                      battleMessage = "コマンド？";
+                                      turn = "party";
+                                    });
+                                  });
                                 });
                               });
                             });
                           });
-                        });
-                      });
-                    },
-                    onItem: () {},
-                    onShield: () {},
-                    onEscape: () {}),
-                Visibility(
-                    visible: turn != "party",
-                    child: Card(
-                      elevation: 0,
-                      color: Colors.black.withOpacity(0.2),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(3)),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 250,
-                      ),
-                    ))
-              ],
-            ),
-            const SizedBox(height: 30)
-          ]),
+                        },
+                        onItem: () {},
+                        onShield: () {},
+                        onEscape: () {}),
+                    Visibility(
+                        visible: turn != "party",
+                        child: Card(
+                          elevation: 0,
+                          color: Colors.black.withOpacity(0.2),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(3)),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 250,
+                          ),
+                        ))
+                  ],
+                ),
+                const SizedBox(height: 30)
+              ]),
         ));
   }
 }
