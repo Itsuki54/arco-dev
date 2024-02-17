@@ -8,15 +8,21 @@
 ///   - "ENEMYS"で敵全体に、"PLAYERS"で全プレイヤーのパーティに通知されます。
 ///   - 個々のオブジェクトに送信する場合は、それぞれのオブジェクトのIDを "to" プロパティに指定します。
 class Messenger {
-  Messenger();
-
   List<Message> messages = [];
   List<Listner> listners = [];
 
+  Messenger() {
+    // 初期化時に"START"メッセージを入れておく
+    registerMessage(const Message(name: "START", from: "system", data: {}));
+  }
+
+  // 全てのメッセージを実行
   void sendAllMessage() {
     for (Message message in messages) {
       sendMessage(message);
     }
+    messages.clear();
+    print(listners);
   }
 
   // メッセージの送信
@@ -47,17 +53,17 @@ class Listner {
   Listner({required this.messenger});
 
   final Messenger messenger;
-  Map<Message, Function> functions = {};
+  Map<String, Function> functions = {};
 
   // メソッドの登録
-  void registerMethod(Function func, Message message) {
-    functions[message] = func;
+  void registerMethod(String messageName, Function func) {
+    functions[messageName] = func;
   }
 
   // メソッドの実行
   void executeMethod(Message message) {
-    if (functions.containsKey(message)) {
-      functions[message]!();
+    if (functions.containsKey(message.name)) {
+      //functions[message.name]!(message.data);
     }
   }
 
@@ -74,9 +80,49 @@ class Message {
       required this.from,
       this.to = "BROADCAST",
       required this.data,
-      this.option});
+      this.option = const {}});
 
   final String name, from, to;
   final dynamic data;
   final dynamic option;
 }
+
+/*
+class Player extends Listner {
+  Player(Messenger messenger) : super(messenger: messenger) {
+    registerMethod("START", startPrint);
+  }
+
+  void startPrint(dynamic data) {
+    print("recieve start message : player");
+  }
+}
+
+class Enemy extends Listner {
+  Enemy(Messenger messenger) : super(messenger: messenger) {
+    registerMethod("START", startPrint);
+    registerMethod("ATTACK", damage);
+  }
+
+  final int fullHp = 30;
+  late int hp = fullHp;
+
+  void startPrint(dynamic data) {
+    print("recieve start message : enemy");
+  }
+
+  void damage(dynamic data) {
+    print("Damage ${data.damage} : enemy");
+  }
+}
+
+class Controller extends Listner {
+  Controller(Messenger messenger) : super(messenger: messenger) {
+    registerMethod("START", startPrint);
+  }
+
+  void startPrint(dynamic data) {
+    print("recieve start message : controller");
+  }
+}
+*/
