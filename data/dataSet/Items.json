@@ -1,218 +1,218 @@
 [
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "着ぐるみ",
+    "image": "ITEM_ICONS/Costume.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 10,
+      "attack": 20,
+      "defence": 10
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "切符",
+    "image": "ITEM_ICONS/Ticket.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 0,
+      "attack": 10,
+      "defence": 0
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "消化器",
+    "image": "ITEM_ICONS/Digeston.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 0,
+      "attack": 10,
+      "defence": 5
     }
   },
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "拳銃",
+    "image": "ITEM_ICONS/Gun.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 0,
+      "attack": 20,
+      "defence": 0
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "100万ボルト",
+    "image": "ITEM_ICONS/Volt.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 0,
+      "attack": 20,
+      "defence": 0
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "ハサミ",
+    "image": "ITEM_ICONS/Scissors.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 0,
+      "attack": 10,
+      "defence": 0
     }
   },
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "装束",
+    "image": "ITEM_ICONS/Landscap.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 0,
+      "attack": 15,
+      "defence": 15
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "札束",
+    "image": "ITEM_ICONS/Satu.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 0,
+      "attack": 100,
+      "defence": 0
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "プロテイン",
+    "image": "ITEM_ICONS/Protein.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 5,
+      "attack": 5,
+      "defence": 10
     }
   },
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "ヘルメット",
+    "image": "ITEM_ICONS/Helmet.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 0,
+      "attack": 0,
+      "defence": 15
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "バッジ",
+    "image": "ITEM_ICONS/Badge.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 0,
+      "attack": 10,
+      "defence": 10
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "体育技",
+    "image": "ITEM_ICONS/Wear.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 5,
+      "attack": 5,
+      "defence": 10
     }
   },
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "切手",
+    "image": "ITEM_ICONS/Kitte.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 0,
+      "attack": 10,
+      "defence": 10
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "ガソリン",
+    "image": "ITEM_ICONS/Gasoline.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 0,
+      "attack": 15,
+      "defence": 10
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "ジェット機",
+    "image": "ITEM_ICONS/Jet.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 20,
+      "attack": 35,
+      "defence": 30
     }
   },
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "証明書",
+    "image": "ITEM_ICONS/Certificate.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 0,
+      "attack": 0,
+      "defence": 15
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "ポップコーン",
+    "image": "ITEM_ICONS/Popcorn.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 10,
+      "attack": 5,
+      "defence": 0
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "辞書",
+    "image": "ITEM_ICONS/Dictionary.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 10,
+      "attack": 0,
+      "defence": 10
     }
   },
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "おにぎり",
+    "image": "ITEM_ICONS/Rice.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 15,
+      "attack": 0,
+      "defence": 0
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "バイキング",
+    "image": "ITEM_ICONS/Viking.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 50,
+      "attack": 0,
+      "defence": 0
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "薬",
+    "image": "ITEM_ICONS/Drag.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 50,
+      "attack": 0,
+      "defence": 10
     }
   },
   {
-    "description": "説明",
-    "image": "ITEM_ICONS/potion.png",
+    "description": "ハンバーグ",
+    "image": "ITEM_ICONS/meet.png",
     "avility": {
-      "heal": "10",
-      "attack": "0",
-      "defence": "0"
+      "heal": 30,
+      "attack": 0,
+      "defence": 10
     }
   },
   {
-    "description": "別の説明",
-    "image": "ITEM_ICONS/other_item.png",
+    "description": "バナナ",
+    "image": "ITEM_ICONS/Banana.png",
     "avility": {
-      "heal": "0",
-      "attack": "10",
-      "defence": "0"
+      "heal": 15,
+      "attack": 10,
+      "defence": 10
     }
   },
   {
-    "description": "さらに別の説明",
-    "image": "ITEM_ICONS/another_item.png",
+    "description": "コーヒー",
+    "image": "ITEM_ICONS/Coffee.png",
     "avility": {
-      "heal": "0",
-      "attack": "0",
-      "defence": "10"
+      "heal": 20,
+      "attack": 5,
+      "defence": 5
     }
   }
 ]
