@@ -42,7 +42,11 @@ dependencies:
   location: ^5.0.3
   permission_handler: ^11.2.1
   flutter_dotenv: ^5.1.0
+<<<<<<< HEAD
   health: ^9.0.1
+=======
+  google_sign_in: ^6.2.1
+>>>>>>> main
 
 dev_dependencies:
   flutter_test:
