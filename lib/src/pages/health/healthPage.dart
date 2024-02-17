@@ -7,8 +7,10 @@ import 'package:permission_handler/permission_handler.dart';
 void main() => runApp(HealthApp());
 
 class HealthApp extends StatefulWidget {
+  const HealthApp();
+
   @override
-  _HealthAppState createState() => _HealthAppState();
+  HealthApp createState() => _HealthAppState();
 }
 
 enum AppState {
@@ -188,27 +190,27 @@ class _HealthAppState extends State<HealthApp> {
   }
 
   Widget _contentNoData() {
-    return Text('No Data to show');
+    return const Text('No Data to show');
   }
 
   Widget _contentNotFetched() {
-    return Column(
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("Press 'Auth' to get permissions to access health data."),
         Text("Press 'Fetch Dat' to get health data."),
         Text("Press 'Add Data' to add some random health data."),
         Text("Press 'Delete Data' to remove some random health data."),
       ],
-      mainAxisAlignment: MainAxisAlignment.center,
     );
   }
 
   Widget _authorized() {
-    return Text('Authorization granted!');
+    return const Text('Authorization granted!');
   }
 
   Widget _authorizationNotGranted() {
-    return Text('Authorization not given. '
+    return const Text('Authorization not given. '
         'For Android please check your OAUTH2 client ID is correct in Google Developer Console. '
         'For iOS check your permissions in Apple Health.');
   }
@@ -218,18 +220,20 @@ class _HealthAppState extends State<HealthApp> {
   }
 
   Widget _content() {
-    if (_state == AppState.DATA_READY)
-      return _contentDataReady();
-    else if (_state == AppState.FETCHING_DATA)
-      return _contentFetchingData();
-    else if (_state == AppState.AUTHORIZED)
-      return _authorized();
-    else if (_state == AppState.AUTH_NOT_GRANTED)
-      return _authorizationNotGranted();
-    else if (_state == AppState.STEPS_READY)
-      return _stepsFetched();
-    else
-      return _contentNotFetched();
+    switch (_state) {
+      case AppState.DATA_READY:
+        return _contentDataReady();
+      case AppState.FETCHING_DATA:
+        return _contentFetchingData();
+      case AppState.AUTHORIZED:
+        return _authorized();
+      case AppState.AUTH_NOT_GRANTED:
+        return _authorizationNotGranted();
+      case AppState.STEPS_READY:
+        return _stepsFetched();
+      default:
+        return _contentNotFetched();
+    }
   }
 
   @override
@@ -247,28 +251,28 @@ class _HealthAppState extends State<HealthApp> {
                 children: [
                   TextButton(
                       onPressed: authorize,
-                      child:
-                          Text("Auth", style: TextStyle(color: Colors.white)),
-                      style: ButtonStyle(
+                      style: const ButtonStyle(
                           backgroundColor:
-                              MaterialStatePropertyAll(Colors.blue))),
+                              MaterialStatePropertyAll(Colors.blue)),
+                      child: const Text("Auth",
+                          style: TextStyle(color: Colors.white))),
                   TextButton(
                       onPressed: fetchData,
-                      child: Text("Fetch Data",
-                          style: TextStyle(color: Colors.white)),
-                      style: ButtonStyle(
+                      style: const ButtonStyle(
                           backgroundColor:
-                              MaterialStatePropertyAll(Colors.blue))),
+                              MaterialStatePropertyAll(Colors.blue)),
+                      child: const Text("Fetch Data",
+                          style: TextStyle(color: Colors.white))),
                   TextButton(
-                      onPressed: fetchStepData,
-                      child: Text("Fetch Step Data",
-                          style: TextStyle(color: Colors.white)),
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.blue))),
+                    onPressed: fetchStepData,
+                    style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+                    child: const Text("Fetch Step Data",
+                        style: TextStyle(color: Colors.white)),
+                  ),
                 ],
               ),
-              Divider(thickness: 3),
+              const Divider(thickness: 3),
               Expanded(child: Center(child: _content()))
             ],
           ),

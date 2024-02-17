@@ -11,7 +11,6 @@ class Hub extends StatefulWidget {
     MapPage(),
     ToDoPage(),
     BackpackPage(),
-    Scaffold(),
   ];
 
   @override
