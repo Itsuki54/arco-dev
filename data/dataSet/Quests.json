@@ -1,0 +1,32 @@
+{
+  "quests": [
+    {
+      "condition": ["達成条件1", "達成条件2"],
+      "conditionDescription": "達成条件の説明1",
+      "description": "説明1",
+      "image": "クエストアイコン1 or 画像1",
+      "name": "クエスト名1",
+      "no-use-field": [
+        "QUESTのコピー元1",
+        "USERS/{userId}/QUESTSにコピーするための1"
+      ],
+      "questId": "id1",
+      "rewardId": "アイテムか何かのID1",
+      "rewardType": "種類1"
+    },
+    {
+      "condition": ["達成条件3", "達成条件4"],
+      "conditionDescription": "達成条件の説明2",
+      "description": "説明2",
+      "image": "クエストアイコン2 or 画像2",
+      "name": "クエスト名2",
+      "no-use-field": [
+        "QUESTのコピー元2",
+        "USERS/{userId}/QUESTSにコピーするための2"
+      ],
+      "questId": "id2",
+      "rewardId": "アイテムか何かのID2",
+      "rewardType": "種類2"
+    }
+  ]
+}
