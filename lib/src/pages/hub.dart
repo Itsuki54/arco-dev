@@ -1,4 +1,6 @@
+import 'package:arco_dev/src/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import './backpack/backpack.dart';
 import './todo/todo.dart';
 import './map/map.dart';
@@ -8,7 +10,7 @@ class Hub extends StatefulWidget {
 
   final List<Widget> pages = [
     MapPage(),
-    ToDoPage(),
+    HomePage(),
     BackpackPage(),
   ];
 
@@ -24,10 +26,12 @@ class _Hub extends State<Hub> {
     return Scaffold(
       body: widget.pages[pageIndex],
       bottomNavigationBar: NavigationBar(
-        destinations: const <Widget>[
-          NavigationDestination(icon: Icon(Icons.map), label: "Map"),
-          NavigationDestination(icon: Icon(Icons.content_paste), label: "ToDo"),
-          NavigationDestination(icon: Icon(Icons.backpack), label: "Backpack")
+        destinations: <Widget>[
+          const NavigationDestination(icon: Icon(Icons.map), label: "地図"),
+          const NavigationDestination(icon: Icon(Icons.home), label: "ホーム"),
+          NavigationDestination(
+              icon: SvgPicture.asset("assets/images/swords.svg", width: 24),
+              label: "戦闘")
         ],
         selectedIndex: pageIndex,
         onDestinationSelected: (int index) {

@@ -15,16 +15,11 @@ class ChildAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 150,
-      leading: GestureDetector(
-          child: const Icon(Icons.arrow_back_ios),
-          onTap: () {
-            Navigator.pop(context);
-          }),
       title: Align(
         alignment: Alignment.centerRight,
         child: Text(
           title,
-          style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),
       actions: [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorManager {
+class AppColors {
   static Color primary = Colors.black;
   static Color indigo = const Color(0xFF003049);
   static Color red = const Color(0xFFD90429);
