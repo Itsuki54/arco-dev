@@ -29,7 +29,7 @@ class _Hub extends State<Hub> {
   final FlutterReactiveBle _ble = FlutterReactiveBle();
   late StreamSubscription<ConnectionStateUpdate> _connection;
   String advertisingError = '';
-  String _uid = '';
+  List<String> connectedUids = [];
   final List<String> _connectedDevices = [];
 
   String generateNonce([int length = 32]) {
@@ -92,9 +92,8 @@ class _Hub extends State<Hub> {
       debugPrint('Failed to read characteristic');
     } else {
       final value = utf8.decode(response);
-      debugPrint('Read value: $value');
       setState(() {
-        _uid = value;
+        connectedUids.add(value);
       });
     }
     await disconnectFromDevice();
