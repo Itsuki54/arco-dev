@@ -21,7 +21,7 @@ class _WaterRippleState extends State<WaterRipple>
   @override
   void initState() {
     _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200))
+        AnimationController(vsync: this, duration: Duration(milliseconds: 2000))
           ..repeat();
     super.initState();
   }
@@ -58,17 +58,31 @@ class WaterRipplePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double radius = min(size.width / 2, size.height / 2);
+    double radius = 100;
 
     for (int i = count; i >= 0; i--) {
       final double opacity = (1.0 - ((i + progress) / (count + 1)));
       final Color _color = color.withOpacity(opacity);
       _paint..color = _color;
+      _paint..style = PaintingStyle.stroke;
+      _paint..strokeWidth = 20;
+      double _radius = radius * ((i + progress) / (count + 1)) + 80;
 
-      double _radius = radius * ((i + progress) / (count + 1));
+      canvas.drawArc(
+          Rect.fromCircle(
+              center: Offset(size.width / 2, size.height / 2), radius: _radius),
+          -5 * pi / 4,
+          2 * pi / 4,
+          false,
+          _paint);
 
-      canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), _radius, _paint);
+      canvas.drawArc(
+          Rect.fromCircle(
+              center: Offset(size.width / 2, size.height / 2), radius: _radius),
+          -1 * pi / 4,
+          2 * pi / 4,
+          false,
+          _paint);
     }
   }
 

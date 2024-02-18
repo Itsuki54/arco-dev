@@ -152,7 +152,7 @@ class _BattlePage extends State<BattlePage> {
         if (enemy.crtHP <= 0) {
           newDialogMessage = "${enemy.name}を倒した！";
           updateDialogMessage(newDialogMessage);
-        }ø
+        }
       }
       enemies.removeWhere((enemy) => enemy.crtHP <= 0);
     }
