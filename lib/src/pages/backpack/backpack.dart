@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // components
-import '../../components/simple_route_button.dart';
+import '../../components/button/simple_route_button.dart';
 // pages
 import '../settings/settings.dart';
 import './party.dart';
@@ -29,43 +29,27 @@ class _BackpackPageState extends State<BackpackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 30),
-      body: Center(
+      body: const Center(
         child: Column(children: [
-          const SimpleRouteButton(
-            title: "Party",
+          SizedBox(height: 40),
+          Expanded(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Icon(Icons.bluetooth, size: 120),
+              SizedBox(height: 20),
+              Text("探索中...",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))
+            ]),
+          ),
+          SizedBox(height: 40),
+          SimpleRouteButton(
+            title: "編成",
             icon: Icon(Icons.assignment_ind, size: 45),
             nextPage: PartyPage(),
           ),
-          const SimpleRouteButton(
-            title: "Members",
-            icon: Icon(Icons.group, size: 45),
-            nextPage: MembersPage(),
-          ),
-          SimpleRouteButton(
-            title: "Weapons",
-            icon: SvgPicture.asset("assets/images/swords.svg",
-                width: 42,
-                height: 42,
-                theme: const SvgTheme(currentColor: Colors.black)),
-            nextPage: WeaponsPage(),
-          ),
-          const SimpleRouteButton(
-            title: "Items",
-            icon: Icon(Icons.home_repair_service, size: 45),
-            nextPage: ItemsPage(),
-          )
+          SizedBox(height: 40),
         ]),
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: FloatingActionButton(
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SettingsPage()));
-        },
-        child: const Icon(Icons.settings),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

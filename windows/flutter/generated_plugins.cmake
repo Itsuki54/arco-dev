@@ -3,6 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  audioplayers_windows
+  ble_peripheral
   cloud_firestore
   firebase_auth
   firebase_core
