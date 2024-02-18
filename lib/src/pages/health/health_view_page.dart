@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class HealthViewPage extends StatefulWidget {
@@ -5,6 +6,69 @@ class HealthViewPage extends StatefulWidget {
 
   @override
   State<HealthViewPage> createState() => _HealthViewPage();
+}
+
+class HealthContentButton extends StatelessWidget {
+  const HealthContentButton({
+    super.key,
+    required this.title,
+    required this.text,
+    required this.iconImage,
+    required this.color,
+    required this.onPressed,
+  });
+
+  final Color color;
+  final dynamic iconImage;
+  final String title;
+  final String text;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.all(8),
+        child: SizedBox(
+          width: 180,
+          height: 160,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12))),
+              onPressed: onPressed,
+              child: Column(
+                children: [
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: iconImage,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(title,
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: color))
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  Text(
+                    text,
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: color),
+                  ),
+                ],
+              )),
+        ));
+  }
 }
 
 class _HealthViewPage extends State<HealthViewPage> {
@@ -20,46 +84,40 @@ class _HealthViewPage extends State<HealthViewPage> {
       body: Center(
           child: Column(
         children: [
-          SizedBox(
-            width: 180,
-            height: 170,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12))),
+          Row(children: [
+            HealthContentButton(
                 onPressed: () {},
-                child: Column(
-                  children: [
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.lightBlue.shade700,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: const Icon(Icons.directions_walk,
-                              size: 34, color: Colors.white),
-                        ),
-                        Text("歩行距離",
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.lightBlue.shade700))
-                      ],
-                    ),
-                    const Expanded(child: SizedBox()),
-                    Text("10.2km",
-                        style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.lightBlue.shade700)),
-                    const Expanded(child: SizedBox()),
-                    const SizedBox(height: 18),
-                  ],
-                )),
-          )
+                title: "移動距離",
+                text: "10.3km",
+                iconImage: const Icon(Icons.directions_walk,
+                    size: 34, color: Colors.white),
+                color: AppColors.blue),
+            HealthContentButton(
+                onPressed: () {},
+                title: "睡眠時間",
+                text: "7.2h",
+                iconImage: const Icon(Icons.local_hotel,
+                    size: 34, color: Colors.white),
+                color: AppColors.red),
+          ]),
+          Row(
+            children: [
+              HealthContentButton(
+                  onPressed: () {},
+                  title: "運動時間",
+                  text: "2.3h",
+                  iconImage: const Icon(Icons.directions_run,
+                      size: 34, color: Colors.white),
+                  color: AppColors.orange),
+              HealthContentButton(
+                  onPressed: () {},
+                  title: "ストレス",
+                  text: "Calm",
+                  iconImage: const Icon(Icons.directions_walk,
+                      size: 34, color: Colors.white),
+                  color: AppColors.green),
+            ],
+          ),
         ],
       )),
     );
