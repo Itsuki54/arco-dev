@@ -80,8 +80,8 @@ class HomePage extends StatelessWidget {
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.assignment_ind, size: 45),
-                                  const Text("編成",
+                                  Icon(Icons.show_chart, size: 45),
+                                  const Text("統計",
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold))
