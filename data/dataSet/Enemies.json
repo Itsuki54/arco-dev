@@ -1,0 +1,338 @@
+[
+  {
+    "description": "凶暴な肉食動物を飼育している悪役の飼育員。お肉を食べさせるのが大好き。",
+    "image": "ENEMY_ICONS/FerociousKeeper.png",
+    "job": "Attacker",
+    "level": 15,
+    "name": "凶暴な飼育悪役",
+    "rarity": 3,
+    "status": {
+      "atk": 13,
+      "def": 8,
+      "hp": 10,
+      "spd": 9
+    }
+  },
+  {
+    "description": "暴走",
+    "image": "ENEMY_ICONS/StationStaff.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "妨害駅員",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "家事に駆けつけず、火事を引き起こす悪役の消防士。",
+    "image": "ENEMY_ICONS/BraveFirefighter.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "火事引き起こす悪役",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 4,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "人々を脅かし、市民を捕らえる悪役の警察官。",
+    "image": "ENEMY_ICONS/DedicatedPolice.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "脅迫警察官",
+    "rarity": 1,
+    "status": {
+      "atk": 6,
+      "def": 5,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "悪意に満ちた機械のエキスパート、冷徹な電気屋。",
+    "image": "ENEMY_ICONS/ColdElectron.png",
+    "job": "Attacker",
+    "level": 0,
+    "name": "冷徹電気屋",
+    "rarity": 0,
+    "status": {
+      "atk": 4,
+      "def": 2,
+      "hp": 2,
+      "spd": 2
+    }
+  },
+  {
+    "description": "ハリウッドで活躍する悪役アクションスター、俳優。",
+    "image": "ENEMY_ICONS/FamousActor.png",
+    "job": "Attacker",
+    "level": 0,
+    "name": "悪役俳優",
+    "rarity": 0,
+    "status": {
+      "atk": 4,
+      "def": 1,
+      "hp": 2,
+      "spd": 3
+    }
+  },
+  {
+    "description": "鋼の肉体を持つ悪役パーソナルトレーナー。",
+    "image": "ENEMY_ICONS/SteelTrainer.png",
+    "job": "Tank",
+    "level": 5,
+    "name": "鋼の悪役トレーナー",
+    "rarity": 1,
+    "status": {
+      "atk": 5,
+      "def": 8,
+      "hp": 6,
+      "spd": 1
+    }
+  },
+  {
+    "description": "巧みな工具を使い、邪魔をする悪役大工。",
+    "image": "ENEMY_ICONS/SkilledCarpenter.png",
+    "job": "Tank",
+    "level": 1,
+    "name": "邪魔大工",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "法の番人を裏切り、悪事を働く悪役弁護士。",
+    "image": "ENEMY_ICONS/LawfulLawyer.png",
+    "job": "Tank",
+    "level": 5,
+    "name": "悪弁護士",
+    "rarity": 1,
+    "status": {
+      "atk": 6,
+      "def": 10,
+      "hp": 8,
+      "spd": 6
+    }
+  },
+  {
+    "description": "生徒を恐怖に陥れ、教師としての正体を隠す悪役。",
+    "image": "ENEMY_ICONS/ProtectiveTeacher.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "恐怖教師",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 3,
+      "hp": 3,
+      "spd": 3
+    }
+  },
+  {
+    "description": "郵便配達を利用し、悪事の手先となる悪役。",
+    "image": "ENEMY_ICONS/WorldlyCourier.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "手先配達員",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 4,
+      "hp": 2,
+      "spd": 3
+    }
+  },
+  {
+    "description": "タイヤを交換する悪役プロフェッショナル、悪役タイヤマン。",
+    "image": "ENEMY_ICONS/ProfessionalTireMan.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "悪タイヤマン",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 5,
+      "hp": 1,
+      "spd": 3
+    }
+  },
+  {
+    "description": "世界中を恐怖に巻き込む悪役冒険家、パイロット。",
+    "image": "ENEMY_ICONS/AdventurousPilot.png",
+    "job": "Wizard",
+    "level": 15,
+    "name": "恐怖冒険家パイロット",
+    "rarity": 3,
+    "status": {
+      "atk": 15,
+      "def": 7,
+      "hp": 11,
+      "spd": 9
+    }
+  },
+  {
+    "description": "銀行の番人を欺き、悪事の手を緩めない悪役銀行員。",
+    "image": "ENEMY_ICONS/BankGuardian.png",
+    "job": "Wizard",
+    "level": 10,
+    "name": "欺瞞銀行員",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 4,
+      "spd": 3
+    }
+  },
+  {
+    "description": "地方公務員として偽り、悪事を働く悪役役人。",
+    "image": "ENEMY_ICONS/DutifulOfficial.png",
+    "job": "Wizard",
+    "level": 5,
+    "name": "悪役役人",
+    "rarity": 1,
+    "status": {
+      "atk": 4,
+      "def": 5,
+      "hp": 7,
+      "spd": 4
+    }
+  },
+  {
+    "description": "本を操り、邪悪な知識を広める悪役司書。",
+    "image": "ENEMY_ICONS/BookishLibrarian.png",
+    "job": "Wizard",
+    "level": 5,
+    "name": "邪悪司書",
+    "rarity": 1,
+    "status": {
+      "atk": 8,
+      "def": 4,
+      "hp": 3,
+      "spd": 5
+    }
+  },
+  {
+    "description": "金を搾取する悪役レジ打ちの魔術師。",
+    "image": "ENEMY_ICONS/Casher.png",
+    "job": "Wizard",
+    "level": 0,
+    "name": "悪レジ打ち",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 3,
+      "hp": 2,
+      "spd": 4
+    }
+  },
+  {
+    "description": "ホテル内で不正を行い、守りを固める悪役ホテルマン。",
+    "image": "ENEMY_ICONS/Hotelman.png",
+    "job": "Wizard",
+    "level": 0,
+    "name": "不正ホテルマン",
+    "rarity": 0,
+    "status": {
+      "atk": 3,
+      "def": 3,
+      "hp": 2,
+      "spd": 2
+    }
+  },
+  {
+    "description": "信仰の力を悪用し、悪事を働く悪役僧侶。",
+    "image": "ENEMY_ICONS/Monk.png",
+    "job": "Healer",
+    "level": 10,
+    "name": "悪僧侶",
+    "rarity": 10,
+    "status": {
+      "atk": 10,
+      "def": 5,
+      "hp": 7,
+      "spd": 8
+    }
+  },
+  {
+    "description": "人々を欺き、悪事を働く悪医者。",
+    "image": "ENEMY_ICONS/Docter.png",
+    "job": "Healer",
+    "level": 10,
+    "name": "欺瞞医者",
+    "rarity": 2,
+    "status": {
+      "atk": 15,
+      "def": 5,
+      "hp": 6,
+      "spd": 4
+    }
+  },
+  {
+    "description": "おいしい料理を装い、悪事を働く悪役コック。",
+    "image": "ENEMY_ICONS/Cock.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "欺瞞コック",
+    "rarity": 0,
+    "status": {
+      "atk": 3,
+      "def": 2,
+      "hp": 1,
+      "spd": 2
+    }
+  },
+  {
+    "description": "試食を利用し、毒を広める悪役試食販売員。",
+    "image": "ENEMY_ICONS/Tasting.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "毒試食販売員",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 2,
+      "hp": 2,
+      "spd": 4
+    }
+  },
+  {
+    "description": "おいしいコーヒーを装い、悪事を働く悪役バリスタ。",
+    "image": "ENEMY_ICONS/Barista.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "欺瞞バリスタ",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 3,
+      "hp": 3,
+      "spd": 2
+    }
+  },
+  {
+    "description": "美しさを利用し、悪事を働く悪役美容師。",
+    "image": "ENEMY_ICONS/Hairdresser.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "欺瞞美容師",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 4,
+      "hp": 2,
+      "spd": 2
+    }
+  }
+]

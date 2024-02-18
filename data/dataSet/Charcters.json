@@ -1,0 +1,338 @@
+[
+  {
+    "description": "肉食動物を飼育している飼育員 お肉を食べさせるのが大好き",
+    "image": "CHARACTER_ICONS/Keeper.png",
+    "job": "Attacker",
+    "level": 15,
+    "name": "飼育員",
+    "rarity": 3,
+    "status": {
+      "atk": 13,
+      "def": 8,
+      "hp": 10,
+      "spd": 9
+    }
+  },
+  {
+    "description": "駅の駅長。大量の電車を整備している",
+    "image": "CHARACTER_ICONS/StationStaff.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "駅員",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "消防士 家事に駆けつけるヒーロー",
+    "image": "CHARACTER_ICONS/Firefighter.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "消防士",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 4,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "警察官 人々を守るために日々奮闘",
+    "image": "CHARACTER_ICONS/Police.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "警察官",
+    "rarity": 1,
+    "status": {
+      "atk": 6,
+      "def": 5,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "電気屋 機械のエキスパート",
+    "image": "CHARACTER_ICONS/Electron.png",
+    "job": "Attacker",
+    "level": 0,
+    "name": "電気屋",
+    "rarity": 0,
+    "status": {
+      "atk": 4,
+      "def": 2,
+      "hp": 2,
+      "spd": 2
+    }
+  },
+  {
+    "description": "ハリウッド俳優 アクションスター",
+    "image": "CHARACTER_ICONS/Actor.png",
+    "job": "Attacker",
+    "level": 0,
+    "name": "俳優",
+    "rarity": 0,
+    "status": {
+      "atk": 4,
+      "def": 1,
+      "hp": 2,
+      "spd": 3
+    }
+  },
+  {
+    "description": "パーソナルトレーナー 鋼の肉体の持ち主",
+    "image": "CHARACTER_ICONS/Trainer.png",
+    "job": "Tank",
+    "level": 5,
+    "name": "トレーナー",
+    "rarity": 1,
+    "status": {
+      "atk": 5,
+      "def": 8,
+      "hp": 6,
+      "spd": 1
+    }
+  },
+  {
+    "description": "大工 工具を操る職人",
+    "image": "CHARACTER_ICONS/Carpenter.png",
+    "job": "Tank",
+    "level": 1,
+    "name": "大工",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "弁護士",
+    "image": "CHARACTER_ICONS/Lowyer.png",
+    "job": "Tank",
+    "level": 5,
+    "name": "弁護士",
+    "rarity": 1,
+    "status": {
+      "atk": 6,
+      "def": 10,
+      "hp": 8,
+      "spd": 6
+    }
+  },
+  {
+    "description": "教師 生徒を守るヒーロー",
+    "image": "CHARACTER_ICONS/Teacher.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "教師",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 3,
+      "hp": 3,
+      "spd": 3
+    }
+  },
+  {
+    "description": "郵便配達 世界中の新聞を届けている",
+    "image": "CHARACTER_ICONS/Delivery.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "郵便配達",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 4,
+      "hp": 2,
+      "spd": 3
+    }
+  },
+  {
+    "description": "タイヤマン タイヤを交換のプロフェッショナル",
+    "image": "CHARACTER_ICONS/TireMan.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "タイヤマン",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 5,
+      "hp": 1,
+      "spd": 3
+    }
+  },
+  {
+    "description": "パイロット 世界中を飛び回る冒険家",
+    "image": "CHARACTER_ICONS/Pilot.png",
+    "job": "Wizard",
+    "level": 15,
+    "name": "パイロット",
+    "rarity": 3,
+    "status": {
+      "atk": 15,
+      "def": 7,
+      "hp": 11,
+      "spd": 9
+    }
+  },
+  {
+    "description": "銀行員 銀行の番人",
+    "image": "CHARACTER_ICONS/Banker.png",
+    "job": "Wizard",
+    "level": 10,
+    "name": "銀行員",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 4,
+      "spd": 3
+    }
+  },
+  {
+    "description": "役人 地方公務員の鏡",
+    "image": "CHARACTER_ICONS/Official.png",
+    "job": "Wizard",
+    "level": 5,
+    "name": "役人",
+    "rarity": 1,
+    "status": {
+      "atk": 4,
+      "def": 5,
+      "hp": 7,
+      "spd": 4
+    }
+  },
+  {
+    "description": "司書 本を操る愛読家",
+    "image": "CHARACTER_ICONS/Librarian.png",
+    "job": "Wizard",
+    "level": 5,
+    "name": "司書",
+    "rarity": 1,
+    "status": {
+      "atk": 8,
+      "def": 4,
+      "hp": 3,
+      "spd": 5
+    }
+  },
+  {
+    "description": "レジ打ち レジ打ちの魔術師",
+    "image": "CHARACTER_ICONS/Casher.png",
+    "job": "Wizard",
+    "level": 0,
+    "name": "レジ打ち",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 3,
+      "hp": 2,
+      "spd": 4
+    }
+  },
+  {
+    "description": "ホテルマン ホテル内の守り人",
+    "image": "CHARACTER_ICONS/Hotelman.png",
+    "job": "Wizard",
+    "level": 0,
+    "name": "ホテルマン",
+    "rarity": 0,
+    "status": {
+      "atk": 3,
+      "def": 3,
+      "hp": 2,
+      "spd": 2
+    }
+  },
+  {
+    "description": "僧侶 信仰の力を操る聖職者",
+    "image": "CHARACTER_ICONS/Monk.png",
+    "job": "Healer",
+    "level": 10,
+    "name": "僧侶",
+    "rarity": 10,
+    "status": {
+      "atk": 10,
+      "def": 5,
+      "hp": 7,
+      "spd": 8
+    }
+  },
+  {
+    "description": "医者 人々を救うヒーロー",
+    "image": "CHARACTER_ICONS/Docter.png",
+    "job": "Healer",
+    "level": 10,
+    "name": "医者",
+    "rarity": 2,
+    "status": {
+      "atk": 15,
+      "def": 5,
+      "hp": 6,
+      "spd": 4
+    }
+  },
+  {
+    "description": "コック おいしい料理を作る職人",
+    "image": "CHARACTER_ICONS/Cock.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "コック",
+    "rarity": 0,
+    "status": {
+      "atk": 3,
+      "def": 2,
+      "hp": 1,
+      "spd": 2
+    }
+  },
+  {
+    "description": "試食販売員 試食を操る職人",
+    "image": "CHARACTER_ICONS/Tasting.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "試食販売員",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 2,
+      "hp": 2,
+      "spd": 4
+    }
+  },
+  {
+    "description": "バリスタ おいしいコーヒーを淹れる職人",
+    "image": "CHARACTER_ICONS/Barista.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "バリスタ",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 3,
+      "hp": 3,
+      "spd": 2
+    }
+  },
+  {
+    "description": "美容師 人々を美しくする職人",
+    "image": "CHARACTER_ICONS/Hairdresser.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "美容師",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 4,
+      "hp": 2,
+      "spd": 2
+    }
+  }
+]
