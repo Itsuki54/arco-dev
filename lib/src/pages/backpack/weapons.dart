@@ -20,16 +20,16 @@ class _WeaponsPage extends State<WeaponsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: ChildAppBar(icon: swordsIcon, title: "Wepons"),
-        body: SingleChildScrollView(
-            child: Center(
-          child: Wrap(
-            spacing: 4,
-            runSpacing: 8,
-            children: [
-              for (int i = 0; i < 32; i++)
-                BackpackContentChip(
-                  name: "武器名 $i",
+      appBar: ChildAppBar(icon: swordsIcon, title: "武器"),
+      body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: GridView.count(
+              crossAxisCount: 3,
+              crossAxisSpacing: 4,
+              childAspectRatio: 0.7,
+              children: List.generate(32, (index) {
+                return BackpackContentChip(
+                  name: "武器名 $index",
                   level: 32,
                   icon: SvgPicture.asset("assets/images/swords.svg",
                       width: 42,
@@ -46,9 +46,8 @@ class _WeaponsPage extends State<WeaponsPage> {
                                   "その刀身は煌めく青い光を放ち、鋭利な刃を持つ。この剣は空気を切り裂くような速さで振るわれ、風の力を操ることができる。振るう者の意志に従って風の刃を生み出し、遠くの敵にも届く攻撃を可能にする。疾風剣の真の力は、その扱い手の心の力と結びついており、正しい意図で用いられることでより強力な力を発揮する。",
                             )));
                   },
-                ),
-            ],
-          ),
-        )));
+                );
+              }))),
+    );
   }
 }

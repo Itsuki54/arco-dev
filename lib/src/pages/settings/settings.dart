@@ -16,13 +16,13 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ChildAppBar(
-          title: "Settings", icon: Icon(Icons.settings, size: 45)),
+      appBar:
+          const ChildAppBar(title: "設定", icon: Icon(Icons.settings, size: 40)),
       body: Center(
         child: Column(children: [
           SimpleRouteButton(
-              title: "Profile",
-              icon: const Icon(Icons.person, size: 45),
+              title: "プロフィール",
+              icon: const Icon(Icons.person, size: 40),
               nextPage: Scaffold(
                 appBar: AppBar(),
               )),
@@ -33,7 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 appBar: AppBar(),
               )),*/
           SimpleRouteButton(
-              title: "Battle",
+              title: "戦闘",
               //icon: const Icon(Icons.grain, size: 45),
               icon: SvgPicture.asset("assets/images/swords.svg",
                   width: 42,
@@ -55,18 +55,18 @@ class _SettingsPageState extends State<SettingsPage> {
                           borderRadius: BorderRadius.circular(10))),
                   child: SizedBox(
                       width: 250,
-                      height: 110,
+                      height: 90,
                       child: Row(
                         children: [
                           Icon(
                             Icons.delete,
-                            size: 45,
+                            size: 40,
                             color: Colors.red.shade400,
                           ),
-                          const SizedBox(width: 32),
-                          Text("Delete",
+                          const SizedBox(width: 16),
+                          Text("データ削除",
                               style: TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.red.shade400)),
                           const Expanded(child: SizedBox()),
