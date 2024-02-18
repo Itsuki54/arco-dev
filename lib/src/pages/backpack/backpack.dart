@@ -50,16 +50,6 @@ class _BackpackPageState extends State<BackpackPage> {
           SizedBox(height: 40),
         ]),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: FloatingActionButton(
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SettingsPage()));
-        },
-        child: const Icon(Icons.settings),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
