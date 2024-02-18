@@ -10,8 +10,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import './backpack/backpack.dart';
 import 'package:permission_handler/permission_handler.dart' as permission;
 import './map/map.dart';
-import './todo/todo.dart';
-import './map/map.dart';
 import './home.dart';
 
 class Hub extends StatefulWidget {
