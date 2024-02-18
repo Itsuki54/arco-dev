@@ -8,7 +8,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -21,16 +21,19 @@ class _ProfilePageState extends State<ProfilePage> {
   Future getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        _image = File("default_image_path");
-      }
-    });
+    setState(
+      () {
+        if (pickedFile != null) {
+          _image = File(pickedFile.path);
+        } else {
+          _image = File("assets/images/sample_icon.png");
+        }
+      },
+    );
   }
 
-  var isOn = false;
+  var levelPub = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,46 +42,107 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Center(
         child: Column(
           children: [
-            Stack(alignment: Alignment.center, children: [
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey.shade300,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.grey.shade300,
+                  ),
                 ),
-              ),
-              Container(
-                width: 120.0,
-                height: 120.0,
-                decoration: BoxDecoration(
+                Container(
+                  width: 120.0,
+                  height: 120.0,
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        fit: BoxFit.fill, image: FileImage(_image))),
-              ),
-            ]),
+                      fit: BoxFit.fill,
+                      image: FileImage(_image),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             ElevatedButton(
               onPressed: () {
                 getImageFromGallery();
               },
               child: Text("画像を選択"),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(height: 20),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("名前:", style: TextStyle(fontSize: 20)),
-                Text("ID:", style: TextStyle(fontSize: 20)),
-                Text("レベル:", style: TextStyle(fontSize: 20)),
-                Text("メールアドレス:", style: TextStyle(fontSize: 20)),
+                Row(
+                  children: [
+                    const SizedBox(width: 30),
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            labelText: '名前',
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text("保存"),
+                    ),
+                    const SizedBox(width: 30),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    const SizedBox(width: 30),
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            labelText: 'メールアドレス',
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text("保存"),
+                    ),
+                    const SizedBox(width: 30),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                const SizedBox(width: 30),
+                Text("レベルの公開設定", style: TextStyle(fontSize: 20)),
                 Switch(
-                  value: isOn,
+                  value: levelPub,
                   onChanged: (bool? value) {
                     if (value != null) {
-                      setState(() {
-                        isOn = value;
-                        print("$isOn");
-                      });
+                      setState(
+                        () {
+                          levelPub = value;
+                          print("$levelPub");
+                        },
+                      );
                     }
                   },
                 ),
