@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import './src/pages/hub.dart';
 import './firebase_options.dart';
 import './src/pages/health/healthPage.dart';
+import './src/pages/health/health_view_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +41,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         //home: Hub());
-        home: HealthApp());
+        home: HealthViewPage());
   }
 }
