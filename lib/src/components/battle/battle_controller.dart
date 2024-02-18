@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 // components
-import '../components/exp_bar.dart';
-import '../components/middle_battle_cmd_button.dart';
+import '../common/exp_bar.dart';
+import '../button/middle_battle_cmd_button.dart';
 
 class BattleController extends StatelessWidget {
   const BattleController(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:flutter_svg/flutter_svg.dart";
 // componets
-import '../../components/exp_bar.dart';
-import '../../components/backpack_content_chip.dart';
+import '../../components/common/exp_bar.dart';
+import '../../components/backpack/backpack_content_chip.dart';
 // pages
 import './weapon_info.dart';
 

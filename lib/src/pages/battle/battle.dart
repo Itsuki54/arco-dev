@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 import "package:flutter_svg/flutter_svg.dart";
 import 'package:audioplayers/audioplayers.dart';
 // components
-import '../../components/exp_bar.dart';
-import '../../components/battle_controller.dart';
+import '../../components/common/exp_bar.dart';
+import '../../components/battle/battle_controller.dart';
 // structs
 import '../../structs/battle_package.dart';
 
