@@ -297,7 +297,7 @@ class _MapPageState extends State<MapPage> {
               resetBearing();
             },
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           FloatingActionButton(
             heroTag: 'current',
             child: const Icon(
