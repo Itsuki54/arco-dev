@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // components
-import '../../components/child_appbar.dart';
-import '../../components/simple_route_button.dart';
+import '../../components/common/child_appbar.dart';
+import '../../components/button/simple_route_button.dart';
 // pages
 
 class SettingsPage extends StatefulWidget {

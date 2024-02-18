@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // componets
-import './exp_bar.dart';
+import 'exp_bar.dart';
 
 class UserStatus extends StatefulWidget {
   const UserStatus({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // components
-import 'close_dialog_button.dart';
+import '../button/close_dialog_button.dart';
 // structs
-import '../structs/quest.dart';
+import '../../structs/quest.dart';
 
 class QuestDialog extends StatelessWidget {
   const QuestDialog({super.key, required this.quest});

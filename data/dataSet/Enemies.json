@@ -14,7 +14,7 @@
     }
   },
   {
-    "description": "暴走",
+    "description": "暴走列車駅員",
     "image": "ENEMY_ICONS/StationStaff.png",
     "job": "Attacker",
     "level": 5,

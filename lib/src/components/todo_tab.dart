@@ -1,5 +1,5 @@
-import 'package:arco_dev/src/components/filter_button.dart';
-import 'package:arco_dev/src/components/quest_content.dart';
+import './button/filter_button.dart';
+import './quest/quest_content.dart';
 import 'package:arco_dev/src/structs/quest.dart';
 import 'package:flutter/material.dart';
 
