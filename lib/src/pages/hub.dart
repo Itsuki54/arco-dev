@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import './backpack/backpack.dart';
+import 'package:permission_handler/permission_handler.dart' as permission;
 import './map/map.dart';
 import './todo/todo.dart';
 import './map/map.dart';
@@ -43,6 +45,61 @@ class _Hub extends State<Hub> {
         List.generate(length, (_) => charset[random.nextInt(charset.length)])
             .join();
     return randomStr;
+  }
+
+  Future<bool> get isGranted async {
+    final status = await permission.Permission.location.status;
+    switch (status) {
+      case permission.PermissionStatus.granted:
+      case permission.PermissionStatus.limited:
+        return true;
+      case permission.PermissionStatus.denied:
+      case permission.PermissionStatus.permanentlyDenied:
+      case permission.PermissionStatus.restricted:
+        return false;
+      default:
+        return false;
+    }
+  }
+
+  Future<bool> get isAlwaysGranted {
+    return permission.Permission.locationAlways.isGranted;
+  }
+
+  Future<permission.PermissionStatus> whileRequest() async {
+    final locationStatus = await permission.Permission.location.request();
+    permission.PermissionStatus status;
+    AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+    if (androidInfo.version.sdkInt <= 30) {
+      final bleStatus = await permission.Permission.bluetooth.request();
+      status = locationStatus == permission.PermissionStatus.granted &&
+              bleStatus == permission.PermissionStatus.granted
+          ? permission.PermissionStatus.granted
+          : permission.PermissionStatus.denied;
+    } else {
+      final bleAdvertiseStatus =
+          await permission.Permission.bluetoothAdvertise.request();
+      final bleConnectStatus =
+          await permission.Permission.bluetoothConnect.request();
+      final bleScanStatus = await permission.Permission.bluetoothScan.request();
+      status = locationStatus == permission.PermissionStatus.granted &&
+              bleAdvertiseStatus == permission.PermissionStatus.granted &&
+              bleConnectStatus == permission.PermissionStatus.granted &&
+              bleScanStatus == permission.PermissionStatus.granted
+          ? permission.PermissionStatus.granted
+          : permission.PermissionStatus.denied;
+    }
+    return status;
+  }
+
+  Future<LocationPermissionStatus> alwaysRequest() async {
+    final status = await permission.Permission.locationAlways.request();
+    switch (status) {
+      case permission.PermissionStatus.granted:
+        return LocationPermissionStatus.granted;
+      default:
+        return LocationPermissionStatus.denied;
+    }
   }
 
   Future<void> initBle() async {
@@ -138,12 +195,38 @@ class _Hub extends State<Hub> {
   @override
   void initState() {
     super.initState();
-    initBle().then((value) {
-      if (advertisingError.isNotEmpty) {
-        debugPrint('Advertising error: $advertisingError');
+    whileRequest().then((permission.PermissionStatus status) {
+      if (status == permission.PermissionStatus.granted) {
+        isAlwaysGranted.then((bool isAlwaysGranted) {
+          if (!isAlwaysGranted) {
+            alwaysRequest().then((LocationPermissionStatus status) {
+              if (status == LocationPermissionStatus.granted) {
+                initBle().then((value) {
+                  if (advertisingError.isNotEmpty) {
+                    debugPrint('Advertising error: $advertisingError');
+                  } else {
+                    startAdvertising();
+                    searchForDevices();
+                  }
+                });
+              }
+            });
+          }
+        });
       } else {
-        startAdvertising();
-        searchForDevices();
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text("位置情報 / Bluetoothの許可が必要です"),
+                  content: const Text("設定画面から権限の許可をしてください"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("OK"))
+                  ],
+                ));
       }
     });
   }
