@@ -14,7 +14,7 @@
     }
   },
   {
-    "description": "混雑する駅で電車の整備を妨害する悪役の駅員。",
+    "description": "暴走",
     "image": "ENEMY_ICONS/StationStaff.png",
     "job": "Attacker",
     "level": 5,
