@@ -1,10 +1,10 @@
 // packages
 import 'package:flutter/material.dart';
 // components
-import './quest_dialog.dart';
-import './quest_state_chip.dart';
+import 'quest_dialog.dart';
+import 'quest_state_chip.dart';
 // structs
-import '../structs/quest.dart';
+import '../../structs/quest.dart';
 
 class QuestContent extends StatefulWidget {
   const QuestContent({

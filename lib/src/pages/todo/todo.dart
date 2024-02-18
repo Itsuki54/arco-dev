@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 // components
-import '../../components/user_status.dart';
-import '../../components/filter_button.dart';
-import '../../components/quest_content.dart';
+import '../../components/common/user_status.dart';
+import '../../components/button/filter_button.dart';
+import '../../components/quest/quest_content.dart';
 // structs
 import '../../structs/quest.dart';
 

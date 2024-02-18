@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // components
-import '../../components/child_appbar.dart';
-import '../../components/party_route_button.dart';
+import '../../components/common/child_appbar.dart';
+import '../../components/button/party_route_button.dart';
 // pages
 import './character_info.dart';
 
