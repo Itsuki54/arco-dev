@@ -2,10 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import './backpack/backpack.dart';
+import './map/map.dart';
+import './todo/todo.dart';
 import './map/map.dart';
 import './home.dart';
 
