@@ -21,6 +21,19 @@ class _Hub extends State<Hub> {
 
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //     appBar: AppBar(title: const Text("Battle Sample")),
+    //     body: Center(
+    //       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    //         ElevatedButton(
+    //           onPressed: () {
+    //             Navigator.of(context).push(
+    //                 MaterialPageRoute(builder: (context) => BattlePage()));
+    //           },
+    //           child: const Text("Jump to the Battle Sample"),
+    //         )
+    //       ]),
+    //     ));
     return Scaffold(
       body: widget.pages[pageIndex],
       bottomNavigationBar: NavigationBar(

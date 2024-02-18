@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // components
-import '../../components/simple_route_button.dart';
+import '../../components/button/simple_route_button.dart';
 // pages
 import '../settings/settings.dart';
 import './party.dart';
