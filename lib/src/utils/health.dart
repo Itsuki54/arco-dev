@@ -19,10 +19,16 @@ enum AppState {
 
 class HealthData {
   static final types = [
+    HealthDataType.ACTIVE_ENERGY_BURNED,
+    HealthDataType.BASAL_ENERGY_BURNED,
     HealthDataType.HEART_RATE,
+    HealthDataType.SLEEP_ASLEEP,
+    HealthDataType.SLEEP_AWAKE,
     HealthDataType.SLEEP_DEEP,
     HealthDataType.SLEEP_REM,
+    HealthDataType.SLEEP_SESSION,
     HealthDataType.DISTANCE_DELTA,
+    HealthDataType.WORKOUT
   ];
 
   List<HealthDataAccess> permissions =
@@ -42,6 +48,8 @@ class HealthData {
       } catch (error) {
         debugPrint("Exception in authorize: $error");
       }
+    } else {
+      authorized = true;
     }
     return authorized;
   }
@@ -68,24 +76,115 @@ class HealthData {
     final now = DateTime.now();
     final midnight = DateTime(now.year, now.month, now.day);
 
-    bool stepsPermission =
-        await health.hasPermissions([HealthDataType.STEPS]) ?? false;
-    if (!stepsPermission) {
-      stepsPermission =
-          await health.requestAuthorization([HealthDataType.STEPS]);
+    try {
+      steps = await health.getTotalStepsInInterval(midnight, now);
+    } catch (error) {
+      debugPrint("Caught exception in getTotalStepsInInterval: $error");
     }
+    return steps ?? 0;
+  }
 
-    if (stepsPermission) {
-      try {
-        steps = await health.getTotalStepsInInterval(midnight, now);
-      } catch (error) {
-        debugPrint("Caught exception in getTotalStepsInInterval: $error");
+  Future<int> fetchDistanceData() async {
+    double distance = 0;
+
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day);
+
+    try {
+      List<HealthDataPoint> distanceDelta = await health.getHealthDataFromTypes(
+          midnight, now, [HealthDataType.DISTANCE_DELTA]);
+      for (HealthDataPoint entry in distanceDelta) {
+        distance += (entry.value as NumericHealthValue).numericValue;
       }
-      return steps ?? 0;
-    } else {
-      debugPrint("Authorization not granted - error in authorization");
-      return 0;
+    } catch (error) {
+      debugPrint("Caught exception in getDistanceInInterval: $error");
     }
+    return distance.round();
+  }
+
+  Future<int> fetchActiveEnergy() async {
+    double activeEnergy = 0;
+
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day);
+
+    try {
+      List<HealthDataPoint> activeEnergyBurned =
+          await health.getHealthDataFromTypes(midnight, now, [
+        HealthDataType.ACTIVE_ENERGY_BURNED,
+        HealthDataType.BASAL_ENERGY_BURNED,
+      ]);
+      for (HealthDataPoint entry in activeEnergyBurned) {
+        activeEnergy += (entry.value as NumericHealthValue).numericValue;
+      }
+    } catch (error) {
+      debugPrint("Caught exception in getActiveEnergyBurnedInInterval: $error");
+    }
+    return activeEnergy.round();
+  }
+
+  Future<int> fetchSleepData() async {
+    int sleepMinutes = 0;
+
+    final now = DateTime.now();
+    final lastNoon = DateTime(now.year, now.month, now.day, 12)
+        .subtract(const Duration(days: 1));
+    final nextNoon = lastNoon.add(const Duration(days: 1));
+
+    try {
+      List<HealthDataPoint> sleeps =
+          await health.getHealthDataFromTypes(lastNoon, nextNoon, [
+        HealthDataType.SLEEP_SESSION,
+      ]);
+      for (HealthDataPoint entry in sleeps) {
+        sleepMinutes +=
+            (entry.value as NumericHealthValue).numericValue.round();
+      }
+    } catch (error) {
+      debugPrint("Caught exception in getSleepInInterval: $error");
+    }
+    return sleepMinutes;
+  }
+
+  Future<int> fetchExerciseMinutes() async {
+    int exerciseMinutes = 0;
+
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day);
+
+    try {
+      List<HealthDataPoint> exercise = await health
+          .getHealthDataFromTypes(midnight, now, [HealthDataType.WORKOUT]);
+      for (HealthDataPoint entry in exercise) {
+        exerciseMinutes +=
+            (entry.value as NumericHealthValue).numericValue.round();
+      }
+    } catch (error) {
+      debugPrint("Caught exception in getExerciseTimeInInterval: $error");
+    }
+    return exerciseMinutes;
+  }
+
+  Future<int> fetchAvgHeartRate() async {
+    int avgHeartRate = 0;
+
+    final now = DateTime.now();
+    final midnight = DateTime(now.year, now.month, now.day);
+
+    try {
+      List<HealthDataPoint> heartRate = await health
+          .getHealthDataFromTypes(midnight, now, [HealthDataType.HEART_RATE]);
+      for (HealthDataPoint entry in heartRate) {
+        avgHeartRate +=
+            (entry.value as NumericHealthValue).numericValue.round();
+      }
+      if (heartRate.isNotEmpty) {
+        avgHeartRate = avgHeartRate ~/ heartRate.length;
+      }
+    } catch (error) {
+      debugPrint("Caught exception in getHeartRateInInterval: $error");
+    }
+    return avgHeartRate;
   }
 
   Stream<AppState> getState() async* {

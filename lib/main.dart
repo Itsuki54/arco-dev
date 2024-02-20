@@ -4,10 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 // pages
 import 'package:arco_dev/src/pages/hub.dart';
-import 'package:arco_dev/src/pages/health/healthPage.dart';
 
 import './firebase_options.dart';
-import './src/pages/health/health_view_page.dart';
 import './src/utils/colors.dart';
 
 Future<void> main() async {
