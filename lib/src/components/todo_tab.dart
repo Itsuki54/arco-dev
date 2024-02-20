@@ -23,38 +23,7 @@ class _ToDoTabPageState extends State<ToDoTabPage> {
   bool receiption = false;
 
   // 仮で置いているQuestデータ
-  List<Quest> quests = [
-    Quest(
-        name: "影の通り魔",
-        description: "都市の裏通りで謎の暗殺者が現れ、街を恐怖に陥れている。彼の正体を突き止め、街の安全を確保する。	",
-        state: "完了",
-        point: 120,
-        id: 2),
-    Quest(
-        name: "失われた人工物",
-        description: "現代都市で失われた魔法のアーティファクトを見つける。アーティファクトは古代の秘密を秘めている。	",
-        state: "未完了",
-        point: 100,
-        id: 1),
-    Quest(
-        name: "魔法の暴走",
-        description: "都市の中心で突如として発生した魔法の暴走を止めるため、その原因を調査して封じ込める。	",
-        state: "受取り",
-        point: 100,
-        id: 1),
-    Quest(
-        name: "迷子の精霊",
-        description: "都市の公園で迷子の精霊が現れ、助けを求めている。彼女を安全な場所へ導くことが求められる。	",
-        state: "受取り",
-        point: 100,
-        id: 1),
-    Quest(
-        name: "闇のコンクラーヴ",
-        description: "都市の地下に潜む闇の組織が暗躍している。その勢力を探り、彼らの野望を阻止するために立ち向かう。",
-        state: "未完了",
-        point: 100,
-        id: 1),
-  ];
+  List<Quest> quests = [];
 
   // 表示用
   late List<Quest> displayedQuests = quests;

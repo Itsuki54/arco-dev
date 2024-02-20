@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../components/button/filter_button.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 // components
-import '../../components/common/user_status.dart';
 import '../../components/quest/quest_content.dart';
 // structs
 import '../../structs/quest.dart';
+import '../../components/common/exp_bar.dart';
 
 class ToDoPage extends StatefulWidget {
   const ToDoPage({super.key});
@@ -64,14 +64,48 @@ class _ToDoPageState extends State<ToDoPage> {
     });
   }
 
+  int totalExp = 100;
+  int currentExp = 30;
+  int level = 1;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
             appBar: AppBar(),
-            body: Column(children: [
-              UserStatus(),
+            body: Center(
+                child: Column(children: [
+              const SizedBox(height: 32),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const SizedBox(height: 16),
+                  Text(
+                    "レベル: $level",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo.shade900,
+                    ),
+                  ),
+                  Text(
+                    "EXP: $currentExp / $totalExp",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo.shade900,
+                    ),
+                  ),
+                ],
+              ),
+              ExpBar(
+                width: 300,
+                height: 20,
+                color: Colors.green,
+                expValue: (currentExp / totalExp),
+              ),
+              const SizedBox(height: 32),
               const TabBar(unselectedLabelColor: Colors.grey, tabs: <Widget>[
                 Tab(icon: Icon(Icons.today, size: 29), child: Text("Daily")),
                 Tab(
@@ -139,6 +173,6 @@ class _ToDoPageState extends State<ToDoPage> {
                   ],
                 ),
               )
-            ])));
+            ]))));
   }
 }
