@@ -1,9 +1,10 @@
 import 'package:arco_dev/src/pages/settings/settings.dart';
 import 'package:arco_dev/src/pages/todo/todo.dart';
+import 'package:arco_dev/src/pages/health/health_view_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required String uid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Scaffold()));
+                            builder: (context) => const HealthViewPage()));
                   },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -77,11 +78,11 @@ class HomePage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
-                            child: Column(
+                            child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.assignment_ind, size: 45),
-                                  const Text("編成",
+                                  Icon(Icons.show_chart, size: 45),
+                                  Text("統計",
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold))
