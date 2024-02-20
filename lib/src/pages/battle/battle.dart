@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import "package:flutter_svg/flutter_svg.dart";
-import 'package:audioplayers/audioplayers.dart';
+
+import '../../components/battle/battle_controller.dart';
 // components
 import '../../components/common/exp_bar.dart';
-import '../../components/battle/battle_controller.dart';
-// structs
-import '../../structs/battle_package.dart';
 
 class Enemy extends StatelessWidget {
   const Enemy({

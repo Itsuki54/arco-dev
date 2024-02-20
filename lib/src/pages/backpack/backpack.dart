@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 // components
 import '../../components/button/simple_route_button.dart';
+import '../../components/common/ripples.dart';
 // pages
 import '../settings/settings.dart';
 import './party.dart';
-import '../../components/common/ripples.dart';
 
 class BackpackPage extends StatefulWidget {
   const BackpackPage({super.key});
