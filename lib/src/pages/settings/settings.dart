@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../components/common/child_appbar.dart';
 import '../../components/button/simple_route_button.dart';
 // pages
+import 'profile.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -23,15 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
           SimpleRouteButton(
               title: "プロフィール",
               icon: const Icon(Icons.person, size: 40),
-              nextPage: Scaffold(
-                appBar: AppBar(),
-              )),
-          /*SimpleRouteButton(
-              title: "Visibility",
-              icon: const Icon(Icons.visibility, size: 45),
-              nextPage: Scaffold(
-                appBar: AppBar(),
-              )),*/
+              nextPage: const ProfilePage()),
           SimpleRouteButton(
               title: "戦闘",
               //icon: const Icon(Icons.grain, size: 45),

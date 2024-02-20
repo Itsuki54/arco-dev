@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 // components
 import '../../components/button/simple_route_button.dart';
 // pages
 import '../settings/settings.dart';
 import './party.dart';
-import './members.dart';
-import './items.dart';
-import './weapons.dart';
+import '../../components/common/ripples.dart';
 
 class BackpackPage extends StatefulWidget {
   const BackpackPage({super.key});
@@ -33,13 +31,31 @@ class _BackpackPageState extends State<BackpackPage> {
         child: Column(children: [
           SizedBox(height: 40),
           Expanded(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Icon(Icons.bluetooth, size: 120),
-              SizedBox(height: 20),
-              Text("探索中...",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))
-            ]),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Align(
+                        alignment: Alignment(0, 0),
+                        child: SizedBox(
+                            height: 250, width: 250, child: WaterRipple())),
+                    Align(
+                        alignment: Alignment(0, 0),
+                        child: Icon(
+                          Icons.bluetooth,
+                          size: 120,
+                        )),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(
+                  "探索中...",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 40),
           SimpleRouteButton(

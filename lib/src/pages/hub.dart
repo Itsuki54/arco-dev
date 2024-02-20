@@ -2,15 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/material.dart';
 
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
+import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import './backpack/backpack.dart';
 import 'package:permission_handler/permission_handler.dart' as permission;
 import './map/map.dart';
-import './home.dart';
+import 'package:arco_dev/src/pages/home.dart';
 
 class Hub extends StatefulWidget {
   Hub({super.key});
@@ -266,7 +267,7 @@ class _Hub extends State<Hub> {
           const NavigationDestination(icon: Icon(Icons.home), label: "ホーム"),
           NavigationDestination(
               icon: SvgPicture.asset("assets/images/swords.svg", width: 24),
-              label: "戦闘")
+              label: "戦闘"),
         ],
         selectedIndex: pageIndex,
         onDestinationSelected: (int index) {
