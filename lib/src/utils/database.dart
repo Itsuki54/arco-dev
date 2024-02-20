@@ -111,6 +111,11 @@ class QuestsCollection extends BaseCollection {
 
 class UsersCollection extends BaseCollection {
   UsersCollection(FirebaseFirestore firestore) : super('USERS', firestore);
+
+  Future<void> createUser(String uid, Map<String, dynamic> data) {
+    set(uid, data);
+    return UserQuestsCollection(firestore, uid).copyFromQuestsCollection(uid);
+  }
 }
 
 class UserItemsCollection extends BaseCollection {
@@ -126,6 +131,23 @@ class UserMembersCollection extends BaseCollection {
 class UserQuestsCollection extends BaseCollection {
   UserQuestsCollection(FirebaseFirestore firestore, String uid)
       : super('USERS/$uid/QUESTS', firestore);
+
+  Future<void> copyFromQuestsCollection(String uid) {
+    return QuestsCollection(firestore).all().then((quests) {
+      for (var quest in quests) {
+        set(quest['questId'], {
+          'questId': quest['questId'],
+          'image': quest['image'],
+          'name': quest['name'],
+          'description': quest['description'],
+          'condition': quest['condition'],
+          'conditionDetail': quest['conditionDetail'],
+          'rewardId': quest['rewardId'],
+          'rewardType': quest['rewardType'],
+        });
+      }
+    });
+  }
 }
 
 class UserWeaponsCollection extends BaseCollection {

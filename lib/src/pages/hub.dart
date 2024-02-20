@@ -14,19 +14,20 @@ import './map/map.dart';
 import 'package:arco_dev/src/pages/home.dart';
 
 class Hub extends StatefulWidget {
-  Hub({super.key});
+  const Hub({super.key, required this.uid});
 
-  final List<Widget> pages = const [
-    MapPage(),
-    HomePage(),
-    BackpackPage(),
-  ];
+  final String uid;
 
   @override
   State<Hub> createState() => _Hub();
 }
 
 class _Hub extends State<Hub> {
+  List<Widget> _pages() => [
+        MapPage(),
+        HomePage(uid: widget.uid),
+        BackpackPage(uid: widget.uid),
+      ];
   int pageIndex = 1;
   String serviceArco = "FA2DBDC2-409A-4DD3-95F6-698758FCCC0B";
   String characteristicArco = "20FF0003-4807-466E-971B-E4CA982055D3";
@@ -246,21 +247,9 @@ class _Hub extends State<Hub> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     appBar: AppBar(title: const Text("Battle Sample")),
-    //     body: Center(
-    //       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //         ElevatedButton(
-    //           onPressed: () {
-    //             Navigator.of(context).push(
-    //                 MaterialPageRoute(builder: (context) => BattlePage()));
-    //           },
-    //           child: const Text("Jump to the Battle Sample"),
-    //         )
-    //       ]),
-    //     ));
+    final pages = _pages();
     return Scaffold(
-      body: widget.pages[pageIndex],
+      body: pages[pageIndex],
       bottomNavigationBar: NavigationBar(
         destinations: <Widget>[
           const NavigationDestination(icon: Icon(Icons.map), label: "地図"),

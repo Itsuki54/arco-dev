@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/utils/database.dart';
 import "package:flutter/material.dart";
 // components
 import '../../components/common/child_appbar.dart';
@@ -6,13 +7,28 @@ import '../../components/backpack/backpack_content_chip.dart';
 import './item_info.dart';
 
 class ItemsPage extends StatefulWidget {
-  const ItemsPage({super.key});
+  const ItemsPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<ItemsPage> createState() => _ToolPage();
 }
 
 class _ToolPage extends State<ItemsPage> {
+  Database db = Database();
+  List<Map<String, dynamic>> items = [];
+
+  @override
+  void initState() {
+    super.initState();
+    db.userItemsCollection(widget.uid).all().then((value) {
+      setState(() {
+        items = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,23 +45,21 @@ class _ToolPage extends State<ItemsPage> {
               crossAxisCount: 3,
               crossAxisSpacing: 4,
               childAspectRatio: 0.7,
-              children: List.generate(32, (index) {
+              children: items.map((item) {
                 return BackpackContentChip(
-                  name: "アイテム名 $index",
-                  level: 32,
+                  name: item["description"],
                   icon:
                       const Icon(Icons.category, size: 45, color: Colors.white),
                   color: Colors.green.shade800,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ItemInfo(
-                              name: "煌火の玉",
-                              description:
-                                  "　煌火の玉は、神秘的な力を秘めた宝石である。その表面は燃え盛る炎のように輝き、中には無限の熱源が宿っていると伝えられている。持ち主が願いを込めることで、周囲の空間を暖かく照らし、また炎を発生させることができる。この玉は冒険者や魔術師にとって、夜間の旅路や冷たい場所での生存に不可欠な存在である。しかし、その力を過度に使うと、周囲に災厄を招くこともあると言われている。",
+                        builder: (context) => ItemInfo(
+                              name: item["description"],
+                              description: item["description"] ?? "説明がありません",
                             )));
                   },
                 );
-              }))),
+              }).toList())),
     );
   }
 }

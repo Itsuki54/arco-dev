@@ -64,8 +64,9 @@ class Place {
         vicinity: json['vicinity'],
         types: List<String>.from(json['types']),
         geometry: Geometry.fromJson(json['geometry']),
-        photos:
-            (json['photos'] as List).map((e) => Photo.fromJson(e)).toList());
+        photos: json['photos'] != null
+            ? (json['photos'] as List).map((e) => Photo.fromJson(e)).toList()
+            : null);
   }
 }
 
