@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/pages/tutorial/first_tutorial.dart';
 import 'package:arco_dev/src/pages/welcome/first_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return Hub(uid: FirebaseAuth.instance.currentUser!.uid);
             }
-            return const WelcomePage();
+            return const FirstTutorialPage();
           }),
     );
   }
