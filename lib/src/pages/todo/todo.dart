@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/button/filter_button.dart';
@@ -9,7 +10,8 @@ import '../../structs/quest.dart';
 import '../../components/common/exp_bar.dart';
 
 class ToDoPage extends StatefulWidget {
-  const ToDoPage({super.key});
+  const ToDoPage({Key? key, required this.uid}) : super(key: key);
+  final String uid;
   @override
   State<ToDoPage> createState() => _ToDoPageState();
 }
@@ -22,6 +24,7 @@ class _ToDoPageState extends State<ToDoPage> {
     受取り,
   */
   String filterState = "None";
+  Database db = Database();
 
   // FilterButtonの状態
   bool unfinished = false;
@@ -67,6 +70,19 @@ class _ToDoPageState extends State<ToDoPage> {
   int totalExp = 100;
   int currentExp = 30;
   int level = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('uid: ${widget.uid}');
+    db.userQuestsCollection(widget.uid).all().then((value) {
+      debugPrint('value: $value');
+      setState(() {
+        quests = value.map((e) => Quest.fromMap(e)).toList().cast<Quest>();
+        sortQuests();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

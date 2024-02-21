@@ -8,7 +8,7 @@ class Quest {
   final String rewardId;
   final String rewardType;
   final int point;
-  final int id;
+  final String id;
   final String state;
   final dynamic options;
 
@@ -26,4 +26,21 @@ class Quest {
     required this.state,
     required this.options,
   });
+
+  static fromMap(Map<String, dynamic> e) {
+    return Quest(
+      questId: e["questId"],
+      name: e["name"],
+      description: e["description"],
+      image: e["image"],
+      condition: e["condition"].cast<String>(),
+      conditionDescription: e["conditionDetail"] ?? "",
+      rewardId: e["rewardId"],
+      rewardType: e["rewardType"],
+      point: e["point"] ?? 0,
+      id: e["questId"],
+      state: e["state"] ?? "",
+      options: e["options"],
+    );
+  }
 }
