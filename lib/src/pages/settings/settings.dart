@@ -1,3 +1,5 @@
+import 'package:arco_dev/src/pages/welcome/signin_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // components
@@ -14,6 +16,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +36,39 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 42,
                   theme: const SvgTheme(currentColor: Colors.black)),
               nextPage: Scaffold(appBar: AppBar())),
+          Container(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                  onPressed: () {
+                    _auth.signOut().then((value) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const SignInPage()));
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  child: SizedBox(
+                      width: 250,
+                      height: 90,
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.logout,
+                            size: 40,
+                            color: Colors.red.shade400,
+                          ),
+                          const SizedBox(width: 16),
+                          Text("ログアウト",
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red.shade400)),
+                          const Expanded(child: SizedBox()),
+                          const Icon(Icons.arrow_forward_ios),
+                        ],
+                      )))),
           Container(
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
