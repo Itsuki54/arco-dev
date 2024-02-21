@@ -4,7 +4,9 @@ import 'package:arco_dev/src/pages/health/health_view_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required String uid}) : super(key: key);
+  const HomePage({Key? key, required this.uid}) : super(key: key);
+
+  final String uid;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +99,7 @@ class HomePage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const SettingsPage()));
+                                          SettingsPage(uid: uid)));
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
