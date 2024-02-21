@@ -30,7 +30,12 @@ class _ToDoPageState extends State<ToDoPage> {
   bool unfinished = false;
   bool receiption = false;
 
-  // 仮で置いているQuestデータ
+  // 表示用
+  int totalExp = 100;
+  int currentExp = 30;
+  int level = 1;
+
+  // Questデータ
   List<Quest> quests = [];
 
   // 表示用
@@ -66,10 +71,6 @@ class _ToDoPageState extends State<ToDoPage> {
       }
     });
   }
-
-  int totalExp = 100;
-  int currentExp = 30;
-  int level = 1;
 
   @override
   void initState() {
