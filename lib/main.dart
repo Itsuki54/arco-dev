@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import './src/utils/colors.dart';
 // pages
 import './src/pages/hub.dart';
+import 'package:arco_dev/src/pages/settings/profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: Hub());
+        //home: Hub());
+        home: ProfilePage());
   }
 }
