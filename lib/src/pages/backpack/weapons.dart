@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/utils/database.dart';
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
 // components
@@ -7,7 +8,9 @@ import '../../components/backpack/backpack_content_chip.dart';
 import './weapon_info.dart';
 
 class WeaponsPage extends StatefulWidget {
-  const WeaponsPage({super.key});
+  const WeaponsPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<WeaponsPage> createState() => _WeaponsPage();
@@ -16,6 +19,18 @@ class WeaponsPage extends StatefulWidget {
 class _WeaponsPage extends State<WeaponsPage> {
   SvgPicture swordsIcon = SvgPicture.asset("assets/images/swords.svg",
       width: 42, height: 42, theme: const SvgTheme(currentColor: Colors.black));
+  List<Map<String, dynamic>> weapons = [];
+  Database db = Database();
+
+  @override
+  void initState() {
+    super.initState();
+    db.userWeaponsCollection(widget.uid).all().then((value) {
+      setState(() {
+        weapons = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

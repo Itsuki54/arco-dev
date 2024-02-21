@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 // components
 import '../../components/button/simple_route_button.dart';
 // pages
-import '../settings/settings.dart';
 import './party.dart';
 import '../../components/common/ripples.dart';
 
 class BackpackPage extends StatefulWidget {
-  const BackpackPage({super.key});
+  const BackpackPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<BackpackPage> createState() => _BackpackPageState();
@@ -27,10 +28,10 @@ class _BackpackPageState extends State<BackpackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 30),
-      body: const Center(
+      body: Center(
         child: Column(children: [
-          SizedBox(height: 40),
-          Expanded(
+          const SizedBox(height: 40),
+          const Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -57,13 +58,13 @@ class _BackpackPageState extends State<BackpackPage> {
               ],
             ),
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           SimpleRouteButton(
             title: "編成",
-            icon: Icon(Icons.assignment_ind, size: 45),
-            nextPage: PartyPage(),
+            icon: const Icon(Icons.assignment_ind, size: 45),
+            nextPage: PartyPage(uid: widget.uid),
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
         ]),
       ),
     );
