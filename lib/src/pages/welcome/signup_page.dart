@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:arco_dev/src/pages/hub.dart';
+import 'package:arco_dev/src/pages/tutorial/first_tutorial.dart';
 import 'package:arco_dev/src/utils/colors.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
@@ -60,9 +58,10 @@ class _SignUpPageState extends State<SignUpPage> {
       'userId': _auth.currentUser!.uid,
     });
     Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => Hub(uid: _auth.currentUser!.uid)),
-    );
+        context,
+        MaterialPageRoute(
+          builder: (context) => FirstTutorialPage(uid: _auth.currentUser!.uid),
+        ));
   }
 
   Future<void> signUpWithEmailAndPassword() async {

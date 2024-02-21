@@ -2,9 +2,11 @@ import 'package:arco_dev/src/pages/welcome/signin_page.dart';
 import 'package:arco_dev/src/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-class FourthTutorialPage extends StatefulWidget {
-  const FourthTutorialPage({Key? key}) : super(key: key);
+import '../hub.dart';
 
+class FourthTutorialPage extends StatefulWidget {
+  const FourthTutorialPage({super.key, required this.uid});
+  final String uid;
   @override
   State<FourthTutorialPage> createState() => _FourthTutorialPageState();
 }
@@ -78,7 +80,7 @@ class _FourthTutorialPageState extends State<FourthTutorialPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SignInPage(),
+                    builder: (context) => Hub(uid: widget.uid),
                   ),
                 );
               },

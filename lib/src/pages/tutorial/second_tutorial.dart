@@ -3,7 +3,8 @@ import 'package:arco_dev/src/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class SecondTutorialPage extends StatefulWidget {
-  const SecondTutorialPage({Key? key}) : super(key: key);
+  const SecondTutorialPage({super.key, required this.uid});
+  final String uid;
 
   @override
   State<SecondTutorialPage> createState() => _SecondTutorialPageState();
@@ -78,7 +79,7 @@ class _SecondTutorialPageState extends State<SecondTutorialPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ThirdTutorialPage(),
+                    builder: (context) => ThirdTutorialPage(uid: widget.uid),
                   ),
                 );
               },
