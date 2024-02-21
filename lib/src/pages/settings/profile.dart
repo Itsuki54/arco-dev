@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 // components
 import '../../components/common/child_appbar.dart';
 // pages
-
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+// utils
+import 'package:arco_dev/src/utils/database.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key, required this.uid}) : super(key: key);
+  ProfilePage({Key? key, required this.uid}) : super(key: key);
 
   final String uid;
 
@@ -19,6 +20,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   File _image = File("assets/images/sample_icon.png");
   final picker = ImagePicker();
+
+  Database db = Database();
 
   // user info
   String userName = "guest";
@@ -102,7 +105,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        db
+                            .usersCollection()
+                            .update(widget.uid, {"name": userName});
+                      },
                       child: const Text("保存",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
@@ -124,6 +131,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           onChanged: (value) {
                             setState(() {
                               email = value;
+                              db
+                                  .usersCollection()
+                                  .update(widget.uid, {"email": email});
                             });
                           },
                           decoration: InputDecoration(
