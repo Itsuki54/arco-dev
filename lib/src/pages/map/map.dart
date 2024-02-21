@@ -157,9 +157,6 @@ class _MapPageState extends State<MapPage> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(4)))),
                           const SizedBox(height: 12),
-                          spot.photos!.isNotEmpty
-                              ? const SizedBox(height: 16)
-                              : const SizedBox(),
                           Text(spot.name!,
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold)),
