@@ -1,12 +1,11 @@
-import 'package:arco_dev/src/pages/tutorial/first_tutorial.dart';
+// pages
+import 'package:arco_dev/src/pages/hub.dart';
 import 'package:arco_dev/src/pages/welcome/first_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
-// pages
-import 'package:arco_dev/src/pages/hub.dart';
 
 import './firebase_options.dart';
 import './src/utils/colors.dart';
@@ -56,7 +55,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return Hub(uid: FirebaseAuth.instance.currentUser!.uid);
             }
-            return const FirstTutorialPage();
+            return const WelcomePage();
           }),
     );
   }
