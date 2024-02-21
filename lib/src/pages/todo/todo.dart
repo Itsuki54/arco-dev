@@ -135,58 +135,61 @@ class _ToDoPageState extends State<ToDoPage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    for (int i = 0; i < 3; i++)
-                      SingleChildScrollView(
-                          child: Column(
-                        children: [
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                  margin: const EdgeInsets.all(2),
-                                  child: OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
-                                        side: const BorderSide(width: 2.5)),
-                                    onPressed: () {},
-                                    child: const Icon(Icons.tune),
-                                  )),
-                              FilterButton(
-                                text: "未完了",
-                                color: Colors.red.shade300,
-                                state: unfinished,
-                                onPressed: () {
-                                  setState(() {
-                                    if (unfinished == false) {
-                                      transFilterState("未完了");
-                                    } else {
-                                      transFilterState("None");
-                                    }
-                                    sortQuests();
-                                  });
-                                },
-                              ),
-                              FilterButton(
-                                text: "受取り",
-                                color: Colors.yellow.shade800,
-                                state: receiption,
-                                onPressed: () {
-                                  setState(() {
-                                    if (receiption == false) {
-                                      transFilterState("受取り");
-                                    } else {
-                                      transFilterState("None");
-                                    }
-                                    sortQuests();
-                                  });
-                                },
-                              ),
-                            ],
+                    //for (int i = 0; i < 3; i++)
+                    SingleChildScrollView(
+                        child: Column(
+                      children: [
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                margin: const EdgeInsets.all(2),
+                                child: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                      side: const BorderSide(width: 2.5)),
+                                  onPressed: () {},
+                                  child: const Icon(Icons.tune),
+                                )),
+                            FilterButton(
+                              text: "未完了",
+                              color: Colors.red.shade300,
+                              state: unfinished,
+                              onPressed: () {
+                                setState(() {
+                                  if (unfinished == false) {
+                                    transFilterState("未完了");
+                                  } else {
+                                    transFilterState("None");
+                                  }
+                                  sortQuests();
+                                });
+                              },
+                            ),
+                            FilterButton(
+                              text: "受取り",
+                              color: Colors.yellow.shade800,
+                              state: receiption,
+                              onPressed: () {
+                                setState(() {
+                                  if (receiption == false) {
+                                    transFilterState("受取り");
+                                  } else {
+                                    transFilterState("None");
+                                  }
+                                  sortQuests();
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        for (int i = 0; i < displayedQuests.length; i++)
+                          QuestContent(
+                            quest: displayedQuests[i],
+                            uid: widget.uid,
                           ),
-                          for (int i = 0; i < displayedQuests.length; i++)
-                            QuestContent(quest: displayedQuests[i]),
-                        ],
-                      ))
+                      ],
+                    ))
                   ],
                 ),
               )

@@ -1,18 +1,21 @@
 // packages
 import 'package:flutter/material.dart';
+
+// structs
+import '../../structs/quest.dart';
 // components
 import 'quest_dialog.dart';
 import 'quest_state_chip.dart';
-// structs
-import '../../structs/quest.dart';
 
 class QuestContent extends StatefulWidget {
   const QuestContent({
     super.key,
     required this.quest,
+    required this.uid,
   });
 
   final Quest quest;
+  final String uid;
 
   @override
   State<QuestContent> createState() => _QuestContent();
@@ -34,8 +37,10 @@ class _QuestContent extends State<QuestContent> {
         onPressed: () {
           showDialog(
               context: context,
-              builder: (BuildContext context) =>
-                  QuestDialog(quest: widget.quest));
+              builder: (BuildContext context) => QuestDialog(
+                    quest: widget.quest,
+                    uid: widget.uid,
+                  ));
         },
         child: Container(
             padding: const EdgeInsets.all(2),

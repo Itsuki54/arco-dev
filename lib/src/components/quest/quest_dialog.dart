@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 import '../button/close_dialog_button.dart';
 // structs
 import '../../structs/quest.dart';
+import 'package:arco_dev/src/utils/database.dart';
 
 class QuestDialog extends StatelessWidget {
-  const QuestDialog({super.key, required this.quest});
+  QuestDialog({
+    super.key,
+    required this.quest,
+    required this.uid,
+  });
 
   final Quest quest;
+  final String uid;
+  Database db = Database();
 
   @override
   Widget build(BuildContext context) {
