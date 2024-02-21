@@ -43,9 +43,9 @@ class _SecondTutorialPageState extends State<SecondTutorialPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   SizedBox(
-                    width: 250,
+                    width: 240,
                     child: Image.asset('assets/images/second.png'),
                   ),
                 ],
