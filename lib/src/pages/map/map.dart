@@ -157,15 +157,6 @@ class _MapPageState extends State<MapPage> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(4)))),
                           const SizedBox(height: 12),
-                          spot.photos!.isNotEmpty
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${spot.photos![0].photoReference}&key=${dotenv.env["MAPS_API"]}"))
-                              : const SizedBox(),
-                          spot.photos!.isNotEmpty
-                              ? const SizedBox(height: 16)
-                              : const SizedBox(),
                           Text(spot.name!,
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold)),
