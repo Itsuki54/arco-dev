@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/*
+　本Widgetは、受け取ったStateに応じてその見た目を変えるものです
+　colorFromStateメソッドにstateを渡すことで、色が変わります
+  表示される文字は、stateの文字列そのままです
+*/
 class QuestStateChip extends StatelessWidget {
   QuestStateChip({super.key, this.state = "未完了"});
 
@@ -14,14 +19,12 @@ class QuestStateChip extends StatelessWidget {
   // 各状態の色を指定
   Color colorFromState(String state) {
     switch (state) {
-      case "未完了":
-        return Colors.red.shade300;
       case "受取り":
         return Colors.yellow.shade800;
       case "完了":
         return Colors.green.shade400;
       default:
-        return Colors.white;
+        return Colors.red.shade300;
     }
   }
 

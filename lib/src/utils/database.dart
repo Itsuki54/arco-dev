@@ -144,6 +144,7 @@ class UserQuestsCollection extends BaseCollection {
           'conditionDetail': quest['conditionDetail'],
           'rewardId': quest['rewardId'],
           'rewardType': quest['rewardType'],
+          'state': quest['state'],
         });
       }
     });
