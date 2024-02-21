@@ -8,7 +8,9 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key, required this.uid}) : super(key: key);
+
+  final String uid;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();

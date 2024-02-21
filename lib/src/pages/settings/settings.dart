@@ -26,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
           SimpleRouteButton(
               title: "プロフィール",
               icon: const Icon(Icons.person, size: 40),
-              nextPage: const ProfilePage()),
+              nextPage: ProfilePage(uid: widget.uid)),
           SimpleRouteButton(
               title: "戦闘",
               //icon: const Icon(Icons.grain, size: 45),
