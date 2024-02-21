@@ -49,6 +49,9 @@ dependencies:
   ble_peripheral: ^2.0.0
   flutter_reactive_ble: ^5.3.1
   image_picker: ^1.0.7
+  fl_chart: ^0.66.2
+  health: ^9.0.1
+  firebase_messaging: ^14.7.15
 
 dev_dependencies:
   flutter_test:

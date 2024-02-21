@@ -7,7 +7,9 @@ import '../../components/button/simple_route_button.dart';
 import 'profile.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  const SettingsPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();

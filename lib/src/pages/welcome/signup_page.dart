@@ -1,60 +1,27 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:arco_dev/src/pages/hub.dart';
+import 'package:arco_dev/src/utils/colors.dart';
+import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import './signin_page.dart';
 
-void main() {
-  runApp(const SignUpPage());
-}
-
 const googleIcon = 'assets/images/google.svg';
-Color backgroundColorGray = const Color(0xFF363636);
-Color fillColorGray = const Color(0xFF656565);
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: const ColorScheme.light(
-          primary: Colors.black,
-          secondary: Colors.black12,
-          surface: Colors.white,
-          background: Colors.white,
-          error: Colors.red,
-          onPrimary: Colors.white,
-          onSecondary: Colors.black,
-          onSurface: Colors.black,
-          onBackground: Colors.black,
-          onError: Colors.white,
-          brightness: Brightness.light,
-        ),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Sign Up'),
-    );
-  }
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  final Database db = Database();
   String email = '';
   String password = '';
   String confirmPassword = '';
@@ -83,6 +50,21 @@ class _MyHomePageState extends State<MyHomePage> {
     return await _auth.signInWithCredential(credential);
   }
 
+  Future<void> afterSignUp() async {
+    await db.usersCollection().createUser(_auth.currentUser!.uid, {
+      'email': email,
+      'createdAt': DateTime.now(),
+      'level': 1,
+      'name': 'New User',
+      'exp': 0.0,
+      'userId': _auth.currentUser!.uid,
+    });
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Hub(uid: _auth.currentUser!.uid)),
+    );
+  }
+
   Future<void> signUpWithEmailAndPassword() async {
     if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -95,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      afterSignUp();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -121,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColorGray,
-        body: ResponsiveLayout(
+        backgroundColor: AppColors.indigo,
+        body: SingleChildScrollView(
             child: Padding(
           padding: EdgeInsets.all(24),
           child: Column(children: [
@@ -131,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Sign Up',
+                      child: Text('登録',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 32,
@@ -139,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'and start your workout',
+                    'して運動を始めましょう',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
                       fontSize: 24,
@@ -165,8 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: fillColorGray,
-                        labelText: 'Email',
+                        fillColor: AppColors.lightIndigo,
+                        labelText: 'メールアドレス',
                         prefixIcon: Icon(Icons.mail),
                       ),
                     )),
@@ -187,8 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: fillColorGray,
-                        labelText: 'Password',
+                        fillColor: AppColors.lightIndigo,
+                        labelText: 'パスワード',
                         prefixIcon: Icon(Icons.key),
                         suffix: IconButton(
                           icon: Icon(
@@ -222,8 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: fillColorGray,
-                        labelText: 'Re-type Password',
+                        fillColor: AppColors.lightIndigo,
+                        labelText: 'パスワードを再入力',
                         prefixIcon: Icon(Icons.key),
                         suffix: IconButton(
                           icon: Icon(
@@ -237,25 +220,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     )),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Text('Forgot password',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
-                          fontSize: 20,
-                        ))),
                 SizedBox(height: 32),
                 SizedBox(
-                    height: 60,
+                    height: 52,
                     width: double.infinity,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(0))),
-                        child: Text('Sign Up',
+                        child: Text('登録',
                             style:
-                                TextStyle(color: Colors.white, fontSize: 24)),
+                                TextStyle(color: Colors.white, fontSize: 16)),
                         onPressed: () {
                           signUpWithEmailAndPassword();
                         })),
@@ -266,7 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(width: 40),
                     Text(
                       "OR",
-                      style: TextStyle(fontSize: 24, color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     SizedBox(width: 40),
                     Expanded(child: Divider(color: Colors.white)),
@@ -274,25 +250,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 SizedBox(height: 32),
                 SizedBox(
-                    height: 60,
+                    height: 52,
                     width: double.infinity,
                     child: ElevatedButton.icon(
                         icon: SvgPicture.asset(
                           'assets/images/google.svg',
-                          width: 40,
-                          height: 40,
+                          width: 32,
+                          height: 32,
                         ),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(0))),
-                        label: Text('Continue with Google',
+                        label: Text('Googleでログイン',
                             style:
-                                TextStyle(color: Colors.black, fontSize: 20)),
+                                TextStyle(color: Colors.black, fontSize: 16)),
                         onPressed: () {
                           signInWithGoogle().then((result) {
                             if (result != null) {
-                              // ログイン後の処理
+                              afterSignUp();
                             }
                           });
                         })),
@@ -300,10 +276,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                     child: Row(children: [
                   Text(
-                    'Already have an account?',
+                    'アカウントを持っていますか?',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
-                      fontSize: 20,
+                      fontSize: 16,
                     ),
                   ),
                   TextButton(
@@ -318,10 +294,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       overlayColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    child: Text('Sign In',
+                    child: Text('サインイン',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 16,
                         )),
                   )
                 ]))

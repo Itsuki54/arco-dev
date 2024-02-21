@@ -12,7 +12,9 @@ import '../../components/button/party_route_button.dart';
 import './character_info.dart';
 
 class PartyPage extends StatefulWidget {
-  const PartyPage({super.key});
+  const PartyPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<PartyPage> createState() => _PartyPage();
@@ -76,21 +78,21 @@ class _PartyPage extends State<PartyPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SquareRouteButton(
+                  SquareRouteButton(
                       title: "メンバー",
-                      icon: Icon(Icons.group, size: 45),
-                      nextPage: MembersPage()),
+                      icon: const Icon(Icons.group, size: 45),
+                      nextPage: MembersPage(uid: widget.uid)),
                   SquareRouteButton(
                       title: "武器",
                       icon: SvgPicture.asset("assets/images/swords.svg",
                           width: 42,
                           height: 42,
                           theme: SvgTheme(currentColor: AppColors.indigo)),
-                      nextPage: const WeaponsPage()),
-                  const SquareRouteButton(
+                      nextPage: WeaponsPage(uid: widget.uid)),
+                  SquareRouteButton(
                       title: "アイテム",
-                      icon: Icon(Icons.home_repair_service, size: 45),
-                      nextPage: ItemsPage()),
+                      icon: const Icon(Icons.home_repair_service, size: 45),
+                      nextPage: ItemsPage(uid: widget.uid)),
                 ],
               ),
             ),
