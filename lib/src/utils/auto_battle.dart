@@ -7,12 +7,14 @@ class AutoBattle {
   final String playerUid;
   final String? player2Uid;
   final Database database = Database();
+  final List<String> finalResult = [];
   // 敵のドキュメントIDリスト
   final List<String> enemies;
 
   AutoBattle(this.playerUid, this.player2Uid, this.enemies);
 
   Future<bool> start() async {
+    List<String> result = [];
     bool win = false;
     List<Map<String, dynamic>> playerCharacters =
         await database.userPartyCollection(playerUid).all();
@@ -36,17 +38,18 @@ class AutoBattle {
       if (player2Uid != null) {
         if (player2Characters!.isEmpty) {
           win = true;
-          await _win(playerUid, playerCharacters, player2Characters);
+          result += await _win(playerUid, playerCharacters, player2Characters);
           break;
         } else if (playerCharacters.isEmpty) {
           win = false;
-          await _win(player2Uid!, player2Characters, playerCharacters);
+          result +=
+              await _win(player2Uid!, player2Characters, playerCharacters);
           break;
         }
       } else {
         if (enemyCharacters!.isEmpty) {
           win = true;
-          await _win(playerUid, playerCharacters, enemyCharacters);
+          result += await _win(playerUid, playerCharacters, enemyCharacters);
           break;
         }
       }
@@ -57,17 +60,20 @@ class AutoBattle {
       }
 
       if (player2Uid != null) {
-        await _battle(playerCharacters, player2Characters!);
+        result += await _battle(playerCharacters, player2Characters!);
       } else {
-        await _battle(playerCharacters, enemyCharacters!);
+        result += await _battle(playerCharacters, enemyCharacters!);
       }
     }
-
+    finalResult.addAll(result);
     return win;
   }
 
-  Future<void> _win(String uid, List<Map<String, dynamic>> party,
+  Future<List<String>> _win(String uid, List<Map<String, dynamic>> party,
       List<Map<String, dynamic>> enemies) async {
+    List<String> result = [];
+    result
+        .add("${(await database.usersCollection().findById(uid))["name"]}の勝利！");
     num exp = 0;
     for (int i = 0; i < enemies.length; i++) {
       exp += (enemies[i]['level'] + enemies[i]['rarity'] * 2) * 10;
@@ -79,19 +85,24 @@ class AutoBattle {
     for (int i = 0; i < party.length; i++) {
       Map<String, dynamic> character = party[i];
       character['exp'] += exp;
+      result.add("${character['name']}は$expの経験値を得た");
       if (character['exp'] >=
           (character['level'] + character['rarity'] * 2) * 15) {
         character['level']++;
         character['exp'] = 0;
+        result.add("${character['name']}はレベルが上がった");
       }
       await database
           .userPartyCollection(uid)
           .update(character['id'], character);
     }
+
+    return result;
   }
 
-  Future<void> _battle(List<Map<String, dynamic>> playerCharacters,
+  Future<List<String>> _battle(List<Map<String, dynamic>> playerCharacters,
       List<Map<String, dynamic>> enemyCharacters) async {
+    List<String> result = [];
     Random random = Random();
     for (int i = 0; i < playerCharacters.length; i++) {
       Map<String, dynamic> playerCharacter = playerCharacters[i];
@@ -104,17 +115,24 @@ class AutoBattle {
       int enemyDamage =
           enemyCharacter['status']['atk'] - playerCharacter['status']['def'];
       if (playerDamage > 0) {
+        result.add(
+            "${playerCharacter['name']}は${enemyCharacter['name']}に$playerDamageのダメージを与えた");
         enemyCharacter['hp'] -= playerDamage;
       }
       if (enemyDamage > 0) {
+        result.add(
+            "${enemyCharacter['name']}は${playerCharacter['name']}に$enemyDamageのダメージを与えた");
         playerCharacter['hp'] -= enemyDamage;
       }
       if (enemyCharacter['hp'] <= 0) {
+        result.add("${enemyCharacter['name']}は倒れた");
         enemyCharacters.removeAt(i);
       }
       if (playerCharacter['hp'] <= 0) {
+        result.add("${playerCharacter['name']}は倒れた");
         playerCharacters.removeAt(i);
       }
     }
+    return result;
   }
 }
