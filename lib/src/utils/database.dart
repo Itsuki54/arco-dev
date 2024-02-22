@@ -34,10 +34,11 @@ class BaseCollection {
 
   Future<Map<String, dynamic>> findById(String id) {
     return collection.doc(id).get().then((doc) {
-      if (doc.exists)
+      if (doc.exists) {
         return getDataFromDocumentData(doc);
-      else
+      } else {
         return {};
+      }
     });
   }
 

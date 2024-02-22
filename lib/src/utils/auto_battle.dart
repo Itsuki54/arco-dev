@@ -10,7 +10,7 @@ class AutoBattle {
   final List<String> finalResult = [];
   // 敵のドキュメントIDリスト
   final List<String> enemies;
-  num finalExp = 0;
+  List<num> finalExp = [];
 
   AutoBattle(this.playerUid, this.player2Uid, this.enemies);
 
@@ -82,11 +82,11 @@ class AutoBattle {
     await database
         .usersCollection()
         .update(uid, {'exp': FieldValue.increment(exp)});
-    finalExp = exp;
 
     for (int i = 0; i < party.length; i++) {
       Map<String, dynamic> character = party[i];
       character['exp'] += exp;
+      finalExp.add(character['exp']);
       result.add("${character['name']}は$expの経験値を得た");
       if (character['exp'] >=
           (character['level'] + character['rarity'] * 2) * 15) {
