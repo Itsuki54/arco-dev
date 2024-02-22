@@ -42,6 +42,13 @@ class _SettingsPageState extends State<SettingsPage> {
               title: "チュートリアル",
               icon: const Icon(Icons.person, size: 40),
               nextPage: FirstTutorialPage(uid: widget.uid)),
+          const SimpleRouteButton(
+              title: "ライセンス",
+              icon: Icon(Icons.account_balance, size: 40),
+              nextPage: LicensePage(
+                  applicationName: "アルコ",
+                  applicationVersion: "1.0.0",
+                  applicationLegalese: "© 2024 和塗り")),
           Container(
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
