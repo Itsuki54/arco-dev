@@ -1,7 +1,6 @@
-import 'package:arco_dev/src/components/battle/battle-log.dart';
+import 'package:arco_dev/src/pages/health/health_view_page.dart';
 import 'package:arco_dev/src/pages/settings/settings.dart';
 import 'package:arco_dev/src/pages/todo/todo.dart';
-import 'package:arco_dev/src/pages/health/health_view_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -68,21 +67,6 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 20),
             Row(
               children: [
-                ElevatedButton(
-                  child: Text("Battle Log"),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BattleLog(
-                            log: ["test1", "test2"],
-                            expLog: ["1", "2"],
-                            party: ["test1", "test2"],
-                            win: true);
-                      },
-                    );
-                  },
-                ),
                 Expanded(
                     child: SizedBox(
                         height: 120,
