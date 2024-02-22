@@ -11,6 +11,7 @@ class Quest {
   final String id;
   final String state;
   final dynamic options;
+  final String frequency;
 
   Quest({
     required this.questId,
@@ -25,6 +26,7 @@ class Quest {
     required this.id,
     required this.state,
     required this.options,
+    required this.frequency,
   });
 
   static fromMap(Map<String, dynamic> e) {
@@ -41,6 +43,7 @@ class Quest {
       id: e["questId"],
       state: e["state"] ?? "",
       options: e["options"],
+      frequency: e["frequency"],
     );
   }
 }

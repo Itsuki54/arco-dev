@@ -139,7 +139,11 @@ class _Hub extends State<Hub> {
   }
 
   Future<void> stopAdvertising() async {
-    await bp.BlePeripheral.stopAdvertising();
+    try {
+      await bp.BlePeripheral.stopAdvertising();
+    } catch (e) {
+      debugPrint('Failed to stop advertising: $e');
+    }
   }
 
   Future<void> readUid(DiscoveredDevice device) async {
@@ -233,11 +237,8 @@ class _Hub extends State<Hub> {
 
   @override
   void dispose() {
-    stopAdvertising().then(
-      (value) {
-        super.dispose();
-      },
-    );
+    stopAdvertising();
+    super.dispose();
   }
 
   Future<void> checkAdvertising() async {
