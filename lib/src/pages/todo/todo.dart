@@ -152,7 +152,6 @@ class _ToDoPageState extends State<ToDoPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(height: 16),
                   Text(
                     "レベル: $level",
                     style: TextStyle(
@@ -172,7 +171,7 @@ class _ToDoPageState extends State<ToDoPage> {
                 ],
               ),
               ExpBar(
-                width: 300,
+                width: 280,
                 height: 20,
                 color: Colors.green,
                 expValue: (currentExp / totalExp),
