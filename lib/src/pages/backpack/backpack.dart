@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 // components
-import '../../components/simple_route_button.dart';
+import '../../components/button/simple_route_button.dart';
+import '../../components/common/ripples.dart';
 // pages
-import '../settings/settings.dart';
 import './party.dart';
-import './members.dart';
-import './items.dart';
-import './weapons.dart';
 
 class BackpackPage extends StatefulWidget {
-  const BackpackPage({super.key});
+  const BackpackPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<BackpackPage> createState() => _BackpackPageState();
@@ -31,41 +30,43 @@ class _BackpackPageState extends State<BackpackPage> {
       appBar: AppBar(toolbarHeight: 30),
       body: Center(
         child: Column(children: [
-          const SimpleRouteButton(
-            title: "Party",
-            icon: Icon(Icons.assignment_ind, size: 45),
-            nextPage: PartyPage(),
+          const SizedBox(height: 40),
+          const Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Align(
+                        alignment: Alignment(0, 0),
+                        child: SizedBox(
+                            height: 250, width: 250, child: WaterRipple())),
+                    Align(
+                        alignment: Alignment(0, 0),
+                        child: Icon(
+                          Icons.bluetooth,
+                          size: 120,
+                        )),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(
+                  "探索中...",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
-          const SimpleRouteButton(
-            title: "Members",
-            icon: Icon(Icons.group, size: 45),
-            nextPage: MembersPage(),
-          ),
+          const SizedBox(height: 40),
           SimpleRouteButton(
-            title: "Weapons",
-            icon: SvgPicture.asset("assets/images/swords.svg",
-                width: 42,
-                height: 42,
-                theme: const SvgTheme(currentColor: Colors.black)),
-            nextPage: WeaponsPage(),
+            title: "編成",
+            icon: const Icon(Icons.assignment_ind, size: 45),
+            nextPage: PartyPage(uid: widget.uid),
           ),
-          const SimpleRouteButton(
-            title: "Items",
-            icon: Icon(Icons.home_repair_service, size: 45),
-            nextPage: ItemsPage(),
-          )
+          const SizedBox(height: 40),
         ]),
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: FloatingActionButton(
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SettingsPage()));
-        },
-        child: const Icon(Icons.settings),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

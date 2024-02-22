@@ -1,0 +1,338 @@
+[
+  {
+    "description": "凶暴な肉食動物を飼育している飼育員。愛猫のライオンちゃんにお肉を食べさせるのが大好き。園長をいつか、餌にしたいと思っている。",
+    "image": "ENEMY_ICONS/FerociousKeeper.png",
+    "job": "Attacker",
+    "level": 15,
+    "name": "陰気な飼育員",
+    "rarity": 3,
+    "status": {
+      "atk": 13,
+      "def": 8,
+      "hp": 10,
+      "spd": 9
+    }
+  },
+  {
+    "description": "苦情対応で、ぐれてしまった駅員さん。駆け込み乗車は、大阪まで引きずるのがお好き。",
+    "image": "ENEMY_ICONS/StationStaff.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "ぽっぽやさん",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "マッチ遊びが好きで、消防士になってしまった。自分で火をつけて、消しにいくのが趣味。",
+    "image": "ENEMY_ICONS/BraveFirefighter.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "炎点啓太",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 4,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "地元のツッパリが、なぜかそのまま警察官になった。本人は取り締まっているつもりだけれど、ちょっと方向性が違うらしい。",
+    "image": "ENEMY_ICONS/DedicatedPolice.png",
+    "job": "Attacker",
+    "level": 5,
+    "name": "オイコラ",
+    "rarity": 1,
+    "status": {
+      "atk": 6,
+      "def": 5,
+      "hp": 4,
+      "spd": 5
+    }
+  },
+  {
+    "description": "おやじから電気屋を受け継いだ。商店街の意向に反し、日夜コンピュータウイルスを作るのにハマっている。高くてアブナイ家電を取り扱っているらしい。",
+    "image": "ENEMY_ICONS/ColdElectron.png",
+    "job": "Attacker",
+    "level": 0,
+    "name": "冷島電気店店主",
+    "rarity": 0,
+    "status": {
+      "atk": 4,
+      "def": 2,
+      "hp": 2,
+      "spd": 2
+    }
+  },
+  {
+    "description": "昔は有名だった時代劇俳優。侍を演じすぎて、普段から刀を持ち歩いている。斬り捨て御免にご用心。",
+    "image": "ENEMY_ICONS/FamousActor.png",
+    "job": "Attacker",
+    "level": 0,
+    "name": "チャンバラさん",
+    "rarity": 0,
+    "status": {
+      "atk": 4,
+      "def": 1,
+      "hp": 2,
+      "spd": 3
+    }
+  },
+  {
+    "description": "元ボディビルダー。生徒を筋肉だらけにするのを生きがいとしているも、受講者がみんな病院行きになってしまうのを不思議がっている。",
+    "image": "ENEMY_ICONS/SteelTrainer.png",
+    "job": "Tank",
+    "level": 5,
+    "name": "筋肉佐藤",
+    "rarity": 1,
+    "status": {
+      "atk": 5,
+      "def": 8,
+      "hp": 6,
+      "spd": 1
+    }
+  },
+  {
+    "description": "先祖代々続く老舗工務店のせがれ。本当はパティシエになりたかったらしい。仕事の鬱憤を、タワマンの破壊で解消している。",
+    "image": "ENEMY_ICONS/SkilledCarpenter.png",
+    "job": "Tank",
+    "level": 1,
+    "name": "甘党のとび工",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 2,
+      "spd": 5
+    }
+  },
+  {
+    "description": "六法全書は三歳からの愛読書。どんな案件でも、ねちねちして通してしまう。",
+    "image": "ENEMY_ICONS/LawfulLawyer.png",
+    "job": "Tank",
+    "level": 5,
+    "name": "ねちねちさん",
+    "rarity": 1,
+    "status": {
+      "atk": 6,
+      "def": 10,
+      "hp": 8,
+      "spd": 6
+    }
+  },
+  {
+    "description": "さわやか教団付属小学校の先生。話した人はみんなさわやかになってしまう。さわやか教団のトップになって、世界征服するのが野望。",
+    "image": "ENEMY_ICONS/ProtectiveTeacher.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "さわやか先生",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 3,
+      "hp": 3,
+      "spd": 3
+    }
+  },
+  {
+    "description": "元カノが忘れられない配達員。人の恋文に加筆して、赤い糸を切るのを日課としている。",
+    "image": "ENEMY_ICONS/WorldlyCourier.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "真っ赤なポストマン",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 4,
+      "hp": 2,
+      "spd": 3
+    }
+  },
+  {
+    "description": "タイヤのキャラクターを志望するも、オーディションに落ちてしまった。次はドーナツ店のキャラクターを狙っている。",
+    "image": "ENEMY_ICONS/ProfessionalTireMan.png",
+    "job": "Tank",
+    "level": 0,
+    "name": "シュミランマン",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 5,
+      "hp": 1,
+      "spd": 3
+    }
+  },
+  {
+    "description": "第一次世界大戦の空中戦に憧れてパイロットになった。ジャンボ旅客機で宙返りをするので、マニアに人気らしい。",
+    "image": "ENEMY_ICONS/AdventurousPilot.png",
+    "job": "Wizard",
+    "level": 15,
+    "name": "アクロバットパイロット",
+    "rarity": 3,
+    "status": {
+      "atk": 15,
+      "def": 7,
+      "hp": 11,
+      "spd": 9
+    }
+  },
+  {
+    "description": "お金を貸しすぎて、半返しにしてしまう。札束チョップが強いと有名。必殺技は、公定歩合操作。",
+    "image": "ENEMY_ICONS/BankGuardian.png",
+    "job": "Wizard",
+    "level": 10,
+    "name": "半返し銀行員",
+    "rarity": 1,
+    "status": {
+      "atk": 7,
+      "def": 6,
+      "hp": 4,
+      "spd": 3
+    }
+  },
+  {
+    "description": "キセルでたばこを吸うのがこだわり。税金を搾り取るのは当然と考えている。役所の食堂のメニューにうるさい",
+    "image": "ENEMY_ICONS/DutifulOfficial.png",
+    "job": "Wizard",
+    "level": 5,
+    "name": "悪役役人",
+    "rarity": 1,
+    "status": {
+      "atk": 4,
+      "def": 5,
+      "hp": 7,
+      "spd": 4
+    }
+  },
+  {
+    "description": "本を操り、邪悪な知識を広める。彼のせいで、地元の小学校は邪悪になってしまった。ブレインウォッシュを研究している。",
+    "image": "ENEMY_ICONS/BookishLibrarian.png",
+    "job": "Wizard",
+    "level": 5,
+    "name": "邪悪司書",
+    "rarity": 1,
+    "status": {
+      "atk": 8,
+      "def": 4,
+      "hp": 3,
+      "spd": 5
+    }
+  },
+  {
+    "description": "キーに触れずに一桁多い数字を打ち込む、レジ打ちの魔術師。最近は、仮想通貨を操作する魔術を考えている。",
+    "image": "ENEMY_ICONS/Casher.png",
+    "job": "Wizard",
+    "level": 0,
+    "name": "悪レジ打ち",
+    "rarity": 0,
+    "status": {
+      "atk": 1,
+      "def": 3,
+      "hp": 2,
+      "spd": 4
+    }
+  },
+  {
+    "description": "明るいところが怖いらしく、窓を全部閉ざしてしまう。そのおかげで吸血鬼と仲が良く、人間のお客を積極的に提供している。",
+    "image": "ENEMY_ICONS/Hotelman.png",
+    "job": "Wizard",
+    "level": 0,
+    "name": "眺めの悪いホテルマン",
+    "rarity": 0,
+    "status": {
+      "atk": 3,
+      "def": 3,
+      "hp": 2,
+      "spd": 2
+    }
+  },
+  {
+    "description": "良くない悟りを開いてしまったお坊さん。お地蔵さんを一人ずつよくない悟りで包んでいる。",
+    "image": "ENEMY_ICONS/Monk.png",
+    "job": "Healer",
+    "level": 10,
+    "name": "良くない僧侶",
+    "rarity": 10,
+    "status": {
+      "atk": 10,
+      "def": 5,
+      "hp": 7,
+      "spd": 8
+    }
+  },
+  {
+    "description": "庭仕事のかたわら、外科手術に励んでいる。手術同好会の副会長で、通行人を手術するのが好き。",
+    "image": "ENEMY_ICONS/Docter.png",
+    "job": "Healer",
+    "level": 10,
+    "name": "やぶ医者",
+    "rarity": 2,
+    "status": {
+      "atk": 15,
+      "def": 5,
+      "hp": 6,
+      "spd": 4
+    }
+  },
+  {
+    "description": "野の町フランスパークで三年間修行に励んだ。自家製野菜を使った料理が多く、外国のブローカーやバイヤーが店に多く詰め寄せる。",
+    "image": "ENEMY_ICONS/Cock.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "おふらんすシェフ",
+    "rarity": 0,
+    "status": {
+      "atk": 3,
+      "def": 2,
+      "hp": 1,
+      "spd": 2
+    }
+  },
+  {
+    "description": "試食を利用し、毒を広める試食販売員。実はスーパーに雇われておらず、趣味でやっている。正社員になるのが夢。",
+    "image": "ENEMY_ICONS/Tasting.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "毒食販売員",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 2,
+      "hp": 2,
+      "spd": 4
+    }
+  },
+  {
+    "description": "おいしいコーヒーを装い、悪事を働くバリスタ。コーヒーの深みが出るのだという。SNSで有名。",
+    "image": "ENEMY_ICONS/Barista.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "わるいバリスタ",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 3,
+      "hp": 3,
+      "spd": 2
+    }
+  },
+  {
+    "description": "美しい髪の人を見ると、つるつるにしてしまう。自宅に髪のコレクションがあり、気が向くと呪いをかけたりする。シャンプーの腕は良いらしい。",
+    "image": "ENEMY_ICONS/Hairdresser.png",
+    "job": "Healer",
+    "level": 0,
+    "name": "つるつる美容師",
+    "rarity": 0,
+    "status": {
+      "atk": 2,
+      "def": 4,
+      "hp": 2,
+      "spd": 2
+    }
+  }
+]

@@ -42,8 +42,17 @@ dependencies:
   location: ^5.0.3
   permission_handler: ^11.2.1
   flutter_dotenv: ^5.1.0
+  audioplayers: ^5.2.1
   google_sign_in: ^6.2.1
+  google_fonts: ^6.1.0
+  device_info_plus: ^9.1.2
+  ble_peripheral: ^2.0.0
+  flutter_reactive_ble: ^5.3.1
+  image_picker: ^1.0.7
+  fl_chart: ^0.66.2
   health: ^9.0.1
+  firebase_messaging: ^14.7.15
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +77,7 @@ flutter:
   assets:
     - assets/images/
     - assets/markers/
+    - assets/sounds/battle/
     - .env
   # To add assets to your application, add an assets section, like this:
   # assets:

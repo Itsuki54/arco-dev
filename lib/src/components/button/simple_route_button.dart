@@ -28,14 +28,14 @@ class SimpleRouteButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10))),
             child: SizedBox(
                 width: 250,
-                height: 110,
+                height: 90,
                 child: Row(
                   children: [
                     icon,
-                    const SizedBox(width: 32),
+                    const SizedBox(width: 16),
                     Text(title,
                         style: const TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.bold)),
+                            fontSize: 24, fontWeight: FontWeight.bold)),
                     const Expanded(child: SizedBox()),
                     const Icon(Icons.arrow_forward_ios),
                   ],

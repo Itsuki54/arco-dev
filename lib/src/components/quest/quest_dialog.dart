@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 // components
-import 'close_dialog_button.dart';
+import '../button/close_dialog_button.dart';
 // structs
-import '../structs/quest.dart';
+import '../../structs/quest.dart';
+import 'package:arco_dev/src/utils/database.dart';
 
 class QuestDialog extends StatelessWidget {
-  const QuestDialog({super.key, required this.quest});
+  QuestDialog({
+    super.key,
+    required this.quest,
+    required this.uid,
+    required this.onChanged,
+  });
 
+  // parameters
   final Quest quest;
+  final String uid;
+  final VoidCallback onChanged;
+
+  // database
+  Database db = Database();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +42,15 @@ class QuestDialog extends StatelessWidget {
         SizedBox(
             width: 500,
             child: ElevatedButton(
-                onPressed: quest.state == "受取り" ? () {} : null,
+                onPressed: quest.state == "受取り"
+                    ? () {
+                        db
+                            .userQuestsCollection(uid)
+                            .update("id2", {"state": "完了"});
+                        onChanged();
+                        Navigator.of(context).pop(quest.point);
+                      }
+                    : null,
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.yellow.shade800),
                 child: Text("${quest.point} pointを受け取る",

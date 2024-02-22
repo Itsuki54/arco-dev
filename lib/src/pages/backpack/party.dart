@@ -1,12 +1,20 @@
+import 'package:arco_dev/src/pages/backpack/items.dart';
+import 'package:arco_dev/src/pages/backpack/members.dart';
+import 'package:arco_dev/src/pages/backpack/weapons.dart';
+import 'package:arco_dev/src/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 // components
-import '../../components/child_appbar.dart';
-import '../../components/party_route_button.dart';
+import '../../components/button/square_route_button.dart';
+import '../../components/common/child_appbar.dart';
+import '../../components/button/party_route_button.dart';
 // pages
 import './character_info.dart';
 
 class PartyPage extends StatefulWidget {
-  const PartyPage({super.key});
+  const PartyPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<PartyPage> createState() => _PartyPage();
@@ -60,11 +68,35 @@ class _PartyPage extends State<PartyPage> {
             size: 42,
             color: Colors.black,
           ),
-          title: "Party"),
+          title: "編成"),
       body: Center(
         child: Column(
           children: [
             const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SquareRouteButton(
+                      title: "メンバー",
+                      icon: const Icon(Icons.group, size: 45),
+                      nextPage: MembersPage(uid: widget.uid)),
+                  SquareRouteButton(
+                      title: "武器",
+                      icon: SvgPicture.asset("assets/images/swords.svg",
+                          width: 42,
+                          height: 42,
+                          theme: SvgTheme(currentColor: AppColors.indigo)),
+                      nextPage: WeaponsPage(uid: widget.uid)),
+                  SquareRouteButton(
+                      title: "アイテム",
+                      icon: const Icon(Icons.home_repair_service, size: 45),
+                      nextPage: ItemsPage(uid: widget.uid)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
             for (int i = 0; i < characters.length; i++)
               PartyRouteButton(
                 title: characters[i].name,
