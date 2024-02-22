@@ -170,9 +170,16 @@ class _MapPageState extends State<MapPage> {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.black,
                                       foregroundColor: Colors.white),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                                  onPressed: SpotGet().isNear(
+                                    spot.geometry!.location.lat,
+                                    spot.geometry!.location.lng,
+                                    _myPosition.latitude,
+                                    _myPosition.longitude,
+                                  )
+                                      ? () {
+                                          Navigator.pop(context);
+                                        }
+                                      : null,
                                   child: const Text("閉じる")))
                         ],
                       ));

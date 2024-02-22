@@ -4,23 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class SpotGet {
-  SpotGet({
-    required this.latitude,
-    required this.longitude,
-  });
-
-  final double latitude;
-  final double longitude;
   late GoogleMapController mapController;
   late LocationData currentLocation;
   late Location location;
-
-  double Nowlatitude = 0;
-  double Nowlongitude = 0;
-  void getNowLocation() async {
-    location = Location();
-    currentLocation = await location.getLocation();
-  }
 
   double distanceBetween(double lat1, double lon1, double lat2, double lon2) {
     var p = 0.017453292519943295;
