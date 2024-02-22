@@ -136,6 +136,53 @@ class UserQuestsCollection extends BaseCollection {
     return QuestsCollection(firestore).all().then((quests) {
       for (var quest in quests) {
         set(quest['questId'], {
+          'frequency': quest['frequency'],
+          'questId': quest['questId'],
+          'image': quest['image'],
+          'name': quest['name'],
+          'description': quest['description'],
+          'condition': quest['condition'],
+          'conditionDetail': quest['conditionDetail'],
+          'rewardId': quest['rewardId'],
+          'rewardType': quest['rewardType'],
+          'state': quest['state'],
+        });
+      }
+    });
+  }
+
+  Future<void> copyDailyQuestsFromQuestsCollection(String uid) {
+    return QuestsCollection(firestore).getByQuery({
+      'type': 'isEqualTo',
+      'field': 'frequency',
+      'value': 'daily'
+    }).then((quests) {
+      for (var quest in quests) {
+        set(quest['questId'], {
+          'frequency': 'daily',
+          'questId': quest['questId'],
+          'image': quest['image'],
+          'name': quest['name'],
+          'description': quest['description'],
+          'condition': quest['condition'],
+          'conditionDetail': quest['conditionDetail'],
+          'rewardId': quest['rewardId'],
+          'rewardType': quest['rewardType'],
+          'state': quest['state'],
+        });
+      }
+    });
+  }
+
+  Future<void> copyWeeklyQuestsFromQuestsCollection(String uid) {
+    return QuestsCollection(firestore).getByQuery({
+      'type': 'isEqualTo',
+      'field': 'frequency',
+      'value': 'weekly'
+    }).then((quests) {
+      for (var quest in quests) {
+        set(quest['questId'], {
+          'frequency': 'weekly',
           'questId': quest['questId'],
           'image': quest['image'],
           'name': quest['name'],
