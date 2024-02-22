@@ -73,8 +73,8 @@ class AutoBattle {
   Future<List<String>> _win(String uid, List<Map<String, dynamic>> party,
       List<Map<String, dynamic>> enemies) async {
     List<String> result = [];
-    result
-        .add("${(await database.usersCollection().findById(uid))["name"]}の勝利！");
+    final user = await database.usersCollection().findById(uid);
+    result.add("${user["name"]}の勝利！");
     num exp = 0;
     for (int i = 0; i < enemies.length; i++) {
       exp += (enemies[i]['level'] + enemies[i]['rarity'] * 2) * 10;
@@ -82,7 +82,12 @@ class AutoBattle {
     await database
         .usersCollection()
         .update(uid, {'exp': FieldValue.increment(exp)});
-
+    if (user['exp'] + exp >= user['level'] * 50) {
+      await database
+          .usersCollection()
+          .update(uid, {'level': FieldValue.increment(1)});
+      result.add("${user["name"]}はレベルが上がった");
+    }
     for (int i = 0; i < party.length; i++) {
       Map<String, dynamic> character = party[i];
       character['exp'] += exp;
