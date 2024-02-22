@@ -1,6 +1,8 @@
 import 'package:arco_dev/src/utils/database.dart';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AutoBattle {
   final String playerUid;
   final String? player2Uid;
@@ -34,11 +36,17 @@ class AutoBattle {
       if (player2Uid != null) {
         if (player2Characters!.isEmpty) {
           win = true;
+          await _win(playerUid, playerCharacters, player2Characters);
+          break;
+        } else if (playerCharacters.isEmpty) {
+          win = false;
+          await _win(player2Uid!, player2Characters, playerCharacters);
           break;
         }
       } else {
         if (enemyCharacters!.isEmpty) {
           win = true;
+          await _win(playerUid, playerCharacters, enemyCharacters);
           break;
         }
       }
@@ -56,6 +64,30 @@ class AutoBattle {
     }
 
     return win;
+  }
+
+  Future<void> _win(String uid, List<Map<String, dynamic>> party,
+      List<Map<String, dynamic>> enemies) async {
+    num exp = 0;
+    for (int i = 0; i < enemies.length; i++) {
+      exp += (enemies[i]['level'] + enemies[i]['rarity'] * 2) * 10;
+    }
+    await database
+        .usersCollection()
+        .update(uid, {'exp': FieldValue.increment(exp)});
+
+    for (int i = 0; i < party.length; i++) {
+      Map<String, dynamic> character = party[i];
+      character['exp'] += exp;
+      if (character['exp'] >=
+          (character['level'] + character['rarity'] * 2) * 15) {
+        character['level']++;
+        character['exp'] = 0;
+      }
+      await database
+          .userPartyCollection(uid)
+          .update(character['id'], character);
+    }
   }
 
   Future<void> _battle(List<Map<String, dynamic>> playerCharacters,
