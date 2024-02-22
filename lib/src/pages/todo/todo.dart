@@ -169,17 +169,6 @@ class _ToDoPageState extends State<ToDoPage> {
                       color: Colors.indigo.shade900,
                     ),
                   ),
-                  //IconButton(
-                  //    onPressed: () {
-                  //      setState(() {
-                  //        db
-                  //            .userQuestsCollection(widget.uid)
-                  //            .copyFromQuestsCollection();
-                  //        getQuests();
-                  //        print("push");
-                  //      });
-                  //    },
-                  //    icon: const Icon(Icons.radar)),
                 ],
               ),
               ExpBar(
