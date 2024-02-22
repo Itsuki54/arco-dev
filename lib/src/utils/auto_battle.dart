@@ -110,10 +110,12 @@ class AutoBattle {
       Map<String, dynamic> enemyCharacter =
           enemyCharacters[random.nextInt(enemyCharacters.length)];
       // アルテリオス計算式
-      int playerDamage =
-          playerCharacter['status']['atk'] - enemyCharacter['status']['def'];
-      int enemyDamage =
-          enemyCharacter['status']['atk'] - playerCharacter['status']['def'];
+      int playerDamage = (playerCharacter['status']['atk'] *
+              playerCharacter['status']['spd']) -
+          (enemyCharacter['status']['def'] * enemyCharacter['status']['spd']);
+      int enemyDamage = (enemyCharacter['status']['atk'] *
+              enemyCharacter['status']['spd']) -
+          (playerCharacter['status']['def'] * playerCharacter['status']['spd']);
       if (playerDamage > 0) {
         result.add(
             "${playerCharacter['name']}は${enemyCharacter['name']}に$playerDamageのダメージを与えた");
