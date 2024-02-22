@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar:
           const ChildAppBar(title: "設定", icon: Icon(Icons.settings, size: 40)),
       body: SingleChildScrollView(
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           SimpleRouteButton(
               title: "プロフィール",
               icon: const Icon(Icons.person, size: 40),
