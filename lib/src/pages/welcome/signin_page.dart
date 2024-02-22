@@ -28,7 +28,7 @@ class _SignInPageState extends State<SignInPage> {
   String password = '';
   bool visible = false;
 
-  Future<void> afterSignUp() async {
+  Future<bool> afterSignUp() async {
     if (await db.usersCollection().findById(_auth.currentUser!.uid) == {}) {
       await db.usersCollection().createUser(_auth.currentUser!.uid, {
         'email': _auth.currentUser!.email,
@@ -41,14 +41,9 @@ class _SignInPageState extends State<SignInPage> {
       await db
           .userQuestsCollection(_auth.currentUser!.uid)
           .copyFromQuestsCollection();
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                FirstTutorialPage(uid: _auth.currentUser!.uid),
-          ));
-      ;
+      return true;
     }
+    return false;
   }
 
   Future<UserCredential?> signInWithGoogle() async {
@@ -257,12 +252,22 @@ class _SignInPageState extends State<SignInPage> {
                           signInWithGoogle().then((result) {
                             if (result != null) {
                               afterSignUp().then((value) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Hub(uid: _auth.currentUser!.uid)),
-                                );
+                                if (value) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FirstTutorialPage(
+                                            uid: _auth.currentUser!.uid),
+                                      ));
+                                  ;
+                                } else {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Hub(uid: _auth.currentUser!.uid)),
+                                  );
+                                }
                               });
                             }
                           });
