@@ -1,9 +1,7 @@
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
-
-import '../../components/button/filter_button.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 // components
+import '../../components/button/filter_button.dart';
 import '../../components/quest/quest_content.dart';
 // structs
 import '../../structs/quest.dart';
@@ -69,14 +67,21 @@ class _ToDoPageState extends State<ToDoPage> {
             .where((Quest quest) =>
                 (quest.state == filterState && quest.frequency == "daily"))
             .toList();
+        //(quest.state == filterState)).toList();
       } else {
         List<Quest> acceptedQuests, unfinishedQuests, finishedQuests;
-        acceptedQuests =
-            quests.where((Quest quest) => (quest.state == "受取り")).toList();
-        unfinishedQuests =
-            quests.where((Quest quest) => (quest.state == "未完了")).toList();
-        finishedQuests =
-            quests.where((Quest quest) => (quest.state == "完了")).toList();
+        acceptedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "受取り" && quest.frequency == "daily"))
+            .toList();
+        unfinishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "未完了" && quest.frequency == "daily"))
+            .toList();
+        finishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "完了" && quest.frequency == "daily"))
+            .toList();
         displayedDailyQuests = [];
         displayedDailyQuests.addAll(acceptedQuests);
         displayedDailyQuests.addAll(unfinishedQuests);
@@ -93,14 +98,21 @@ class _ToDoPageState extends State<ToDoPage> {
             .where((Quest quest) =>
                 (quest.state == filterState && quest.frequency == "weekly"))
             .toList();
+        //(quest.state == filterState)).toList();
       } else {
         List<Quest> acceptedQuests, unfinishedQuests, finishedQuests;
-        acceptedQuests =
-            quests.where((Quest quest) => (quest.state == "受取り")).toList();
-        unfinishedQuests =
-            quests.where((Quest quest) => (quest.state == "未完了")).toList();
-        finishedQuests =
-            quests.where((Quest quest) => (quest.state == "完了")).toList();
+        acceptedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "受取り" && quest.frequency == "weekly"))
+            .toList();
+        unfinishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "未完了" && quest.frequency == "weekly"))
+            .toList();
+        finishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "完了" && quest.frequency == "weekly"))
+            .toList();
         displayedWeeklyQuests = [];
         displayedWeeklyQuests.addAll(acceptedQuests);
         displayedWeeklyQuests.addAll(unfinishedQuests);
@@ -287,7 +299,7 @@ class _ToDoPageState extends State<ToDoPage> {
                             ),
                           ],
                         ),
-                        for (int i = 0; i < displayedDailyQuests.length; i++)
+                        for (int i = 0; i < displayedWeeklyQuests.length; i++)
                           QuestContent(
                             quest: displayedWeeklyQuests[i],
                             uid: widget.uid,
