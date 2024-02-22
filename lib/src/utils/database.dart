@@ -34,7 +34,10 @@ class BaseCollection {
 
   Future<Map<String, dynamic>> findById(String id) {
     return collection.doc(id).get().then((doc) {
-      return getDataFromDocumentData(doc);
+      if (doc.exists)
+        return getDataFromDocumentData(doc);
+      else
+        return {};
     });
   }
 
@@ -114,7 +117,7 @@ class UsersCollection extends BaseCollection {
 
   Future<void> createUser(String uid, Map<String, dynamic> data) {
     set(uid, data);
-    return UserQuestsCollection(firestore, uid).copyFromQuestsCollection(uid);
+    return UserQuestsCollection(firestore, uid).copyFromQuestsCollection();
   }
 }
 
@@ -132,7 +135,7 @@ class UserQuestsCollection extends BaseCollection {
   UserQuestsCollection(FirebaseFirestore firestore, String uid)
       : super('USERS/$uid/QUESTS', firestore);
 
-  Future<void> copyFromQuestsCollection(String uid) {
+  Future<void> copyFromQuestsCollection() {
     return QuestsCollection(firestore).all().then((quests) {
       for (var quest in quests) {
         set(quest['questId'], {
@@ -151,7 +154,7 @@ class UserQuestsCollection extends BaseCollection {
     });
   }
 
-  Future<void> copyDailyQuestsFromQuestsCollection(String uid) {
+  Future<void> copyDailyQuestsFromQuestsCollection() {
     return QuestsCollection(firestore).getByQuery({
       'type': 'isEqualTo',
       'field': 'frequency',

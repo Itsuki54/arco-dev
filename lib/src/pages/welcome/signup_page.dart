@@ -57,6 +57,9 @@ class _SignUpPageState extends State<SignUpPage> {
       'exp': 0.0,
       'userId': _auth.currentUser!.uid,
     });
+    await db
+        .userQuestsCollection(_auth.currentUser!.uid)
+        .copyFromQuestsCollection();
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

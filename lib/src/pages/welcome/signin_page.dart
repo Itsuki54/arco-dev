@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:arco_dev/src/pages/hub.dart';
+import 'package:arco_dev/src/pages/tutorial/first_tutorial.dart';
 import 'package:arco_dev/src/utils/colors.dart';
+import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,9 +23,33 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  final Database db = Database();
   String email = '';
   String password = '';
   bool visible = false;
+
+  Future<void> afterSignUp() async {
+    if (await db.usersCollection().findById(_auth.currentUser!.uid) == {}) {
+      await db.usersCollection().createUser(_auth.currentUser!.uid, {
+        'email': _auth.currentUser!.email,
+        'createdAt': DateTime.now(),
+        'level': 1,
+        'name': _auth.currentUser!.displayName,
+        'exp': 0.0,
+        'userId': _auth.currentUser!.uid,
+      });
+      await db
+          .userQuestsCollection(_auth.currentUser!.uid)
+          .copyFromQuestsCollection();
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                FirstTutorialPage(uid: _auth.currentUser!.uid),
+          ));
+      ;
+    }
+  }
 
   Future<UserCredential?> signInWithGoogle() async {
     final GoogleSignInAccount? googleSignInAccount =
@@ -230,12 +256,14 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: () {
                           signInWithGoogle().then((result) {
                             if (result != null) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        Hub(uid: _auth.currentUser!.uid)),
-                              );
+                              afterSignUp().then((value) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Hub(uid: _auth.currentUser!.uid)),
+                                );
+                              });
                             }
                           });
                         })),
