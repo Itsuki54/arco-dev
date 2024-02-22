@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/utils/colors.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
 // components
@@ -188,6 +189,19 @@ class _ToDoPageState extends State<ToDoPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FilterButton(
+                              text: "全て",
+                              color: AppColors.indigo,
+                              state: filterState == "None",
+                              onPressed: () {
+                                setState(() {
+                                  if (filterState != "None") {
+                                    filterState = "None";
+                                  }
+                                  sortDailyQuests();
+                                });
+                              },
+                            ),
+                            FilterButton(
                               text: "未完了",
                               color: Colors.red.shade300,
                               state: filterState == "未完了",
@@ -256,6 +270,19 @@ class _ToDoPageState extends State<ToDoPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FilterButton(
+                              text: "全て",
+                              color: AppColors.indigo,
+                              state: filterState == "None",
+                              onPressed: () {
+                                setState(() {
+                                  if (filterState != "None") {
+                                    filterState = "None";
+                                  }
+                                  sortWeeklyQuests();
+                                });
+                              },
+                            ),
+                            FilterButton(
                               text: "未完了",
                               color: Colors.red.shade300,
                               state: filterState == "未完了",
@@ -266,7 +293,7 @@ class _ToDoPageState extends State<ToDoPage> {
                                   } else {
                                     filterState = "None";
                                   }
-                                  sortDailyQuests();
+                                  sortWeeklyQuests();
                                 });
                               },
                             ),
