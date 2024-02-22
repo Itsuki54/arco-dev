@@ -45,7 +45,7 @@ class _BackpackPageState extends State<BackpackPage> {
                     Align(
                         alignment: Alignment(0, 0),
                         child: Icon(
-                          Icons.bluetooth,
+                          Icons.smartphone,
                           size: 120,
                         )),
                   ],
