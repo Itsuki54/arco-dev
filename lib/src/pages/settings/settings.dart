@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import 'package:arco_dev/src/pages/tutorial/first_tutorial.dart';
-=======
 import 'package:arco_dev/src/pages/welcome/signin_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
->>>>>>> origin/auto-battle
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // components
@@ -13,12 +10,7 @@ import '../../components/button/simple_route_button.dart';
 import 'profile.dart';
 
 class SettingsPage extends StatefulWidget {
-<<<<<<< HEAD
   const SettingsPage({Key? key, required this.uid}) : super(key: key);
-=======
-  const SettingsPage({super.key, required this.uid});
-
->>>>>>> origin/auto-battle
   final String uid;
 
   @override
