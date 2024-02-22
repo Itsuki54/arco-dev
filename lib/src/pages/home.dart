@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const SettingsPage()));
+                                          SettingsPage(uid: uid)));
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

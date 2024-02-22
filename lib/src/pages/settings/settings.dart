@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/pages/tutorial/first_tutorial.dart';
 import 'package:arco_dev/src/pages/welcome/signin_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ import '../../components/button/simple_route_button.dart';
 import 'profile.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  const SettingsPage({Key? key, required this.uid}) : super(key: key);
+  final String uid;
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -27,7 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
           SimpleRouteButton(
               title: "プロフィール",
               icon: const Icon(Icons.person, size: 40),
-              nextPage: const ProfilePage()),
+              nextPage: ProfilePage(uid: widget.uid)),
           SimpleRouteButton(
               title: "戦闘",
               //icon: const Icon(Icons.grain, size: 45),
@@ -36,6 +38,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 42,
                   theme: const SvgTheme(currentColor: Colors.black)),
               nextPage: Scaffold(appBar: AppBar())),
+          SimpleRouteButton(
+              title: "チュートリアル",
+              icon: const Icon(Icons.person, size: 40),
+              nextPage: FirstTutorialPage(uid: widget.uid)),
           Container(
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(

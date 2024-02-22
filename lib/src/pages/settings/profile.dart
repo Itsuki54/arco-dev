@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 // components
 import '../../components/common/child_appbar.dart';
 // pages
-
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+// utils
+import 'package:arco_dev/src/utils/database.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key, required this.uid}) : super(key: key);
+
+  final String uid;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -18,18 +21,22 @@ class _ProfilePageState extends State<ProfilePage> {
   File _image = File("assets/images/sample_icon.png");
   final picker = ImagePicker();
 
+  Database db = Database();
+
+  // user info
+  String userName = "guest";
+  String email = "guest@guest";
+
   Future getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(
-      () {
-        if (pickedFile != null) {
-          _image = File(pickedFile.path);
-        } else {
-          _image = File("assets/images/sample_icon.png");
-        }
-      },
-    );
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        _image = File("assets/images/sample_icon.png");
+      }
+    });
   }
 
   var levelPub = false;
@@ -70,7 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 getImageFromGallery();
               },
-              child: Text("画像を選択"),
+              child: const Text("画像を選択",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 20),
             Column(
@@ -82,6 +90,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: SizedBox(
                         height: 50,
                         child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              userName = value;
+                            });
+                          },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
@@ -92,8 +105,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {},
-                      child: Text("保存"),
+                      onPressed: () {
+                        db
+                            .usersCollection()
+                            .update(widget.uid, {"name": userName});
+                      },
+                      child: const Text("保存",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     const SizedBox(width: 30),
                   ],
@@ -110,6 +128,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: SizedBox(
                         height: 50,
                         child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              email = value;
+                              db
+                                  .usersCollection()
+                                  .update(widget.uid, {"email": email});
+                            });
+                          },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
@@ -121,7 +147,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: () {},
-                      child: Text("保存"),
+                      child: const Text("保存",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     const SizedBox(width: 30),
                   ],
@@ -132,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               children: [
                 const SizedBox(width: 30),
-                Text("レベルの公開設定", style: TextStyle(fontSize: 20)),
+                const Text("レベルの公開設定", style: TextStyle(fontSize: 20)),
                 Switch(
                   value: levelPub,
                   onChanged: (bool? value) {

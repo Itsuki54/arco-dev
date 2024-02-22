@@ -32,7 +32,7 @@
     "image": "ENEMY_ICONS/BraveFirefighter.png",
     "job": "Attacker",
     "level": 5,
-    "name": "炎点太",
+    "name": "炎点啓太",
     "rarity": 1,
     "status": {
       "atk": 7,
@@ -46,7 +46,7 @@
     "image": "ENEMY_ICONS/DedicatedPolice.png",
     "job": "Attacker",
     "level": 5,
-    "name": "ポリスマン",
+    "name": "オイコラ",
     "rarity": 1,
     "status": {
       "atk": 6,
@@ -112,7 +112,7 @@
     }
   },
   {
-    "description": "六法全書は三歳からの愛読書。どんな法廷でも、ねちねちして通してしまう。",
+    "description": "六法全書は三歳からの愛読書。どんな案件でも、ねちねちして通してしまう。",
     "image": "ENEMY_ICONS/LawfulLawyer.png",
     "job": "Tank",
     "level": 5,
@@ -280,7 +280,7 @@
     }
   },
   {
-    "description": "野の町フランスパークで三年間修行に励んだ。自家製きのこを使った料理が多く、外国のブローカーやバイヤーが店に多く詰め寄せる。",
+    "description": "野の町フランスパークで三年間修行に励んだ。自家製野菜を使った料理が多く、外国のブローカーやバイヤーが店に多く詰め寄せる。",
     "image": "ENEMY_ICONS/Cock.png",
     "job": "Healer",
     "level": 0,
