@@ -1,6 +1,8 @@
 import 'package:arco_dev/src/pages/tutorial/second_tutorial.dart';
 import 'package:arco_dev/src/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class FirstTutorialPage extends StatefulWidget {
   const FirstTutorialPage({Key? key, required this.uid}) : super(key: key);
@@ -48,24 +50,8 @@ class _FirstTutorialPageState extends State<FirstTutorialPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: ElevatedButton(
-                        onPressed: () => {},
-                        child: null,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                20.0), // Adjust the value as needed
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height:
-                          18, // Add some spacing between the button and text
-                    ),
+                    SizedBox(child: ToHealthConnect()),
+                    SizedBox(height: 18),
                     Text(
                       'タップしてインストール',
                       style: TextStyle(
@@ -77,24 +63,8 @@ class _FirstTutorialPageState extends State<FirstTutorialPage> {
                     SizedBox(
                       height: 50,
                     ),
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: ElevatedButton(
-                        onPressed: () => {},
-                        child: null,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                20.0), // Adjust the value as needed
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height:
-                          18, // Add some spacing between the button and text
-                    ),
+                    SizedBox(child: ToGoogleFit()),
+                    SizedBox(height: 18),
                     Text(
                       'タップしてインストール',
                       style: TextStyle(
@@ -125,5 +95,82 @@ class _FirstTutorialPageState extends State<FirstTutorialPage> {
         elevation: 0,
       ),
     );
+  }
+}
+
+class ToHealthConnect extends StatelessWidget {
+  ToHealthConnect({Key? key}) : super(key: key);
+
+  final _urlLaunchWithStringButton = UrlLaunchWithStringButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: ElevatedButton(
+        onPressed: () => {
+          _urlLaunchWithStringButton.launchUriWithString(
+            context,
+            "https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata",
+          )
+        },
+        child: null,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(20.0), // Adjust the value as needed
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ToGoogleFit extends StatelessWidget {
+  ToGoogleFit({Key? key}) : super(key: key);
+
+  final _urlLaunchWithStringButton = UrlLaunchWithStringButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: ElevatedButton(
+        onPressed: () => {
+          _urlLaunchWithStringButton.launchUriWithString(
+            context,
+            "https://play.google.com/store/apps/details?id=com.google.android.apps.fitness",
+          )
+        },
+        child: null,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(20.0), // Adjust the value as needed
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UrlLaunchWithStringButton {
+  final alertSnackBar = SnackBar(
+    content: const Text('このURLは開けませんでした'),
+    action: SnackBarAction(
+      label: '戻る',
+      onPressed: () {},
+    ),
+  );
+
+  Future launchUriWithString(BuildContext context, String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      alertSnackBar;
+      ScaffoldMessenger.of(context).showSnackBar(alertSnackBar);
+    }
   }
 }
