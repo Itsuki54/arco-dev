@@ -21,7 +21,7 @@ class MapPage extends StatefulWidget {
 
 enum LocationPermissionStatus { granted, denied, permanentlyDenied, restricted }
 
-class _MapPageState extends State<MapPage> {
+class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
   late LatLng _myPosition = const LatLng(0, 0);
   CameraPosition _cameraPosition =
       const CameraPosition(target: LatLng(0, 0), zoom: 16, bearing: 0.0);
@@ -251,14 +251,23 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _getCurrentLocation();
     update();
   }
 
   @override
   void dispose() {
-    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     _locationChangedListen?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _getCurrentLocation();
+    }
   }
 
   @override

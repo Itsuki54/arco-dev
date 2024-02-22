@@ -1,9 +1,8 @@
+import 'package:arco_dev/src/utils/colors.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
-
-import '../../components/button/filter_button.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 // components
+import '../../components/button/filter_button.dart';
 import '../../components/quest/quest_content.dart';
 // structs
 import '../../structs/quest.dart';
@@ -26,11 +25,6 @@ class _ToDoPageState extends State<ToDoPage> {
   String filterState = "None";
   Database db = Database();
 
-  // Filter
-  bool unfinished = false;
-  bool receiption = false;
-  bool daily = true;
-
   // 表示用
   int totalExp = 100;
   int currentExp = 30;
@@ -42,24 +36,7 @@ class _ToDoPageState extends State<ToDoPage> {
   // 表示用
   late List<Quest> displayedDailyQuests = quests;
   late List<Quest> displayedWeeklyQuests = quests;
-
-  // 表示Questの状態変更
-  void transFilterState(String nextState) {
-    filterState = nextState;
-    switch (filterState) {
-      case "未完了":
-        unfinished = true;
-        receiption = false;
-        break;
-      case "受取り":
-        unfinished = false;
-        receiption = true;
-      default:
-        unfinished = false;
-        receiption = false;
-        break;
-    }
-  }
+  late List<Quest> displayedAchievedQuests = quests;
 
   // フィルターに応じて表示DailyQuestのソートを行う
   void sortDailyQuests() {
@@ -69,14 +46,21 @@ class _ToDoPageState extends State<ToDoPage> {
             .where((Quest quest) =>
                 (quest.state == filterState && quest.frequency == "daily"))
             .toList();
+        //(quest.state == filterState)).toList();
       } else {
         List<Quest> acceptedQuests, unfinishedQuests, finishedQuests;
-        acceptedQuests =
-            quests.where((Quest quest) => (quest.state == "受取り")).toList();
-        unfinishedQuests =
-            quests.where((Quest quest) => (quest.state == "未完了")).toList();
-        finishedQuests =
-            quests.where((Quest quest) => (quest.state == "完了")).toList();
+        acceptedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "受取り" && quest.frequency == "daily"))
+            .toList();
+        unfinishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "未完了" && quest.frequency == "daily"))
+            .toList();
+        finishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "完了" && quest.frequency == "daily"))
+            .toList();
         displayedDailyQuests = [];
         displayedDailyQuests.addAll(acceptedQuests);
         displayedDailyQuests.addAll(unfinishedQuests);
@@ -85,7 +69,7 @@ class _ToDoPageState extends State<ToDoPage> {
     });
   }
 
-// フィルターに応じて表示WeeklyQuestのソートを行う
+  // フィルターに応じて表示WeeklyQuestのソートを行う
   void sortWeeklyQuests() {
     setState(() {
       if (filterState != "None") {
@@ -93,19 +77,37 @@ class _ToDoPageState extends State<ToDoPage> {
             .where((Quest quest) =>
                 (quest.state == filterState && quest.frequency == "weekly"))
             .toList();
+        //(quest.state == filterState)).toList();
       } else {
         List<Quest> acceptedQuests, unfinishedQuests, finishedQuests;
-        acceptedQuests =
-            quests.where((Quest quest) => (quest.state == "受取り")).toList();
-        unfinishedQuests =
-            quests.where((Quest quest) => (quest.state == "未完了")).toList();
-        finishedQuests =
-            quests.where((Quest quest) => (quest.state == "完了")).toList();
+        acceptedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "受取り" && quest.frequency == "weekly"))
+            .toList();
+        unfinishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "未完了" && quest.frequency == "weekly"))
+            .toList();
+        finishedQuests = quests
+            .where((Quest quest) =>
+                (quest.state == "完了" && quest.frequency == "weekly"))
+            .toList();
         displayedWeeklyQuests = [];
         displayedWeeklyQuests.addAll(acceptedQuests);
         displayedWeeklyQuests.addAll(unfinishedQuests);
         displayedWeeklyQuests.addAll(finishedQuests);
       }
+    });
+  }
+
+// フィルターに応じて表示WeeklyQuestのソートを行う
+  void sortAchievedQuests() {
+    setState(() {
+      List<Quest> finishedQuests;
+      finishedQuests =
+          quests.where((Quest quest) => (quest.state == "完了")).toList();
+      displayedAchievedQuests = [];
+      displayedAchievedQuests.addAll(finishedQuests);
     });
   }
 
@@ -117,6 +119,7 @@ class _ToDoPageState extends State<ToDoPage> {
         quests = value.map((e) => Quest.fromMap(e)).toList().cast<Quest>();
         sortDailyQuests();
         sortWeeklyQuests();
+        sortAchievedQuests();
       });
     });
   }
@@ -140,7 +143,6 @@ class _ToDoPageState extends State<ToDoPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const SizedBox(height: 16),
                   Text(
                     "レベル: $level",
                     style: TextStyle(
@@ -160,7 +162,7 @@ class _ToDoPageState extends State<ToDoPage> {
                 ],
               ),
               ExpBar(
-                width: 300,
+                width: 280,
                 height: 20,
                 color: Colors.green,
                 expValue: (currentExp / totalExp),
@@ -186,24 +188,29 @@ class _ToDoPageState extends State<ToDoPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                                margin: const EdgeInsets.all(2),
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(width: 2.5)),
-                                  onPressed: () {},
-                                  child: const Icon(Icons.tune),
-                                )),
+                            FilterButton(
+                              text: "全て",
+                              color: AppColors.indigo,
+                              state: filterState == "None",
+                              onPressed: () {
+                                setState(() {
+                                  if (filterState != "None") {
+                                    filterState = "None";
+                                  }
+                                  sortDailyQuests();
+                                });
+                              },
+                            ),
                             FilterButton(
                               text: "未完了",
                               color: Colors.red.shade300,
-                              state: unfinished,
+                              state: filterState == "未完了",
                               onPressed: () {
                                 setState(() {
-                                  if (unfinished == false) {
-                                    transFilterState("未完了");
+                                  if (filterState != "未完了") {
+                                    filterState = "未完了";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
                                   sortDailyQuests();
                                 });
@@ -212,13 +219,28 @@ class _ToDoPageState extends State<ToDoPage> {
                             FilterButton(
                               text: "受取り",
                               color: Colors.yellow.shade800,
-                              state: receiption,
+                              state: filterState == "受取り",
                               onPressed: () {
                                 setState(() {
-                                  if (receiption == false) {
-                                    transFilterState("受取り");
+                                  if (filterState != "受取り") {
+                                    filterState = "受取り";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
+                                  }
+                                  sortDailyQuests();
+                                });
+                              },
+                            ),
+                            FilterButton(
+                              text: "完了",
+                              color: Colors.green.shade400,
+                              state: filterState == "完了",
+                              onPressed: () {
+                                setState(() {
+                                  if (filterState != "完了") {
+                                    filterState = "完了";
+                                  } else {
+                                    filterState = "None";
                                   }
                                   sortDailyQuests();
                                 });
@@ -247,39 +269,59 @@ class _ToDoPageState extends State<ToDoPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                                margin: const EdgeInsets.all(2),
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(width: 2.5)),
-                                  onPressed: () {},
-                                  child: const Icon(Icons.tune),
-                                )),
+                            FilterButton(
+                              text: "全て",
+                              color: AppColors.indigo,
+                              state: filterState == "None",
+                              onPressed: () {
+                                setState(() {
+                                  if (filterState != "None") {
+                                    filterState = "None";
+                                  }
+                                  sortWeeklyQuests();
+                                });
+                              },
+                            ),
                             FilterButton(
                               text: "未完了",
                               color: Colors.red.shade300,
-                              state: unfinished,
+                              state: filterState == "未完了",
                               onPressed: () {
                                 setState(() {
-                                  if (unfinished == false) {
-                                    transFilterState("未完了");
+                                  if (filterState != "未完了") {
+                                    filterState = "未完了";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
-                                  sortDailyQuests();
+                                  sortWeeklyQuests();
                                 });
                               },
                             ),
                             FilterButton(
                               text: "受取り",
                               color: Colors.yellow.shade800,
-                              state: receiption,
+                              state: filterState == "受取り",
                               onPressed: () {
                                 setState(() {
-                                  if (receiption == false) {
-                                    transFilterState("受取り");
+                                  if (filterState != "受取り") {
+                                    filterState = "受取り";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
+                                  }
+                                  sortWeeklyQuests();
+                                });
+                              },
+                            ),
+                            FilterButton(
+                              text: "完了",
+                              color: Colors.green.shade400,
+                              state: filterState == "完了",
+                              onPressed: () {
+                                setState(() {
+                                  if (filterState != "完了") {
+                                    filterState = "完了";
+                                  } else {
+                                    filterState = "None";
                                   }
                                   sortWeeklyQuests();
                                 });
@@ -287,7 +329,7 @@ class _ToDoPageState extends State<ToDoPage> {
                             ),
                           ],
                         ),
-                        for (int i = 0; i < displayedDailyQuests.length; i++)
+                        for (int i = 0; i < displayedWeeklyQuests.length; i++)
                           QuestContent(
                             quest: displayedWeeklyQuests[i],
                             uid: widget.uid,
@@ -298,7 +340,25 @@ class _ToDoPageState extends State<ToDoPage> {
                             },
                           ),
                       ],
-                    ))
+                    )),
+
+                    /// 実績画面
+                    SingleChildScrollView(
+                        child: Column(
+                      children: [
+                        const SizedBox(height: 16),
+                        for (int i = 0; i < displayedAchievedQuests.length; i++)
+                          QuestContent(
+                            quest: displayedAchievedQuests[i],
+                            uid: widget.uid,
+                            onChanged: () {
+                              setState(() {
+                                getQuests();
+                              });
+                            },
+                          ),
+                      ],
+                    )),
                   ],
                 ),
               )

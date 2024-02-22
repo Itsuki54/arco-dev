@@ -9,10 +9,11 @@ class AutoBattle {
   final Database database = Database();
   final List<String> finalResult = [];
   // 敵のドキュメントIDリスト
-  final List<String> enemies;
+  final List<String>? enemies = [];
   List<num> finalExp = [];
+  List<Map<String, dynamic>> finalParties = [];
 
-  AutoBattle(this.playerUid, this.player2Uid, this.enemies);
+  AutoBattle(this.playerUid, this.player2Uid);
 
   Future<bool> start() async {
     List<String> result = [];
@@ -27,7 +28,7 @@ class AutoBattle {
         throw Exception('Player2 party is empty');
       }
     } else {
-      enemyCharacters = await Future.wait(enemies
+      enemyCharacters = await Future.wait(enemies!
           .map((e) => database.enemiesCollection().findById(e))
           .toList());
       if (enemyCharacters.isEmpty) {
@@ -99,6 +100,7 @@ class AutoBattle {
         character['exp'] = 0;
         result.add("${character['name']}はレベルが上がった");
       }
+      finalParties.add(character);
       await database
           .userPartyCollection(uid)
           .update(character['id'], character);

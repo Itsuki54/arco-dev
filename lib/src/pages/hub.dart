@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:arco_dev/src/utils/auto_battle.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
@@ -26,7 +27,10 @@ class _Hub extends State<Hub> {
   List<Widget> _pages() => [
         MapPage(),
         HomePage(uid: widget.uid),
-        BackpackPage(uid: widget.uid),
+        BackpackPage(
+          uid: widget.uid,
+          battleResults: battleResults,
+        ),
       ];
   int pageIndex = 1;
   String serviceArco = "FA2DBDC2-409A-4DD3-95F6-698758FCCC0B";
@@ -35,6 +39,7 @@ class _Hub extends State<Hub> {
   late StreamSubscription<ConnectionStateUpdate> _connection;
   String advertisingError = '';
   List<String> connectedUids = [];
+  Map<String, dynamic> battleResults = {};
   final List<String> _connectedDevices = [];
 
   String generateNonce([int length = 32]) {
@@ -158,6 +163,14 @@ class _Hub extends State<Hub> {
       final value = utf8.decode(response);
       setState(() {
         connectedUids.add(value);
+      });
+      AutoBattle autoBattle = AutoBattle(widget.uid, value);
+      bool res = await autoBattle.start();
+      setState(() {
+        battleResults[value]["result"] = autoBattle.finalResult;
+        battleResults[value]["exp"] = autoBattle.finalExp;
+        battleResults[value]["win"] = res;
+        battleResults[value]["party"] = autoBattle.finalParties;
       });
     }
     await disconnectFromDevice();
