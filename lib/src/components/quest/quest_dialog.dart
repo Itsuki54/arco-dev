@@ -10,10 +10,15 @@ class QuestDialog extends StatelessWidget {
     super.key,
     required this.quest,
     required this.uid,
+    required this.onChanged,
   });
 
+  // parameters
   final Quest quest;
   final String uid;
+  final VoidCallback onChanged;
+
+  // database
   Database db = Database();
 
   @override
@@ -39,6 +44,10 @@ class QuestDialog extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: quest.state == "受取り"
                     ? () {
+                        db
+                            .userQuestsCollection(uid)
+                            .update("id2", {"state": "完了"});
+                        onChanged();
                         Navigator.of(context).pop(quest.point);
                       }
                     : null,

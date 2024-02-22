@@ -72,10 +72,8 @@ class _ToDoPageState extends State<ToDoPage> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    debugPrint('uid: ${widget.uid}');
+  // FireStoreから、USERの持つQuestデータをとってくる
+  Future<void> getQuests() async {
     db.userQuestsCollection(widget.uid).all().then((value) {
       debugPrint('value: $value');
       setState(() {
@@ -83,6 +81,13 @@ class _ToDoPageState extends State<ToDoPage> {
         sortQuests();
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint('uid: ${widget.uid}');
+    getQuests();
   }
 
   @override
@@ -187,6 +192,11 @@ class _ToDoPageState extends State<ToDoPage> {
                           QuestContent(
                             quest: displayedQuests[i],
                             uid: widget.uid,
+                            onChanged: () {
+                              setState(() {
+                                getQuests();
+                              });
+                            },
                           ),
                       ],
                     ))

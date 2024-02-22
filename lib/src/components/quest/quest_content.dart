@@ -12,10 +12,12 @@ class QuestContent extends StatefulWidget {
     super.key,
     required this.quest,
     required this.uid,
+    required this.onChanged,
   });
 
   final Quest quest;
   final String uid;
+  final VoidCallback onChanged;
 
   @override
   State<QuestContent> createState() => _QuestContent();
@@ -40,6 +42,7 @@ class _QuestContent extends State<QuestContent> {
               builder: (BuildContext context) => QuestDialog(
                     quest: widget.quest,
                     uid: widget.uid,
+                    onChanged: widget.onChanged,
                   ));
         },
         child: Container(
