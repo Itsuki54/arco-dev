@@ -1,7 +1,6 @@
 import 'package:arco_dev/src/pages/tutorial/second_tutorial.dart';
 import 'package:arco_dev/src/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class FirstTutorialPage extends StatefulWidget {
@@ -109,18 +108,22 @@ class ToHealthConnect extends StatelessWidget {
       width: 100,
       height: 100,
       child: ElevatedButton(
+        clipBehavior: Clip.antiAlias,
         onPressed: () => {
           _urlLaunchWithStringButton.launchUriWithString(
             context,
             "https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata",
           )
         },
-        child: null,
+        child: Image.asset(
+          'assets/images/HealthConnect.webp',
+          fit: BoxFit.cover,
+        ),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(20.0), // Adjust the value as needed
+            borderRadius: BorderRadius.circular(20.0),
           ),
+          padding: EdgeInsets.zero,
         ),
       ),
     );
@@ -138,18 +141,23 @@ class ToGoogleFit extends StatelessWidget {
       width: 100,
       height: 100,
       child: ElevatedButton(
+        clipBehavior: Clip.antiAlias,
         onPressed: () => {
           _urlLaunchWithStringButton.launchUriWithString(
             context,
             "https://play.google.com/store/apps/details?id=com.google.android.apps.fitness",
           )
         },
-        child: null,
+        child: Image.asset(
+          'assets/images/GoogleFit.webp',
+          fit: BoxFit.cover,
+        ),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius:
                 BorderRadius.circular(20.0), // Adjust the value as needed
           ),
+          padding: EdgeInsets.all(10),
         ),
       ),
     );
