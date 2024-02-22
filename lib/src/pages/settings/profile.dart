@@ -7,9 +7,10 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 // utils
 import 'package:arco_dev/src/utils/database.dart';
+import 'package:arco_dev/src/utils/storage.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key, required this.uid}) : super(key: key);
+  const ProfilePage({Key? key, required this.uid}) : super(key: key);
 
   final String uid;
 
@@ -22,22 +23,27 @@ class _ProfilePageState extends State<ProfilePage> {
   final picker = ImagePicker();
 
   Database db = Database();
+  Storage st = Storage();
 
   // user info
   String userName = "guest";
   String email = "guest@guest";
 
-  Future getImageFromGallery() async {
+  Future<void> getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        st.users().upload(_image.path, userName);
       } else {
         _image = File("assets/images/sample_icon.png");
       }
     });
   }
+
+  Future<void> getEmailAddress() async {}
+  Future<void> getUserName() async {}
 
   var levelPub = false;
 

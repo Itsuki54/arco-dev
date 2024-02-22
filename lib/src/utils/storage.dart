@@ -54,7 +54,7 @@ class WeaponIconsStorage extends BaseStorage {
 }
 
 class UsersStorage extends BaseStorage {
-  UsersStorage(FirebaseStorage storage) : super('USERS', storage);
+  UsersStorage(FirebaseStorage storage) : super('USERS/ICONS', storage);
 }
 
 class Storage {
