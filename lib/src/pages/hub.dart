@@ -1,35 +1,40 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
+import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import './backpack/backpack.dart';
+import 'package:permission_handler/permission_handler.dart' as permission;
 import './map/map.dart';
-import './home.dart';
+import 'package:arco_dev/src/pages/home.dart';
 
 class Hub extends StatefulWidget {
-  Hub({super.key});
+  const Hub({super.key, required this.uid});
 
-  final List<Widget> pages = const [
-    MapPage(),
-    HomePage(),
-    BackpackPage(),
-  ];
+  final String uid;
 
   @override
   State<Hub> createState() => _Hub();
 }
 
 class _Hub extends State<Hub> {
+  List<Widget> _pages() => [
+        MapPage(),
+        HomePage(uid: widget.uid),
+        BackpackPage(uid: widget.uid),
+      ];
   int pageIndex = 1;
   String serviceArco = "FA2DBDC2-409A-4DD3-95F6-698758FCCC0B";
   String characteristicArco = "20FF0003-4807-466E-971B-E4CA982055D3";
   final FlutterReactiveBle _ble = FlutterReactiveBle();
   late StreamSubscription<ConnectionStateUpdate> _connection;
   String advertisingError = '';
-  String _uid = '';
+  List<String> connectedUids = [];
   final List<String> _connectedDevices = [];
 
   String generateNonce([int length = 32]) {
@@ -40,6 +45,61 @@ class _Hub extends State<Hub> {
         List.generate(length, (_) => charset[random.nextInt(charset.length)])
             .join();
     return randomStr;
+  }
+
+  Future<bool> get isGranted async {
+    final status = await permission.Permission.location.status;
+    switch (status) {
+      case permission.PermissionStatus.granted:
+      case permission.PermissionStatus.limited:
+        return true;
+      case permission.PermissionStatus.denied:
+      case permission.PermissionStatus.permanentlyDenied:
+      case permission.PermissionStatus.restricted:
+        return false;
+      default:
+        return false;
+    }
+  }
+
+  Future<bool> get isAlwaysGranted {
+    return permission.Permission.locationAlways.isGranted;
+  }
+
+  Future<permission.PermissionStatus> whileRequest() async {
+    final locationStatus = await permission.Permission.location.request();
+    permission.PermissionStatus status;
+    AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+    if (androidInfo.version.sdkInt <= 30) {
+      final bleStatus = await permission.Permission.bluetooth.request();
+      status = locationStatus == permission.PermissionStatus.granted &&
+              bleStatus == permission.PermissionStatus.granted
+          ? permission.PermissionStatus.granted
+          : permission.PermissionStatus.denied;
+    } else {
+      final bleAdvertiseStatus =
+          await permission.Permission.bluetoothAdvertise.request();
+      final bleConnectStatus =
+          await permission.Permission.bluetoothConnect.request();
+      final bleScanStatus = await permission.Permission.bluetoothScan.request();
+      status = locationStatus == permission.PermissionStatus.granted &&
+              bleAdvertiseStatus == permission.PermissionStatus.granted &&
+              bleConnectStatus == permission.PermissionStatus.granted &&
+              bleScanStatus == permission.PermissionStatus.granted
+          ? permission.PermissionStatus.granted
+          : permission.PermissionStatus.denied;
+    }
+    return status;
+  }
+
+  Future<LocationPermissionStatus> alwaysRequest() async {
+    final status = await permission.Permission.locationAlways.request();
+    switch (status) {
+      case permission.PermissionStatus.granted:
+        return LocationPermissionStatus.granted;
+      default:
+        return LocationPermissionStatus.denied;
+    }
   }
 
   Future<void> initBle() async {
@@ -92,9 +152,8 @@ class _Hub extends State<Hub> {
       debugPrint('Failed to read characteristic');
     } else {
       final value = utf8.decode(response);
-      debugPrint('Read value: $value');
       setState(() {
-        _uid = value;
+        connectedUids.add(value);
       });
     }
     await disconnectFromDevice();
@@ -136,12 +195,38 @@ class _Hub extends State<Hub> {
   @override
   void initState() {
     super.initState();
-    initBle().then((value) {
-      if (advertisingError.isNotEmpty) {
-        debugPrint('Advertising error: $advertisingError');
+    whileRequest().then((permission.PermissionStatus status) {
+      if (status == permission.PermissionStatus.granted) {
+        isAlwaysGranted.then((bool isAlwaysGranted) {
+          if (!isAlwaysGranted) {
+            alwaysRequest().then((LocationPermissionStatus status) {
+              if (status == LocationPermissionStatus.granted) {
+                initBle().then((value) {
+                  if (advertisingError.isNotEmpty) {
+                    debugPrint('Advertising error: $advertisingError');
+                  } else {
+                    startAdvertising();
+                    searchForDevices();
+                  }
+                });
+              }
+            });
+          }
+        });
       } else {
-        startAdvertising();
-        searchForDevices();
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text("位置情報 / Bluetoothの許可が必要です"),
+                  content: const Text("設定画面から権限の許可をしてください"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("OK"))
+                  ],
+                ));
       }
     });
   }
@@ -162,28 +247,16 @@ class _Hub extends State<Hub> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     appBar: AppBar(title: const Text("Battle Sample")),
-    //     body: Center(
-    //       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //         ElevatedButton(
-    //           onPressed: () {
-    //             Navigator.of(context).push(
-    //                 MaterialPageRoute(builder: (context) => BattlePage()));
-    //           },
-    //           child: const Text("Jump to the Battle Sample"),
-    //         )
-    //       ]),
-    //     ));
+    final pages = _pages();
     return Scaffold(
-      body: widget.pages[pageIndex],
+      body: pages[pageIndex],
       bottomNavigationBar: NavigationBar(
         destinations: <Widget>[
           const NavigationDestination(icon: Icon(Icons.map), label: "地図"),
           const NavigationDestination(icon: Icon(Icons.home), label: "ホーム"),
           NavigationDestination(
               icon: SvgPicture.asset("assets/images/swords.svg", width: 24),
-              label: "戦闘")
+              label: "戦闘"),
         ],
         selectedIndex: pageIndex,
         onDestinationSelected: (int index) {

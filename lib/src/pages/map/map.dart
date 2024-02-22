@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:permission_handler/permission_handler.dart' as permission;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -44,52 +43,6 @@ class _MapPageState extends State<MapPage> {
         bearing: 0.0,
         target: _cameraPosition.target,
         zoom: _cameraPosition.zoom)));
-  }
-
-  Future<bool> get isGranted async {
-    final status = await permission.Permission.location.status;
-    switch (status) {
-      case permission.PermissionStatus.granted:
-      case permission.PermissionStatus.limited:
-        return true;
-      case permission.PermissionStatus.denied:
-      case permission.PermissionStatus.permanentlyDenied:
-      case permission.PermissionStatus.restricted:
-        return false;
-      default:
-        return false;
-    }
-  }
-
-  Future<bool> get isAlwaysGranted {
-    return permission.Permission.locationAlways.isGranted;
-  }
-
-  Future<LocationPermissionStatus> whileRequest() async {
-    final status = await permission.Permission.location.request();
-    switch (status) {
-      case permission.PermissionStatus.granted:
-        return LocationPermissionStatus.granted;
-      case permission.PermissionStatus.denied:
-        return LocationPermissionStatus.denied;
-      case permission.PermissionStatus.limited:
-      case permission.PermissionStatus.permanentlyDenied:
-        return LocationPermissionStatus.permanentlyDenied;
-      case permission.PermissionStatus.restricted:
-        return LocationPermissionStatus.restricted;
-      default:
-        return LocationPermissionStatus.denied;
-    }
-  }
-
-  Future<LocationPermissionStatus> alwaysRequest() async {
-    final status = await permission.Permission.locationAlways.request();
-    switch (status) {
-      case permission.PermissionStatus.granted:
-        return LocationPermissionStatus.granted;
-      default:
-        return LocationPermissionStatus.denied;
-    }
   }
 
   Future<void> update() async {
@@ -204,15 +157,6 @@ class _MapPageState extends State<MapPage> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(4)))),
                           const SizedBox(height: 12),
-                          spot.photos!.isNotEmpty
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${spot.photos![0].photoReference}&key=${dotenv.env["MAPS_API"]}"))
-                              : const SizedBox(),
-                          spot.photos!.isNotEmpty
-                              ? const SizedBox(height: 16)
-                              : const SizedBox(),
                           Text(spot.name!,
                               style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold)),
@@ -299,27 +243,8 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
-    whileRequest().then((value) {
-      if (value == LocationPermissionStatus.granted) {
-        alwaysRequest();
-        _getCurrentLocation();
-        update();
-      } else {
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                  title: const Text("位置情報の許可が必要です"),
-                  content: const Text("設定画面から位置情報の許可をしてください"),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("OK"))
-                  ],
-                ));
-      }
-    });
+    _getCurrentLocation();
+    update();
   }
 
   @override
@@ -363,7 +288,7 @@ class _MapPageState extends State<MapPage> {
               resetBearing();
             },
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           FloatingActionButton(
             heroTag: 'current',
             child: const Icon(

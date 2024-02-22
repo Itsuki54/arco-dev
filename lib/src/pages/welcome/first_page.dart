@@ -1,58 +1,23 @@
 import 'package:flutter/material.dart';
 import './signin_page.dart';
 
-void main() {
-  runApp(const FirstPage());
-}
-
 Color backgroundColorGray = const Color(0xFF363636);
 
-class FirstPage extends StatelessWidget {
-  const FirstPage({Key? key});
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({Key? key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: const ColorScheme.light(
-          primary: Colors.black, // 主要な色
-          secondary: Colors.black12, // セカンダリ色
-          surface: Colors.white, // 表面色
-          background: Colors.white, // 背景色
-          error: Colors.red, // エラー色
-          onPrimary: Colors.white, // 主要な色の上でのテキスト色
-          onSecondary: Colors.black, // セカンダリ色の上でのテキスト色
-          onSurface: Colors.black, // 表面色の上でのテキスト色
-          onBackground: Colors.black, // 背景色の上でのテキスト色
-          onError: Colors.white, // エラー色の上でのテキスト色
-          brightness: Brightness.light, // 明るさ
-        ),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Welcome'),
-    );
-  }
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: backgroundColorGray,
         appBar: AppBar(
           backgroundColor: backgroundColorGray,
-          title: Text(widget.title),
+          title: const Text("Welcome"),
           titleTextStyle: const TextStyle(
             color: Colors.white,
             fontSize: 32,

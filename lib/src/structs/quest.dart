@@ -1,17 +1,46 @@
-// クエスト用のクラス
 class Quest {
-  Quest({
-    required this.name,
-    required this.description,
-    required this.point,
-    required this.id,
-    this.state = "未完了",
-  });
-
+  final String questId;
   final String name;
   final String description;
+  final String image;
+  final List<String> condition;
+  final String conditionDescription;
+  final String rewardId;
+  final String rewardType;
   final int point;
-  final int id;
+  final String id;
   final String state;
-  dynamic options;
+  final dynamic options;
+
+  Quest({
+    required this.questId,
+    required this.name,
+    required this.description,
+    required this.image,
+    required this.condition,
+    required this.conditionDescription,
+    required this.rewardId,
+    required this.rewardType,
+    required this.point,
+    required this.id,
+    required this.state,
+    required this.options,
+  });
+
+  static fromMap(Map<String, dynamic> e) {
+    return Quest(
+      questId: e["questId"],
+      name: e["name"],
+      description: e["description"],
+      image: e["image"],
+      condition: e["condition"].cast<String>(),
+      conditionDescription: e["conditionDetail"] ?? "",
+      rewardId: e["rewardId"],
+      rewardType: e["rewardType"],
+      point: e["point"] ?? 0,
+      id: e["questId"],
+      state: e["state"] ?? "",
+      options: e["options"],
+    );
+  }
 }

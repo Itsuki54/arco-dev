@@ -4,13 +4,13 @@ class BackpackContentChip extends StatelessWidget {
   const BackpackContentChip(
       {super.key,
       required this.name,
-      required this.level,
+      this.level,
       required this.icon,
       required this.color,
       required this.onPressed});
 
   final String name;
-  final int level;
+  final int? level;
   final dynamic icon;
   final Color color;
   final VoidCallback onPressed;
@@ -34,7 +34,7 @@ class BackpackContentChip extends StatelessWidget {
             child: icon,
           )),
       Text(name, style: textStyle),
-      Text("Lv: $level", style: textStyle)
+      level != null ? Text("Lv: $level", style: textStyle) : const SizedBox()
     ]);
   }
 }
