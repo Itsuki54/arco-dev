@@ -26,9 +26,10 @@ class _ToDoPageState extends State<ToDoPage> {
   String filterState = "None";
   Database db = Database();
 
-  // FilterButtonの状態
+  // Filter
   bool unfinished = false;
   bool receiption = false;
+  bool daily = true;
 
   // 表示用
   int totalExp = 100;
@@ -39,7 +40,8 @@ class _ToDoPageState extends State<ToDoPage> {
   List<Quest> quests = [];
 
   // 表示用
-  late List<Quest> displayedQuests = quests;
+  late List<Quest> displayedDailyQuests = quests;
+  late List<Quest> displayedWeeklyQuests = quests;
 
   // 表示Questの状態変更
   void transFilterState(String nextState) {
@@ -59,12 +61,13 @@ class _ToDoPageState extends State<ToDoPage> {
     }
   }
 
-  // フィルターに応じて表示Questのソートを行う
-  void sortQuests() {
+  // フィルターに応じて表示DailyQuestのソートを行う
+  void sortDailyQuests() {
     setState(() {
       if (filterState != "None") {
-        displayedQuests = quests
-            .where((Quest quest) => (quest.state == filterState))
+        displayedDailyQuests = quests
+            .where((Quest quest) =>
+                (quest.state == filterState && quest.frequency == "daily"))
             .toList();
       } else {
         List<Quest> acceptedQuests, unfinishedQuests, finishedQuests;
@@ -74,10 +77,34 @@ class _ToDoPageState extends State<ToDoPage> {
             quests.where((Quest quest) => (quest.state == "未完了")).toList();
         finishedQuests =
             quests.where((Quest quest) => (quest.state == "完了")).toList();
-        displayedQuests = [];
-        displayedQuests.addAll(acceptedQuests);
-        displayedQuests.addAll(unfinishedQuests);
-        displayedQuests.addAll(finishedQuests);
+        displayedDailyQuests = [];
+        displayedDailyQuests.addAll(acceptedQuests);
+        displayedDailyQuests.addAll(unfinishedQuests);
+        displayedDailyQuests.addAll(finishedQuests);
+      }
+    });
+  }
+
+// フィルターに応じて表示WeeklyQuestのソートを行う
+  void sortWeeklyQuests() {
+    setState(() {
+      if (filterState != "None") {
+        displayedWeeklyQuests = quests
+            .where((Quest quest) =>
+                (quest.state == filterState && quest.frequency == "weekly"))
+            .toList();
+      } else {
+        List<Quest> acceptedQuests, unfinishedQuests, finishedQuests;
+        acceptedQuests =
+            quests.where((Quest quest) => (quest.state == "受取り")).toList();
+        unfinishedQuests =
+            quests.where((Quest quest) => (quest.state == "未完了")).toList();
+        finishedQuests =
+            quests.where((Quest quest) => (quest.state == "完了")).toList();
+        displayedWeeklyQuests = [];
+        displayedWeeklyQuests.addAll(acceptedQuests);
+        displayedWeeklyQuests.addAll(unfinishedQuests);
+        displayedWeeklyQuests.addAll(finishedQuests);
       }
     });
   }
@@ -88,7 +115,8 @@ class _ToDoPageState extends State<ToDoPage> {
       debugPrint('value: $value');
       setState(() {
         quests = value.map((e) => Quest.fromMap(e)).toList().cast<Quest>();
-        sortQuests();
+        sortDailyQuests();
+        sortWeeklyQuests();
       });
     });
   }
@@ -150,7 +178,7 @@ class _ToDoPageState extends State<ToDoPage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    //for (int i = 0; i < 3; i++)
+                    /// Daily画面
                     SingleChildScrollView(
                         child: Column(
                       children: [
@@ -177,7 +205,7 @@ class _ToDoPageState extends State<ToDoPage> {
                                   } else {
                                     transFilterState("None");
                                   }
-                                  sortQuests();
+                                  sortDailyQuests();
                                 });
                               },
                             ),
@@ -192,15 +220,76 @@ class _ToDoPageState extends State<ToDoPage> {
                                   } else {
                                     transFilterState("None");
                                   }
-                                  sortQuests();
+                                  sortDailyQuests();
                                 });
                               },
                             ),
                           ],
                         ),
-                        for (int i = 0; i < displayedQuests.length; i++)
+                        for (int i = 0; i < displayedDailyQuests.length; i++)
                           QuestContent(
-                            quest: displayedQuests[i],
+                            quest: displayedDailyQuests[i],
+                            uid: widget.uid,
+                            onChanged: () {
+                              setState(() {
+                                getQuests();
+                              });
+                            },
+                          ),
+                      ],
+                    )),
+
+                    /// Weekly画面
+                    SingleChildScrollView(
+                        child: Column(
+                      children: [
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                margin: const EdgeInsets.all(2),
+                                child: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                      side: const BorderSide(width: 2.5)),
+                                  onPressed: () {},
+                                  child: const Icon(Icons.tune),
+                                )),
+                            FilterButton(
+                              text: "未完了",
+                              color: Colors.red.shade300,
+                              state: unfinished,
+                              onPressed: () {
+                                setState(() {
+                                  if (unfinished == false) {
+                                    transFilterState("未完了");
+                                  } else {
+                                    transFilterState("None");
+                                  }
+                                  sortDailyQuests();
+                                });
+                              },
+                            ),
+                            FilterButton(
+                              text: "受取り",
+                              color: Colors.yellow.shade800,
+                              state: receiption,
+                              onPressed: () {
+                                setState(() {
+                                  if (receiption == false) {
+                                    transFilterState("受取り");
+                                  } else {
+                                    transFilterState("None");
+                                  }
+                                  sortWeeklyQuests();
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        for (int i = 0; i < displayedDailyQuests.length; i++)
+                          QuestContent(
+                            quest: displayedWeeklyQuests[i],
                             uid: widget.uid,
                             onChanged: () {
                               setState(() {
