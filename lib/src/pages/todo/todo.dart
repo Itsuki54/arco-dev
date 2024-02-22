@@ -24,12 +24,6 @@ class _ToDoPageState extends State<ToDoPage> {
   String filterState = "None";
   Database db = Database();
 
-  // Filter
-  bool unfinished = false;
-  bool finished = false;
-  bool receiption = false;
-  bool daily = true;
-
   // 表示用
   int totalExp = 100;
   int currentExp = 30;
@@ -42,32 +36,6 @@ class _ToDoPageState extends State<ToDoPage> {
   late List<Quest> displayedDailyQuests = quests;
   late List<Quest> displayedWeeklyQuests = quests;
   late List<Quest> displayedAchievedQuests = quests;
-
-  // 表示Questの状態変更
-  void transFilterState(String nextState) {
-    filterState = nextState;
-    switch (filterState) {
-      case "未完了":
-        unfinished = true;
-        finished = false;
-        receiption = false;
-        break;
-      case "受取り":
-        unfinished = false;
-        finished = false;
-        receiption = true;
-        break;
-      case "完了":
-        unfinished = false;
-        finished = true;
-        receiption = false;
-      default:
-        unfinished = false;
-        finished = false;
-        receiption = false;
-        break;
-    }
-  }
 
   // フィルターに応じて表示DailyQuestのソートを行う
   void sortDailyQuests() {
@@ -222,13 +190,13 @@ class _ToDoPageState extends State<ToDoPage> {
                             FilterButton(
                               text: "未完了",
                               color: Colors.red.shade300,
-                              state: unfinished,
+                              state: filterState == "未完了",
                               onPressed: () {
                                 setState(() {
-                                  if (unfinished == false) {
-                                    transFilterState("未完了");
+                                  if (filterState != "未完了") {
+                                    filterState = "未完了";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
                                   sortDailyQuests();
                                 });
@@ -237,13 +205,13 @@ class _ToDoPageState extends State<ToDoPage> {
                             FilterButton(
                               text: "受取り",
                               color: Colors.yellow.shade800,
-                              state: receiption,
+                              state: filterState == "受取り",
                               onPressed: () {
                                 setState(() {
-                                  if (receiption == false) {
-                                    transFilterState("受取り");
+                                  if (filterState != "受取り") {
+                                    filterState = "受取り";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
                                   sortDailyQuests();
                                 });
@@ -252,13 +220,13 @@ class _ToDoPageState extends State<ToDoPage> {
                             FilterButton(
                               text: "完了",
                               color: Colors.green.shade400,
-                              state: finished,
+                              state: filterState == "完了",
                               onPressed: () {
                                 setState(() {
-                                  if (finished == false) {
-                                    transFilterState("完了");
+                                  if (filterState != "完了") {
+                                    filterState = "完了";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
                                   sortDailyQuests();
                                 });
@@ -290,13 +258,13 @@ class _ToDoPageState extends State<ToDoPage> {
                             FilterButton(
                               text: "未完了",
                               color: Colors.red.shade300,
-                              state: unfinished,
+                              state: filterState == "未完了",
                               onPressed: () {
                                 setState(() {
-                                  if (unfinished == false) {
-                                    transFilterState("未完了");
+                                  if (filterState != "未完了") {
+                                    filterState = "未完了";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
                                   sortDailyQuests();
                                 });
@@ -305,13 +273,13 @@ class _ToDoPageState extends State<ToDoPage> {
                             FilterButton(
                               text: "受取り",
                               color: Colors.yellow.shade800,
-                              state: receiption,
+                              state: filterState == "受取り",
                               onPressed: () {
                                 setState(() {
-                                  if (receiption == false) {
-                                    transFilterState("受取り");
+                                  if (filterState != "受取り") {
+                                    filterState = "受取り";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
                                   sortWeeklyQuests();
                                 });
@@ -320,13 +288,13 @@ class _ToDoPageState extends State<ToDoPage> {
                             FilterButton(
                               text: "完了",
                               color: Colors.green.shade400,
-                              state: finished,
+                              state: filterState == "完了",
                               onPressed: () {
                                 setState(() {
-                                  if (finished == false) {
-                                    transFilterState("完了");
+                                  if (filterState != "完了") {
+                                    filterState = "完了";
                                   } else {
-                                    transFilterState("None");
+                                    filterState = "None";
                                   }
                                   sortWeeklyQuests();
                                 });
