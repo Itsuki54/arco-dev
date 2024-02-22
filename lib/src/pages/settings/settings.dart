@@ -24,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar:
           const ChildAppBar(title: "設定", icon: Icon(Icons.settings, size: 40)),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(children: [
           SimpleRouteButton(
               title: "プロフィール",
