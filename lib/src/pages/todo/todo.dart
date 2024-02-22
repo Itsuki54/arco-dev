@@ -67,7 +67,17 @@ class _ToDoPageState extends State<ToDoPage> {
             .where((Quest quest) => (quest.state == filterState))
             .toList();
       } else {
-        displayedQuests = quests;
+        List<Quest> acceptedQuests, unfinishedQuests, finishedQuests;
+        acceptedQuests =
+            quests.where((Quest quest) => (quest.state == "受取り")).toList();
+        unfinishedQuests =
+            quests.where((Quest quest) => (quest.state == "未完了")).toList();
+        finishedQuests =
+            quests.where((Quest quest) => (quest.state == "完了")).toList();
+        displayedQuests = [];
+        displayedQuests.addAll(acceptedQuests);
+        displayedQuests.addAll(unfinishedQuests);
+        displayedQuests.addAll(finishedQuests);
       }
     });
   }
