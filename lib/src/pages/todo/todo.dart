@@ -129,7 +129,17 @@ class _ToDoPageState extends State<ToDoPage> {
     super.initState();
     debugPrint('uid: ${widget.uid}');
     getQuests();
+    getLevel().then((value) {
+      setState(() {
+        level = value;
+      });
+    });
   }
+
+  Future<int> getLevel() => db
+      .usersCollection()
+      .findById(widget.uid)
+      .then((value) => value['level'] as int);
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +154,7 @@ class _ToDoPageState extends State<ToDoPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    "レベル: $level",
+                    "レベル: ${level}",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
