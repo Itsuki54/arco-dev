@@ -41,16 +41,20 @@ class _ToDoPageState extends State<ToDoPage> {
   late List<Quest> displayedAchievedQuests = quests;
 
   Future<bool> checkCondition(Quest quest) async {
+    final dailyHealthData = await healthData.fetchDaysData(1);
+    final weeklyHealthData = await healthData.fetchDaysData(7);
     List<bool> results = [];
     for (var condition in quest.condition) {
-      final [field, operand, value] = condition.split(",");
+      debugPrint(condition);
+      final [field, operand, value] = condition.split(" ");
       // field: calorie | steps | winCount | loginDay | sleep
       // operand: >=
       // value: int
       if (field == "loginDay") {
         if (operand == ">=") {
           final loginCount =
-              (await db.usersCollection().findById(widget.uid))['loginCount'];
+              (await db.usersCollection().findById(widget.uid))['loginCount'] ??
+                  0;
           if (loginCount >= int.parse(value)) {
             results.add(true);
             continue;
@@ -60,7 +64,8 @@ class _ToDoPageState extends State<ToDoPage> {
       if (field == "winCount") {
         if (operand == ">=") {
           final winCount =
-              (await db.usersCollection().findById(widget.uid))['winCount'];
+              (await db.usersCollection().findById(widget.uid))['winCount'] ??
+                  0;
           if (winCount >= int.parse(value)) {
             results.add(true);
             continue;
@@ -70,28 +75,7 @@ class _ToDoPageState extends State<ToDoPage> {
       if (quest.frequency == "daily") {
         if (field == "calorie") {
           if (operand == ">=") {
-            if (await healthData.fetchActiveEnergy() >= int.parse(value)) {
-              results.add(true);
-            }
-          }
-        } else if (field == "steps") {
-          if (operand == ">=") {
-            if (await healthData.fetchStepData() >= int.parse(value)) {
-              results.add(true);
-            }
-          }
-        } else if (field == "sleep") {
-          if (operand == ">=") {
-            if (await healthData.fetchSleepData() >= int.parse(value)) {
-              results.add(true);
-            }
-          }
-        }
-      } else if (quest.frequency == "weekly") {
-        final weeklyData = await healthData.fetchDaysData(7);
-        if (field == "calorie") {
-          if (operand == ">=") {
-            if (weeklyData.map(
+            if (dailyHealthData.map(
                   (e) {
                     return e["activeEnergy"];
                   },
@@ -104,7 +88,7 @@ class _ToDoPageState extends State<ToDoPage> {
           }
         } else if (field == "steps") {
           if (operand == ">=") {
-            if (weeklyData.map(
+            if (dailyHealthData.map(
                   (e) {
                     return e["steps"];
                   },
@@ -117,7 +101,48 @@ class _ToDoPageState extends State<ToDoPage> {
           }
         } else if (field == "sleep") {
           if (operand == ">=") {
-            if (weeklyData.map(
+            if (dailyHealthData.map(
+                  (e) {
+                    return e["sleep"];
+                  },
+                ).reduce((value, element) {
+                  return value + element;
+                }) >=
+                int.parse(value)) {
+              results.add(true);
+            }
+          }
+        }
+      } else if (quest.frequency == "weekly") {
+        if (field == "calorie") {
+          if (operand == ">=") {
+            if (weeklyHealthData.map(
+                  (e) {
+                    return e["activeEnergy"];
+                  },
+                ).reduce((value, element) {
+                  return value + element;
+                }) >=
+                int.parse(value)) {
+              results.add(true);
+            }
+          }
+        } else if (field == "steps") {
+          if (operand == ">=") {
+            if (weeklyHealthData.map(
+                  (e) {
+                    return e["steps"];
+                  },
+                ).reduce((value, element) {
+                  return value + element;
+                }) >=
+                int.parse(value)) {
+              results.add(true);
+            }
+          }
+        } else if (field == "sleep") {
+          if (operand == ">=") {
+            if (weeklyHealthData.map(
                   (e) {
                     return e["sleep"];
                   },

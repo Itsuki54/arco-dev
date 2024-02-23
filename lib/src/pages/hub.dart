@@ -48,6 +48,7 @@ class _Hub extends State<Hub> {
   final messaging = FirebaseMessaging.instance;
   Database db = Database();
   int exp = 0;
+  bool connectLock = false;
 
   String generateNonce([int length = 32]) {
     const charset =
@@ -132,12 +133,11 @@ class _Hub extends State<Hub> {
     ]));
     bp.BlePeripheral.setReadRequestCallback(
         (deviceId, characteristicId, offset, value) {
-      // ユーザーIDを取得
-      return bp.ReadRequestResult(value: utf8.encode("N7B3bek9a8WL9lYXMJhh"));
+      return bp.ReadRequestResult(value: utf8.encode(widget.uid));
     });
     bp.BlePeripheral.setAdvertingStartedCallback((String? error) {
       if (error != null) {
-        print("AdvertisingFailed: $error");
+        debugPrint("AdvertisingFailed: $error");
         setState(() {
           advertisingError = error;
         });
@@ -150,6 +150,7 @@ class _Hub extends State<Hub> {
       services: [serviceArco],
       localName: "arco${generateNonce(3)}",
     );
+    debugPrint('Advertising started');
   }
 
   Future<void> stopAdvertising() async {
@@ -161,30 +162,38 @@ class _Hub extends State<Hub> {
   }
 
   Future<void> readUid(DiscoveredDevice device) async {
-    final characteristic = QualifiedCharacteristic(
-        characteristicId: Uuid.parse(characteristicArco),
-        serviceId: Uuid.parse(serviceArco),
-        deviceId: device.id);
-    final response = await _ble.readCharacteristic(characteristic);
-    if (response.isEmpty) {
-      debugPrint('Failed to read characteristic');
-    } else {
-      final value = utf8.decode(response);
-      setState(() {
-        connectedUids.add(value);
-      });
-      AutoBattle autoBattle = AutoBattle(widget.uid, value);
-      bool res = await autoBattle.start();
-      setState(() {
-        battleResults[value]["result"] = autoBattle.finalResult;
-        battleResults[value]["exp"] = autoBattle.finalExp;
-        battleResults[value]["win"] = res;
-        battleResults[value]["party"] = autoBattle.finalParties;
-        battleResults[value]["opponent"] = autoBattle.opponent;
-        battleResults[value]["endTime"] = autoBattle.endTime;
-      });
+    try {
+      final characteristic = QualifiedCharacteristic(
+          characteristicId: Uuid.parse(characteristicArco),
+          serviceId: Uuid.parse(serviceArco),
+          deviceId: device.id);
+      debugPrint(characteristic.toString());
+      final response = await _ble.readCharacteristic(characteristic);
+      debugPrint('Read characteristic: $response');
+      if (response.isEmpty) {
+        debugPrint('Failed to read characteristic');
+      } else {
+        final value = utf8.decode(response);
+        debugPrint('Read characteristic: $value');
+        setState(() {
+          connectedUids.add(value);
+        });
+        AutoBattle autoBattle = AutoBattle(widget.uid, value);
+        bool res = await autoBattle.start();
+        setState(() {
+          battleResults[value]["result"] = autoBattle.finalResult;
+          battleResults[value]["exp"] = autoBattle.finalExp;
+          battleResults[value]["win"] = res;
+          battleResults[value]["party"] = autoBattle.finalParties;
+          battleResults[value]["opponent"] = autoBattle.opponent;
+          battleResults[value]["endTime"] = autoBattle.endTime;
+        });
+      }
+      await disconnectFromDevice();
+    } catch (e) {
+      debugPrint('Failed to read characteristic: $e');
+      await disconnectFromDevice();
     }
-    await disconnectFromDevice();
   }
 
   Future<void> searchForDevices() async {
@@ -194,7 +203,7 @@ class _Hub extends State<Hub> {
       if (!_connectedDevices.contains(scanResult.id)) {
         debugPrint('Found device: ${scanResult.name}');
         _connectedDevices.add(scanResult.id);
-        connectToDevice(scanResult);
+        if (!connectLock) connectToDevice(scanResult);
       }
     }
   }
@@ -204,11 +213,13 @@ class _Hub extends State<Hub> {
         .connectToDevice(
             id: device.id,
             servicesWithCharacteristicsToDiscover: {
-              Uuid.parse(serviceArco): [Uuid.parse(characteristicArco)]
+              Uuid.parse(serviceArco): [Uuid.parse(characteristicArco)],
             },
-            connectionTimeout: const Duration(seconds: 5))
+            connectionTimeout: const Duration(seconds: 2))
         .listen((event) {
-      if (event.connectionState == DeviceConnectionState.connecting) {
+      if (connectLock) return;
+      connectLock = true;
+      if (event.connectionState == DeviceConnectionState.connected) {
         debugPrint('Connected to device');
         readUid(device);
       }
@@ -218,6 +229,7 @@ class _Hub extends State<Hub> {
   Future<void> disconnectFromDevice() async {
     debugPrint('Disconnecting from device');
     await _connection.cancel();
+    connectLock = false;
   }
 
   Future<void> lastLogin() async {
@@ -254,6 +266,7 @@ class _Hub extends State<Hub> {
     whileRequest().then((permission.PermissionStatus status) {
       if (status == permission.PermissionStatus.granted) {
         isAlwaysGranted.then((bool isAlwaysGranted) {
+          debugPrint("TEST");
           if (!isAlwaysGranted) {
             alwaysRequest().then((LocationPermissionStatus status) {
               if (status == LocationPermissionStatus.granted) {
@@ -265,6 +278,16 @@ class _Hub extends State<Hub> {
                     searchForDevices();
                   }
                 });
+              }
+            });
+          } else {
+            debugPrint("TEST2");
+            initBle().then((value) {
+              if (advertisingError.isNotEmpty) {
+                debugPrint('Advertising error: $advertisingError');
+              } else {
+                startAdvertising();
+                searchForDevices();
               }
             });
           }

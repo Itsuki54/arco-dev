@@ -58,12 +58,11 @@ class _WeaponInfo extends State<WeaponInfo> {
               SizedBox(
                   width: 280,
                   child: SingleChildScrollView(
-                      child: Flexible(
-                          child: Text(
+                      child: Text(
                     widget.description,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
-                  )))),
+                  ))),
             ],
           )),
         ));

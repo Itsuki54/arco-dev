@@ -60,9 +60,13 @@ class _SignUpPageState extends State<SignUpPage> {
     });
     final randomCharacters = await db.charactersCollection().getRandomDoc("");
     randomCharacters.remove("id");
-    await db
+    final memberRes = await db
         .userMembersCollection(_auth.currentUser!.uid)
         .add(randomCharacters);
+    await db.userPartyCollection(_auth.currentUser!.uid).add({
+      "memberId": memberRes.id,
+    });
+
     await db
         .userQuestsCollection(_auth.currentUser!.uid)
         .copyFromQuestsCollection();
