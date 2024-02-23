@@ -16,7 +16,7 @@ class HealthExp {
       exp += data['activeEnergy'] * 0.5;
       exp += data['sleep'] * 10;
       exp += data['exercise'] * 0.5;
-      exp += exp / (data['heartRate'] - 70).abs / 10;
+      exp += exp / (((data['heartRate'] - 70).abs / 10).floor * 10);
     }
     return exp.round();
   }
