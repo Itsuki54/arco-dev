@@ -73,6 +73,17 @@ class _ProfilePageState extends State<ProfilePage> {
   var levelPub = false;
 
   @override
+  void initState() {
+    super.initState();
+    db.usersCollection().findById(widget.uid).then((value) {
+      setState(() {
+        userName = value["name"];
+        email = value["email"];
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const ChildAppBar(
