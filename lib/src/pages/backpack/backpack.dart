@@ -29,15 +29,16 @@ class BackpackPage extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return BattleLog(
-                                expLog: battleResults![index]["exp"],
-                                log: battleResults![index]["result"],
-                                win: battleResults![index]["win"],
-                                party: battleResults![index]["party"]);
+                              expLog: battleResults![index]["exp"],
+                              log: battleResults![index]["result"],
+                              win: battleResults![index]["win"],
+                              party: battleResults![index]["party"],
+                            );
                           });
                     },
-                    title: Text(battleResults!.keys.elementAt(index)),
-                    subtitle:
-                        Text(battleResults!.values.elementAt(index).toString()),
+                    title: Text(battleResults![index]["opponent"]),
+                    subtitle: Text(
+                        "${battleResults![index]["endTime"]}\n${battleResults![index]["win"] ? "勝利" : "敗北"}"),
                   );
                 })
             : Column(children: [

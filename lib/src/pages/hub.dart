@@ -179,6 +179,8 @@ class _Hub extends State<Hub> {
         battleResults[value]["exp"] = autoBattle.finalExp;
         battleResults[value]["win"] = res;
         battleResults[value]["party"] = autoBattle.finalParties;
+        battleResults[value]["opponent"] = autoBattle.opponent;
+        battleResults[value]["endTime"] = autoBattle.endTime;
       });
     }
     await disconnectFromDevice();
