@@ -142,6 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: SizedBox(
                       height: 50,
                       child: TextField(
+                          controller: TextEditingController(text: userName),
                           onChanged: (value) {
                             setState(() {
                               userName = value;
@@ -163,6 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: SizedBox(
                       height: 50,
                       child: TextField(
+                          controller: TextEditingController(text: email),
                           onChanged: (value) {
                             setState(() {
                               email = value;
