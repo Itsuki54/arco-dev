@@ -57,7 +57,7 @@ class _MemberPage extends State<MembersPage> {
                             name: member["name"],
                             level: member["level"] ?? 1,
                             description: member["description"] ?? "説明がありません",
-                            exp: 0.3)));
+                            exp: 3)));
                   },
                 );
               }).toList())),

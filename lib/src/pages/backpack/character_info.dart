@@ -18,7 +18,7 @@ class CharacterInfo extends StatefulWidget {
   final String name;
   final int level;
   final String description;
-  final double exp;
+  final int exp;
 
   @override
   State<CharacterInfo> createState() => _CharacterInfo();

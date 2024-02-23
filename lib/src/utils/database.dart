@@ -148,6 +148,7 @@ class UserItemsCollection extends BaseCollection {
       : super('USERS/$uid/ITEMS', firestore);
 }
 
+// MEMBERSがない場合、空のMapが帰ってくる
 class UserMembersCollection extends BaseCollection {
   UserMembersCollection(FirebaseFirestore firestore, String uid)
       : super('USERS/$uid/MEMBERS', firestore);
