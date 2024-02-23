@@ -154,7 +154,7 @@ class _SignInPageState extends State<SignInPage> {
                         isDense: true,
                         filled: true,
                         fillColor: AppColors.lightIndigo,
-                        labelText: 'メールアドレス',
+                        hintText: 'メールアドレス',
                         prefixIcon: Icon(Icons.mail),
                       ),
                     )),
@@ -169,7 +169,7 @@ class _SignInPageState extends State<SignInPage> {
                         return null;
                       },
                       keyboardType: TextInputType.visiblePassword,
-                      obscureText: true,
+                      obscureText: !visible,
                       onChanged: (value) {
                         setState(() {
                           password = value;
@@ -179,7 +179,7 @@ class _SignInPageState extends State<SignInPage> {
                         isDense: true,
                         filled: true,
                         fillColor: AppColors.lightIndigo,
-                        labelText: 'パスワード',
+                        hintText: 'パスワード',
                         prefixIcon: Icon(Icons.key),
                         suffix: IconButton(
                           icon: Icon(
@@ -259,7 +259,6 @@ class _SignInPageState extends State<SignInPage> {
                                         builder: (context) => FirstTutorialPage(
                                             uid: _auth.currentUser!.uid),
                                       ));
-                                  ;
                                 } else {
                                   Navigator.pushReplacement(
                                     context,

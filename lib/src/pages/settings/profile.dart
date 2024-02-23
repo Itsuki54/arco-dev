@@ -73,6 +73,17 @@ class _ProfilePageState extends State<ProfilePage> {
   var levelPub = false;
 
   @override
+  void initState() {
+    super.initState();
+    db.usersCollection().findById(widget.uid).then((value) {
+      setState(() {
+        userName = value["name"];
+        email = value["email"];
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const ChildAppBar(
@@ -131,6 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: SizedBox(
                       height: 50,
                       child: TextField(
+                          controller: TextEditingController(text: userName),
                           onChanged: (value) {
                             setState(() {
                               userName = value;
@@ -152,6 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: SizedBox(
                       height: 50,
                       child: TextField(
+                          controller: TextEditingController(text: email),
                           onChanged: (value) {
                             setState(() {
                               email = value;

@@ -133,6 +133,8 @@ class UsersCollection extends BaseCollection {
     set(uid, data);
     return UserQuestsCollection(firestore, uid).copyFromQuestsCollection();
   }
+
+  doc(String uid) {}
 }
 
 class UserItemsCollection extends BaseCollection {

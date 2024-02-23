@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import './signin_page.dart';
-
-Color backgroundColorGray = const Color(0xFF363636);
+// utils
+import 'package:arco_dev/src/utils/colors.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({Key? key});
+  const WelcomePage({super.key});
 
   @override
   State<WelcomePage> createState() => _WelcomePageState();
@@ -14,26 +14,23 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColorGray,
-        appBar: AppBar(
-          backgroundColor: backgroundColorGray,
-          title: const Text("Welcome"),
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-          ),
-        ),
+        backgroundColor: AppColors.indigo,
+        appBar: AppBar(backgroundColor: AppColors.indigo),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Center(
-                child: Image.asset(
-                  'assets/images/appicon.png',
-                  width: 300,
-                  height: 300,
-                ),
+              Image.asset(
+                'assets/images/appicon.png',
+                width: 300,
+                height: 300,
               ),
+              const SizedBox(height: 80),
+              const Text("ようこそ",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold))
             ],
           ),
         ),
@@ -44,12 +41,12 @@ class _WelcomePageState extends State<WelcomePage> {
               MaterialPageRoute(builder: (context) => const SignInPage()),
             );
           },
-          child: Icon(
+          backgroundColor: AppColors.indigo,
+          elevation: 0,
+          child: const Icon(
             Icons.navigate_next,
             size: 48.0,
           ),
-          backgroundColor: backgroundColorGray,
-          elevation: 0,
         ));
   }
 }

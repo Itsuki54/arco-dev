@@ -11,8 +11,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Padding(
+      body: SingleChildScrollView(
+          child: Center(
+              child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -72,10 +73,11 @@ class HomePage extends StatelessWidget {
                         height: 120,
                         child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Scaffold()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             Achievement(uid: uid)));
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -117,7 +119,7 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
-      )),
+      ))),
     );
   }
 }
