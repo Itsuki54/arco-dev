@@ -154,7 +154,7 @@ class _SignInPageState extends State<SignInPage> {
                         isDense: true,
                         filled: true,
                         fillColor: AppColors.lightIndigo,
-                        labelText: 'メールアドレス',
+                        hintText: 'メールアドレス',
                         prefixIcon: Icon(Icons.mail),
                       ),
                     )),
@@ -179,7 +179,7 @@ class _SignInPageState extends State<SignInPage> {
                         isDense: true,
                         filled: true,
                         fillColor: AppColors.lightIndigo,
-                        labelText: 'パスワード',
+                        hintText: 'パスワード',
                         prefixIcon: Icon(Icons.key),
                         suffix: IconButton(
                           icon: Icon(
