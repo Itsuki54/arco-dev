@@ -4,7 +4,7 @@ import 'package:arco_dev/src/pages/todo/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:arco_dev/src/pages/shop/shop_page.dart';
 
-import 'achievement/Achievement.dart';
+import 'achievement/achievement.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.uid}) : super(key: key);

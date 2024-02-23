@@ -1,6 +1,11 @@
 //tamplate
+import 'package:arco_dev/src/components/button/simple_route_button.dart';
+import 'package:arco_dev/src/pages/achievement/ranking.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../components/common/child_appbar.dart';
 
 class Achievement extends StatefulWidget {
   const Achievement({Key? key, required this.uid}) : super(key: key);
@@ -21,12 +26,18 @@ class _AchievementState extends State<Achievement> {
   int sumWalk = 0;
   int sumDistance = 0;
 
+  int sumLogin = 0;
+  int firstPlay = 0;
+  int sumBattle = 0;
+  int sumWin = 0;
+  int sumGetItem = 0;
+  int sumGetWeapon = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('達成'),
-      ),
+      appBar: const ChildAppBar(
+          title: "統計", icon: Icon(Icons.show_chart, size: 40)),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -34,9 +45,68 @@ class _AchievementState extends State<Achievement> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Align(
+                  alignment: Alignment.topRight,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Ranking(uid: widget.uid)));
+                    },
+                    child: const Icon(Icons.workspace_premium, size: 40),
+                  )),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 width: double.infinity,
-                height: 100,
+                height: 240,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(children: [
+                        Icon(Icons.login, size: 24),
+                        Text('初めてプレイした日${firstPlay}日',
+                            style: TextStyle(fontSize: 20))
+                      ]),
+                      Row(children: [
+                        Icon(Icons.login, size: 24),
+                        Text('ログイン${sumLogin}日', style: TextStyle(fontSize: 20))
+                      ]),
+                      Row(children: [
+                        Icon(Icons.emoji_events, size: 24),
+                        Text('バトル${sumBattle}回', style: TextStyle(fontSize: 20))
+                      ]),
+                      Row(children: [
+                        Icon(Icons.emoji_events, size: 24),
+                        Text('勝利${sumWin}回', style: TextStyle(fontSize: 20))
+                      ]),
+                      Row(children: [
+                        Icon(Icons.emoji_events, size: 24),
+                        Text('アイテム${sumGetItem}個',
+                            style: TextStyle(fontSize: 20))
+                      ]),
+                      Row(children: [
+                        Icon(Icons.emoji_events, size: 24),
+                        Text('武器${sumGetWeapon}個',
+                            style: TextStyle(fontSize: 20))
+                      ]),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 80,
                 child: ElevatedButton(
                   onPressed: () {
                     setState(
@@ -66,7 +136,7 @@ class _AchievementState extends State<Achievement> {
               ),
               SizedBox(
                 width: double.infinity,
-                height: 100,
+                height: 80,
                 child: ElevatedButton(
                   onPressed: () {
                     setState(
@@ -97,7 +167,7 @@ class _AchievementState extends State<Achievement> {
               ),
               SizedBox(
                 width: double.infinity,
-                height: 100,
+                height: 80,
                 child: ElevatedButton(
                   onPressed: () {
                     setState(
@@ -121,6 +191,9 @@ class _AchievementState extends State<Achievement> {
                                   style: TextStyle(fontSize: 24))
                             ]),
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
             ],
           ),
