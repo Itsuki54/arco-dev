@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:arco_dev/src/pages/home.dart';
 import 'package:arco_dev/src/utils/auto_battle.dart';
+import 'package:arco_dev/src/utils/database.dart';
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:permission_handler/permission_handler.dart' as permission;
 
+import '../utils/daily_exp_health.dart';
 import './backpack/backpack.dart';
 import './map/map.dart';
 
@@ -43,6 +45,8 @@ class _Hub extends State<Hub> {
   Map<String, dynamic> battleResults = {};
   final List<String> _connectedDevices = [];
   final messaging = FirebaseMessaging.instance;
+  Database db = Database();
+  int exp = 0;
 
   String generateNonce([int length = 32]) {
     const charset =
@@ -249,6 +253,18 @@ class _Hub extends State<Hub> {
                   ],
                 ));
       }
+    });
+    int lastDay = DateTime.now().day;
+    exp = db
+        .usersCollection()
+        .findById(widget.uid)
+        .then((value) => value["exp"] as int) as int;
+    Timer.periodic(const Duration(hours: 24), (Timer t) async {
+      exp += (await HealthExp().getExp(lastDay)).toInt();
+      db.usersCollection().update(widget.uid, {"exp": exp});
+    });
+    setState(() {
+      lastDay = DateTime.now().day;
     });
   }
 
