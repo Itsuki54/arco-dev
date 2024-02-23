@@ -16,8 +16,9 @@ class BaseCollection {
   }
 
   Map<String, dynamic> getDataFromDocumentData(DocumentSnapshot doc) {
-    final data = doc.data();
-    return data as Map<String, dynamic>;
+    final data = doc.data() as Map<String, dynamic>;
+    data["id"] = doc.id;
+    return data;
   }
 
   Future<void> set(String id, Map<String, dynamic> data) {
@@ -139,7 +140,7 @@ class UserQuestsCollection extends BaseCollection {
   Future<void> copyFromQuestsCollection() {
     return QuestsCollection(firestore).all().then((quests) {
       for (var quest in quests) {
-        set(quest['questId'], {
+        set(quest["id"], {
           'frequency': quest['frequency'],
           'questId': quest['questId'],
           'image': quest['image'],
@@ -162,7 +163,7 @@ class UserQuestsCollection extends BaseCollection {
       'value': 'daily'
     }).then((quests) {
       for (var quest in quests) {
-        set(quest['questId'], {
+        set(quest['id'], {
           'frequency': 'daily',
           'questId': quest['questId'],
           'image': quest['image'],
@@ -185,7 +186,7 @@ class UserQuestsCollection extends BaseCollection {
       'value': 'weekly'
     }).then((quests) {
       for (var quest in quests) {
-        set(quest['questId'], {
+        set(quest['id'], {
           'frequency': 'weekly',
           'questId': quest['questId'],
           'image': quest['image'],
