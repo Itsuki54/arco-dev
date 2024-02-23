@@ -3,18 +3,25 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/*
+使い方:
+  AutoBattle(uid, 対戦相手のuid)でインスタンスを作成
+  isWin = autoBattle.start()
+  result = autoBattle.finalResult
+*/
 class AutoBattle {
-  final String playerUid;
-  final String? player2Uid;
+  final String playerUid; // プレイヤー
+  final String? player2Uid; // 対戦相手
   final Database database = Database();
-  final List<String> finalResult = [];
-  // 敵のドキュメントIDリスト
-  final List<String>? enemies = [];
-  List<num> finalExp = [];
+  final List<String> finalResult = []; // 戦闘結果
+
+  final List<String>? enemies = []; // 敵のドキュメントIDリスト
+  List<num> finalExp = []; // 得られる経験値
   List<Map<String, dynamic>> finalParties = [];
 
   AutoBattle(this.playerUid, this.player2Uid);
 
+  // 戦闘開始
   Future<bool> start() async {
     List<String> result = [];
     bool win = false;
@@ -71,6 +78,7 @@ class AutoBattle {
     return win;
   }
 
+  // 戦闘終了処理
   Future<List<String>> _win(String uid, List<Map<String, dynamic>> party,
       List<Map<String, dynamic>> enemies) async {
     List<String> result = [];
@@ -109,15 +117,18 @@ class AutoBattle {
     return result;
   }
 
+  // 1ターン分の戦闘
   Future<List<String>> _battle(List<Map<String, dynamic>> playerCharacters,
       List<Map<String, dynamic>> enemyCharacters) async {
     List<String> result = [];
     Random random = Random();
     for (int i = 0; i < playerCharacters.length; i++) {
       Map<String, dynamic> playerCharacter = playerCharacters[i];
+
       // 敵キャラクターをランダムに選択
       Map<String, dynamic> enemyCharacter =
           enemyCharacters[random.nextInt(enemyCharacters.length)];
+
       // アルテリオス計算式
       int playerDamage = (playerCharacter['status']['atk'] *
               playerCharacter['status']['spd']) -
