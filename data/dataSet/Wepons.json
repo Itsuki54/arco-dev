@@ -1,7 +1,7 @@
 [
   {
-    "description": "人参",
-    "image": "ITEM_ICONS/Callot.png",
+    "description": "着ぐるみ",
+    "image": "WEPONS_ICONS/Costume.png",
     "avility": {
       "heal": 10,
       "attack": 20,
@@ -10,7 +10,7 @@
   },
   {
     "description": "切符",
-    "image": "ITEM_ICONS/Ticket.png",
+    "image": "WEPONS_ICONS/Ticket.png",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -18,17 +18,17 @@
     }
   },
   {
-    "description": "消防車",
-    "image": "ITEM_ICONS/FireTruck.png",
+    "description": "消化器",
+    "image": "WEPONS_ICONS/Digeston.png",
     "avility": {
       "heal": 0,
-      "attack": 30,
+      "attack": 10,
       "defence": 5
     }
   },
   {
-    "description": "手錠",
-    "image": "ITEM_ICONS/Catch.png",
+    "description": "拳銃",
+    "image": "WEPONS_ICONS/Gun.png",
     "avility": {
       "heal": 0,
       "attack": 20,
@@ -37,7 +37,7 @@
   },
   {
     "description": "100万ボルト",
-    "image": "ITEM_ICONS/Volt.png",
+    "image": "WEPONS_ICONS/Volt.png",
     "avility": {
       "heal": 0,
       "attack": 20,
@@ -46,7 +46,7 @@
   },
   {
     "description": "ハサミ",
-    "image": "ITEM_ICONS/Scissors.png",
+    "image": "WEPONS_ICONS/Scissors.png",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -54,17 +54,17 @@
     }
   },
   {
-    "description": "お経",
-    "image": "ITEM_ICONS/Okyo.png",
+    "description": "装束",
+    "image": "WEPONS_ICONS/Landscap.png",
     "avility": {
-      "heal": 15,
+      "heal": 0,
       "attack": 15,
       "defence": 15
     }
   },
   {
     "description": "札束",
-    "image": "ITEM_ICONS/Satu.png",
+    "image": "WEPONS_ICONS/Satu.png",
     "avility": {
       "heal": 0,
       "attack": 100,
@@ -73,7 +73,7 @@
   },
   {
     "description": "プロテイン",
-    "image": "ITEM_ICONS/Protein.png",
+    "image": "WEPONS_ICONS/Protein.png",
     "avility": {
       "heal": 5,
       "attack": 5,
@@ -81,17 +81,17 @@
     }
   },
   {
-    "description": "ハンマー",
-    "image": "ITEM_ICONS/Hunmer.png",
+    "description": "ヘルメット",
+    "image": "WEPONS_ICONS/Helmet.png",
     "avility": {
       "heal": 0,
-      "attack": 30,
-      "defence": 0
+      "attack": 0,
+      "defence": 15
     }
   },
   {
-    "description": "ガベル",
-    "image": "ITEM_ICONS/Gabel.png",
+    "description": "バッジ",
+    "image": "WEPONS_ICONS/Badge.png",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -99,17 +99,17 @@
     }
   },
   {
-    "description": "給食",
-    "image": "ITEM_ICONS/Lunch.png",
+    "description": "体育技",
+    "image": "WEPONS_ICONS/Wear.png",
     "avility": {
-      "heal": 15,
-      "attack": 0,
+      "heal": 5,
+      "attack": 5,
       "defence": 10
     }
   },
   {
     "description": "切手",
-    "image": "ITEM_ICONS/Kitte.png",
+    "image": "WEPONS_ICONS/Kitte.png",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -118,7 +118,7 @@
   },
   {
     "description": "ガソリン",
-    "image": "ITEM_ICONS/Gasoline.png",
+    "image": "WEPONS_ICONS/Gasoline.png",
     "avility": {
       "heal": 0,
       "attack": 15,
@@ -127,7 +127,7 @@
   },
   {
     "description": "ジェット機",
-    "image": "ITEM_ICONS/Jet.png",
+    "image": "WEPONS_ICONS/Jet.png",
     "avility": {
       "heal": 20,
       "attack": 35,
@@ -136,7 +136,7 @@
   },
   {
     "description": "証明書",
-    "image": "ITEM_ICONS/Certificate.png",
+    "image": "WEPONS_ICONS/Certificate.png",
     "avility": {
       "heal": 0,
       "attack": 0,
@@ -145,7 +145,7 @@
   },
   {
     "description": "ポップコーン",
-    "image": "ITEM_ICONS/Popcorn.png",
+    "image": "WEPONS_ICONS/Popcorn.png",
     "avility": {
       "heal": 10,
       "attack": 5,
@@ -154,7 +154,7 @@
   },
   {
     "description": "辞書",
-    "image": "ITEM_ICONS/Dictionary.png",
+    "image": "WEPONS_ICONS/Dictionary.png",
     "avility": {
       "heal": 10,
       "attack": 0,
@@ -163,7 +163,7 @@
   },
   {
     "description": "おにぎり",
-    "image": "ITEM_ICONS/Rice.png",
+    "image": "WEPONS_ICONS/Rice.png",
     "avility": {
       "heal": 15,
       "attack": 0,
@@ -172,7 +172,7 @@
   },
   {
     "description": "バイキング",
-    "image": "ITEM_ICONS/Viking.png",
+    "image": "WEPONS_ICONS/Viking.png",
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -181,7 +181,7 @@
   },
   {
     "description": "薬",
-    "image": "ITEM_ICONS/Drag.png",
+    "image": "WEPONS_ICONS/Drag.png",
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -190,7 +190,7 @@
   },
   {
     "description": "ハンバーグ",
-    "image": "ITEM_ICONS/meet.png",
+    "image": "WEPONS_ICONS/meet.png",
     "avility": {
       "heal": 30,
       "attack": 0,
@@ -199,7 +199,7 @@
   },
   {
     "description": "バナナ",
-    "image": "ITEM_ICONS/Banana.png",
+    "image": "WEPONS_ICONS/Banana.png",
     "avility": {
       "heal": 15,
       "attack": 10,
@@ -208,7 +208,7 @@
   },
   {
     "description": "コーヒー",
-    "image": "ITEM_ICONS/Coffee.png",
+    "image": "WEPONS_ICONS/Coffee.png",
     "avility": {
       "heal": 20,
       "attack": 5,
