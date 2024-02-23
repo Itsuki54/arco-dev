@@ -1,17 +1,18 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:ui' as ui;
+import 'dart:convert';
 import 'dart:math';
+import 'dart:ui' as ui;
+
+import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
+import 'package:location/location.dart';
+
 import '../../utils/spot_get.dart';
 
 class MapPage extends StatefulWidget {
@@ -139,6 +140,34 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
     }
   }
 
+  String _getServiceType(List<String> types) {
+    if (types.contains("bank")) {
+      return "service";
+    } else if (types.contains("court")) {
+      return "public";
+    } else if (types.contains("restaurant")) {
+      return "food";
+    } else if (types.contains("fire_station")) {
+      return "public";
+    } else if (types.contains("food")) {
+      return "food";
+    } else if (types.contains("local_government_office")) {
+      return "public";
+    } else if (types.contains("hospital")) {
+      return "service";
+    } else if (types.contains("lodging")) {
+      return "nature";
+    } else if (types.contains("mountain")) {
+      return "nature";
+    } else if (types.contains("park")) {
+      return "nature";
+    } else if (types.contains("police")) {
+      return "service";
+    } else {
+      return "unknown";
+    }
+  }
+
   Future<void> _showSpots() async {
     await _setMarkerIcons();
     for (NearBy.Place spot in _spots) {
@@ -187,7 +216,9 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
                                           !_received.contains(spot.placeId!)
                                       ? () {
                                           getSomething(
-                                                  widget.uid, spot.placeId!)
+                                                  widget.uid,
+                                                  spot.placeId!,
+                                                  _getServiceType(spot.types!))
                                               .then((value) => {
                                                     if (value)
                                                       {
@@ -289,32 +320,29 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
     _showSpots();
   }
 
-  Future<bool> getSomething(String uid, String spotId) async {
+  Future<bool> getSomething(String uid, String spotId, String attribute) async {
     try {
       while (true) {
         int rand = Random().nextInt(3);
         if (rand == 0) {
-          final data = await db.charactersCollection().getRandomDoc();
+          final data = await db.charactersCollection().getRandomDoc(attribute);
           if (data != {}) {
-            final dataId = data["id"];
             data.remove("id");
-            await db.userMembersCollection(uid).set(dataId, data);
+            await db.userMembersCollection(uid).add(data);
             break;
           }
         } else if (rand == 1) {
-          final data = await db.weaponsCollection().getRandomDoc();
+          final data = await db.weaponsCollection().getRandomDoc(attribute);
           if (data != {}) {
-            final dataId = data["id"];
             data.remove("id");
-            await db.userWeaponsCollection(uid).set(dataId, data);
+            await db.userWeaponsCollection(uid).add(data);
             break;
           }
         } else {
-          final data = await db.itemsCollection().getRandomDoc();
+          final data = await db.itemsCollection().getRandomDoc(attribute);
           if (data != {}) {
-            final dataId = data["id"];
             data.remove("id");
-            await db.userItemsCollection(uid).set(dataId, data);
+            await db.userItemsCollection(uid).add(data);
             break;
           }
         }

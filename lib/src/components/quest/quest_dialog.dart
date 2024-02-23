@@ -1,9 +1,10 @@
+import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
-// components
-import '../button/close_dialog_button.dart';
+
 // structs
 import '../../structs/quest.dart';
-import 'package:arco_dev/src/utils/database.dart';
+// components
+import '../button/close_dialog_button.dart';
 
 class QuestDialog extends StatelessWidget {
   QuestDialog({
