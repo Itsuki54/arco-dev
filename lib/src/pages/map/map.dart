@@ -102,7 +102,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
     } else if (types.contains("police")) {
       return "police";
     } else {
-      return "food";
+      return "unknown";
     }
   }
 
@@ -129,7 +129,9 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
       "hotel",
       "mountain",
       "park",
-      "police"
+      "police",
+      "spot",
+      "unknown"
     ];
     for (String icon in icons) {
       Uint8List iconBytes =
