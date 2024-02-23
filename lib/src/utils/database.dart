@@ -99,7 +99,7 @@ class BaseCollection {
 
   Future<Map<String, dynamic>> getRandomDoc(String? attribute) async {
     List<Map<String, dynamic>> allData = [];
-    if (attribute != null) {
+    if (attribute != null && attribute.isNotEmpty) {
       allData = await getByQuery(
           {'type': 'isEqualTo', 'field': 'attribute', 'value': attribute});
     } else {
