@@ -37,6 +37,7 @@ class _SignInPageState extends State<SignInPage> {
         'name': _auth.currentUser!.displayName,
         'exp': 0.0,
         'userId': _auth.currentUser!.uid,
+        'money': 0
       });
       await db
           .userQuestsCollection(_auth.currentUser!.uid)

@@ -1,4 +1,5 @@
 import 'package:arco_dev/src/utils/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // structs
@@ -21,6 +22,24 @@ class QuestDialog extends StatelessWidget {
 
   // database
   Database db = Database();
+
+  Future getReward() async {
+    if (quest.rewardType == "money") {
+      await db
+          .usersCollection()
+          .update(uid, {"money": FieldValue.increment(quest.point)});
+    } else if (quest.rewardType == "exp") {
+      int exp = db
+          .usersCollection()
+          .doc(uid)
+          .get()
+          .then((value) => value.data()['exp']);
+
+      await db
+          .usersCollection()
+          .update(uid, {"exp": FieldValue.increment(exp + quest.point)});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +64,7 @@ class QuestDialog extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: quest.state == "受取り"
                     ? () {
+                        getReward();
                         db
                             .userQuestsCollection(uid)
                             .update(quest.id, {"state": "完了"});

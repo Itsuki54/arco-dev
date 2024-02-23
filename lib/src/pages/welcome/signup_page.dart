@@ -56,6 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
       'name': 'New User',
       'exp': 0.0,
       'userId': _auth.currentUser!.uid,
+      'money': 0
     });
     await db
         .userQuestsCollection(_auth.currentUser!.uid)

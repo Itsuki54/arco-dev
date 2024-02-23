@@ -5,7 +5,7 @@
     "image": "QUEST-ICONS/login.png",
     "name": "日常の異世界へようこそ",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 100,
     "state": "未完了",
     "frequency": "daily"
@@ -16,7 +16,7 @@
     "image": "QUEST-ICONS/5000steps.png",
     "name": "最初の一歩",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 100,
     "state": "未完了",
     "frequency": "daily"
@@ -27,7 +27,7 @@
     "image": "QUEST-ICONS/10000steps.png",
     "name": "大きな一歩",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 200,
     "state": "未完了",
     "frequency": "daily"
@@ -49,7 +49,7 @@
     "image": "QUEST-ICONS/calorie100.png",
     "name": "クッキー3枚分",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 100,
     "state": "未完了",
     "frequency": "daily"
@@ -60,7 +60,7 @@
     "image": "QUEST-ICONS/calorie200.png",
     "name": "真っ赤なりんごにくちびる寄せて",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 200,
     "state": "未完了",
     "frequency": "daily"
@@ -71,7 +71,7 @@
     "image": "QUEST-ICONS/quest5.png",
     "name": "明日の十より今日の五",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 100,
     "state": "未完了",
     "frequency": "daily"
@@ -93,7 +93,7 @@
     "image": "QUEST-ICONS/win1.png",
     "name": "栄光の始まり",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 100,
     "state": "未完了",
     "frequency": "daily"
@@ -104,7 +104,7 @@
     "image": "QUEST-ICONS/win5.png",
     "name": "TAKE 5",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 100,
     "state": "未完了",
     "frequency": "daily"
@@ -126,7 +126,7 @@
     "image": "QUEST-ICONS/week.png",
     "name": "七つの徳",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 500,
     "state": "未完了",
     "frequency": "weekly"
@@ -137,7 +137,7 @@
     "image": "QUEST-ICONS/50000steps.png",
     "name": "長者",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 500,
     "state": "未完了",
     "frequency": "weekly"
@@ -148,7 +148,7 @@
     "image": "QUEST-ICONS/calorie2000.png",
     "name": "ミレニアム",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 500,
     "state": "未完了",
     "frequency": "weekly"
@@ -160,7 +160,7 @@
     "image": "QUEST-ICONS/quest20.png",
     "name": "成人式",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 500,
     "state": "未完了",
     "frequency": "weekly"
@@ -171,7 +171,7 @@
     "image": "QUEST-ICONS/quest70.png",
     "name": "御神木",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 500,
     "state": "未完了",
     "frequency": "weekly"
@@ -182,7 +182,7 @@
     "image": "QUEST-ICONS/win20.png",
     "name": "新人類",
     "rewardId": "0",
-    "rewardType": "経験値",
+    "rewardType": "exp",
     "point": 500,
     "state": "未完了",
     "frequency": "weekly"
