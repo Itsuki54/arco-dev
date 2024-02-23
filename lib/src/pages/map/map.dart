@@ -71,6 +71,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
             LatLng(currentLocation.latitude!, currentLocation.longitude!);
         _cameraPosition = CameraPosition(target: _myPosition);
         _getSpots(20);
+        _generateRandomEnemies();
       });
       showCurrentLocation();
     } catch (e) {}
@@ -129,6 +130,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
       "park",
       "police",
       "spot",
+      "enemy",
       "unknown"
     ];
     for (String icon in icons) {
@@ -371,6 +373,93 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
     }
   }
 
+  Future<void> _generateRandomEnemies() async {
+    await _setMarkerIcons();
+    int rand = Random().nextInt(15);
+    for (int i = 0; i < rand; i++) {
+      final data = await db.enemiesCollection().getRandomDoc("");
+      final posneg = Random().nextBool() ? 1 : -1;
+      final enemyMarker = Marker(
+          markerId: MarkerId(data["name"]),
+          position: LatLng(
+              _myPosition.latitude + posneg * (Random().nextDouble() / 100),
+              _myPosition.longitude + posneg * (Random().nextDouble() / 100)),
+          icon: _markerIcons["enemy"]!,
+          onTap: () {
+            showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                              height: 4,
+                              width: 80,
+                              child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(4)))),
+                          const SizedBox(height: 12),
+                          Text(data["name"],
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                              width: double.infinity,
+                              child: Builder(builder: (context) {
+                                return ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black,
+                                        foregroundColor: Colors.white),
+                                    onPressed: () {
+                                      final result = Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Scaffold(
+                                                    appBar: AppBar(),
+                                                  )));
+                                      if (result == true) {
+                                        markers.removeWhere((element) =>
+                                            element.markerId ==
+                                            MarkerId(data["name"]));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text("戦闘に勝利！")));
+                                      } else {
+                                        markers.removeWhere((element) =>
+                                            element.markerId ==
+                                            MarkerId(data["name"]));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text("戦闘に敗北...")));
+                                      }
+                                    },
+                                    child: const Text("戦う"));
+                              })),
+                          SizedBox(
+                              width: double.infinity,
+                              child: Builder(builder: (context) {
+                                return ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black,
+                                        foregroundColor: Colors.white),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("閉じる"));
+                              }))
+                        ],
+                      ));
+                });
+          },
+          flat: true);
+      markers.add(enemyMarker);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -389,9 +478,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _getCurrentLocation();
-    }
+    _getCurrentLocation();
   }
 
   @override
