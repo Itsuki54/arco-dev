@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:arco_dev/src/pages/battle/battle.dart';
 import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -418,24 +419,28 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
                                       final result = Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Scaffold(
-                                                    appBar: AppBar(),
-                                                  )));
-                                      if (result == true) {
-                                        markers.removeWhere((element) =>
-                                            element.markerId ==
-                                            MarkerId(data["name"]));
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                content: Text("戦闘に勝利！")));
-                                      } else {
-                                        markers.removeWhere((element) =>
-                                            element.markerId ==
-                                            MarkerId(data["name"]));
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                content: Text("戦闘に敗北...")));
-                                      }
+                                              builder: (context) => BattlePage(
+                                                  uid: widget.uid,
+                                                  enemies: [data])));
+                                      result.then((value) {
+                                        if (value) {
+                                          markers.removeWhere((element) =>
+                                              element.markerId ==
+                                              MarkerId(data["name"]));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  content: Text("戦闘に勝利！")));
+                                          Navigator.pop(context);
+                                        } else {
+                                          markers.removeWhere((element) =>
+                                              element.markerId ==
+                                              MarkerId(data["name"]));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  content: Text("戦闘に敗北...")));
+                                          Navigator.pop(context);
+                                        }
+                                      });
                                     },
                                     child: const Text("戦う"));
                               })),

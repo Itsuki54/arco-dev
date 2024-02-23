@@ -51,6 +51,16 @@ class BaseCollection {
     }).toList();
   }
 
+  Future<List<Map<String, dynamic>>> getByOrder(
+      String field, bool descending) async {
+    Query<Map<String, dynamic>> ref = collection;
+    ref = ref.orderBy(field, descending: descending);
+    final snapshot = await ref.get();
+    return snapshot.docs.map((doc) {
+      return getDataFromDocumentData(doc);
+    }).toList();
+  }
+
   Future<List<Map<String, dynamic>>> getByQuery(
       Map<String, dynamic> query) async {
     Query<Map<String, dynamic>> ref = collection;
