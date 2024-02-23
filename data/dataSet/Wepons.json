@@ -174,7 +174,7 @@
   },
   {
     "description": "ポーター",
-    "image": "WEPONS_ICONS/Viking.png",
+    "image": "WEPONS_ICONS/Porter.png",
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -182,8 +182,8 @@
     }
   },
   {
-    "description": "薬",
-    "image": "WEPONS_ICONS/Drag.png",
+    "description": "包帯",
+    "image": "WEPONS_ICONS/Bandage.png",
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -191,17 +191,17 @@
     }
   },
   {
-    "description": "ハンバーグ",
-    "image": "WEPONS_ICONS/meet.png",
+    "description": "ナイフ",
+    "image": "WEPONS_ICONS/knife.png",
     "avility": {
-      "heal": 30,
-      "attack": 0,
+      "heal": 10,
+      "attack": 25,
       "defence": 10
     }
   },
   {
-    "description": "バナナ",
-    "image": "WEPONS_ICONS/Banana.png",
+    "description": "かご",
+    "image": "WEPONS_ICONS/Shopping.png",
     "avility": {
       "heal": 15,
       "attack": 10,
@@ -209,8 +209,8 @@
     }
   },
   {
-    "description": "コーヒー",
-    "image": "WEPONS_ICONS/Coffee.png",
+    "description": "ケーキ",
+    "image": "WEPONS_ICONS/Cake.png",
     "avility": {
       "heal": 20,
       "attack": 5,
