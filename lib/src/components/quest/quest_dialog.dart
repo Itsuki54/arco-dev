@@ -23,7 +23,7 @@ class QuestDialog extends StatelessWidget {
   // database
   Database db = Database();
 
-  Future getReward() async {
+  Future<void> getReward() async {
     if (quest.rewardType == "money") {
       await db
           .usersCollection()

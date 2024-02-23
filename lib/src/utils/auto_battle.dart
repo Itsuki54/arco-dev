@@ -102,9 +102,10 @@ class AutoBattle {
     for (int i = 0; i < enemies.length; i++) {
       exp += (enemies[i]['level'] + enemies[i]['rarity'] * 2) * 10;
     }
-    await database
-        .usersCollection()
-        .update(uid, {'exp': FieldValue.increment(exp)});
+    await database.usersCollection().update(uid, {
+      'exp': FieldValue.increment(exp),
+      'winCount': FieldValue.increment(1)
+    });
     if (user['exp'] + exp >= user['level'] * 50) {
       await database
           .usersCollection()

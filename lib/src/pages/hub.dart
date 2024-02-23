@@ -6,6 +6,7 @@ import 'package:arco_dev/src/pages/home.dart';
 import 'package:arco_dev/src/utils/auto_battle.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -217,6 +218,34 @@ class _Hub extends State<Hub> {
   Future<void> disconnectFromDevice() async {
     debugPrint('Disconnecting from device');
     await _connection.cancel();
+  }
+
+  Future<void> lastLogin() async {
+    final lastLogin = await db.usersCollection().findById(widget.uid);
+    if (lastLogin.containsKey("lastLogin")) {
+      final lastLoginTime = lastLogin["lastLogin"];
+      final now = DateTime.now();
+      final diff = DateTime(now.year, now.month, now.day)
+          .difference(lastLoginTime.toDate())
+          .inDays;
+      if (diff == 1) {
+        await db.usersCollection().update(widget.uid, {
+          "lastLogin": DateTime(now.year, now.month, now.day),
+          "loginCount": FieldValue.increment(1)
+        });
+      } else if (diff > 1) {
+        await db.usersCollection().update(widget.uid, {
+          "lastLogin": DateTime(now.year, now.month, now.day),
+          "loginCount": 1
+        });
+      }
+    } else {
+      final now = DateTime.now();
+      await db.usersCollection().update(widget.uid, {
+        "lastLogin": DateTime(now.year, now.month, now.day),
+        "loginCount": 1
+      });
+    }
   }
 
   @override
