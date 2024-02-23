@@ -97,8 +97,14 @@ class BaseCollection {
     }).toList();
   }
 
-  Future<Map<String, dynamic>> getRandomDoc() async {
-    List<Map<String, dynamic>> allData = await all();
+  Future<Map<String, dynamic>> getRandomDoc(String? attribute) async {
+    List<Map<String, dynamic>> allData = [];
+    if (attribute != null) {
+      allData = await getByQuery(
+          {'type': 'isEqualTo', 'field': 'attribute', 'value': attribute});
+    } else {
+      allData = await all();
+    }
     int length = allData.length;
     int rand = Random().nextInt(length);
     return allData[rand];

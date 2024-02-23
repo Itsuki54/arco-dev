@@ -139,6 +139,34 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
     }
   }
 
+  String _getServiceType(List<String> types) {
+    if (types.contains("bank")) {
+      return "service";
+    } else if (types.contains("court")) {
+      return "public";
+    } else if (types.contains("restaurant")) {
+      return "food";
+    } else if (types.contains("fire_station")) {
+      return "public";
+    } else if (types.contains("food")) {
+      return "food";
+    } else if (types.contains("local_government_office")) {
+      return "public";
+    } else if (types.contains("hospital")) {
+      return "service";
+    } else if (types.contains("lodging")) {
+      return "nature";
+    } else if (types.contains("mountain")) {
+      return "nature";
+    } else if (types.contains("park")) {
+      return "nature";
+    } else if (types.contains("police")) {
+      return "service";
+    } else {
+      return "unknown";
+    }
+  }
+
   Future<void> _showSpots() async {
     await _setMarkerIcons();
     for (NearBy.Place spot in _spots) {
@@ -187,7 +215,9 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
                                           !_received.contains(spot.placeId!)
                                       ? () {
                                           getSomething(
-                                                  widget.uid, spot.placeId!)
+                                                  widget.uid,
+                                                  spot.placeId!,
+                                                  _getServiceType(spot.types!))
                                               .then((value) => {
                                                     if (value)
                                                       {
@@ -289,12 +319,12 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
     _showSpots();
   }
 
-  Future<bool> getSomething(String uid, String spotId) async {
+  Future<bool> getSomething(String uid, String spotId, String attribute) async {
     try {
       while (true) {
         int rand = Random().nextInt(3);
         if (rand == 0) {
-          final data = await db.charactersCollection().getRandomDoc();
+          final data = await db.charactersCollection().getRandomDoc(attribute);
           if (data != {}) {
             final dataId = data["id"];
             data.remove("id");
@@ -302,7 +332,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
             break;
           }
         } else if (rand == 1) {
-          final data = await db.weaponsCollection().getRandomDoc();
+          final data = await db.weaponsCollection().getRandomDoc(attribute);
           if (data != {}) {
             final dataId = data["id"];
             data.remove("id");
@@ -310,7 +340,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
             break;
           }
         } else {
-          final data = await db.itemsCollection().getRandomDoc();
+          final data = await db.itemsCollection().getRandomDoc(attribute);
           if (data != {}) {
             final dataId = data["id"];
             data.remove("id");

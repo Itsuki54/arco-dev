@@ -74,7 +74,7 @@ class _CharacterInfo extends State<CharacterInfo> {
                 spacing: 4,
                 runSpacing: 8,
                 children: [
-                  for (int i = 0; i < 4; i++)
+                  for (int i = 0; i < 3; i++)
                     BackpackContentChip(
                       name: "武器名 $i",
                       level: 32,
