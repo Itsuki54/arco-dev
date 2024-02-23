@@ -73,9 +73,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
         _getSpots(20);
       });
       showCurrentLocation();
-    } catch (e) {
-      debugPrint('Could not get the location: $e');
-    }
+    } catch (e) {}
   }
 
   String _getSpotIcon(List<String> types) {
@@ -171,7 +169,6 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
   Future<void> _showSpots() async {
     await _setMarkerIcons();
     for (NearBy.Place spot in _spots) {
-      debugPrint(spot.types!.join(","));
       Marker spotMarker = Marker(
           markerId: MarkerId(spot.placeId!),
           position:
@@ -203,46 +200,49 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
                           const SizedBox(height: 16),
                           SizedBox(
                               width: double.infinity,
-                              child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black,
-                                      foregroundColor: Colors.white),
-                                  onPressed: SpotGet().isNear(
-                                            spot.geometry!.location.lat,
-                                            spot.geometry!.location.lng,
-                                            _myPosition.latitude,
-                                            _myPosition.longitude,
-                                          ) &&
-                                          !_received.contains(spot.placeId!)
-                                      ? () {
-                                          getSomething(
-                                                  widget.uid,
-                                                  spot.placeId!,
-                                                  _getServiceType(spot.types!))
-                                              .then((value) => {
-                                                    if (value)
-                                                      {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                                const SnackBar(
-                                                                    content: Text(
-                                                                        "受け取りました")))
-                                                      }
-                                                    else
-                                                      {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                                const SnackBar(
-                                                                    content: Text(
-                                                                        "受け取りに失敗しました")))
-                                                      }
-                                                  });
-                                          Navigator.pop(context);
-                                        }
-                                      : null,
-                                  child: const Text("受け取る"))),
+                              child: Builder(builder: (context) {
+                                return ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black,
+                                        foregroundColor: Colors.white),
+                                    onPressed: SpotGet().isNear(
+                                              spot.geometry!.location.lat,
+                                              spot.geometry!.location.lng,
+                                              _myPosition.latitude,
+                                              _myPosition.longitude,
+                                            ) &&
+                                            !_received.contains(spot.placeId!)
+                                        ? () {
+                                            getSomething(
+                                                    widget.uid,
+                                                    spot.placeId!,
+                                                    _getServiceType(
+                                                        spot.types!))
+                                                .then((value) => {
+                                                      if (value)
+                                                        {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  const SnackBar(
+                                                                      content: Text(
+                                                                          "受け取りました")))
+                                                        }
+                                                      else
+                                                        {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  const SnackBar(
+                                                                      content: Text(
+                                                                          "受け取りに失敗しました")))
+                                                        }
+                                                    });
+                                            Navigator.pop(context);
+                                          }
+                                        : null,
+                                    child: const Text("受け取る"));
+                              })),
                           SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
@@ -357,7 +357,6 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
   }
 
   Future<void> _getReceived() async {
-    debugPrint(widget.uid);
     Map<String, dynamic> user =
         (await db.usersCollection().findById(widget.uid));
     if (user["received"] != null) {
