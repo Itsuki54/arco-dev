@@ -42,29 +42,59 @@ class HomePage extends StatelessWidget {
                       ])),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-                width: double.infinity,
-                height: 120,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ToDoPage(uid: uid)));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.assignment, size: 44),
-                          SizedBox(width: 16),
-                          Text("クエスト",
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold))
-                        ]))),
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                      height: 120,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ToDoPage(uid: uid)));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(Icons.assignment, size: 44),
+                                SizedBox(width: 16),
+                                Text("クエスト",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold))
+                              ]))),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                    child: SizedBox(
+                        height: 120,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SettingsPage(uid: uid)));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.settings, size: 45),
+                                  Text("設定",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold))
+                                ])))),
+              ],
+            ),
             const SizedBox(height: 20),
             Row(
               children: [

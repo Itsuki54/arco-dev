@@ -254,18 +254,18 @@ class _Hub extends State<Hub> {
                 ));
       }
     });
-    int lastDay = DateTime.now().day;
-    exp = db
-        .usersCollection()
-        .findById(widget.uid)
-        .then((value) => (value["exp"] as double).toInt());
-    Timer.periodic(const Duration(hours: 24), (Timer t) async {
-      exp += (await HealthExp().getExp(lastDay)).toInt();
-      db.usersCollection().update(widget.uid, {"exp": exp});
-    });
-    setState(() {
-      lastDay = DateTime.now().day;
-    });
+    // int lastDay = DateTime.now().day;
+    // exp = await db
+    //     .usersCollection()
+    //     .findById(widget.uid)
+    //     .then((value) => (value["exp"] as double).toInt());
+    // Timer.periodic(const Duration(hours: 24), (Timer t) async {
+    //   exp += (await HealthExp().getExp(lastDay)).toInt();
+    //   db.usersCollection().update(widget.uid, {"exp": exp});
+    // });
+    // setState(() {
+    //   lastDay = DateTime.now().day;
+    // });
   }
 
   @override
