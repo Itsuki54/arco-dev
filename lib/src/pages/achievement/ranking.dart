@@ -34,11 +34,15 @@ class _RankingState extends State<Ranking> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("健康",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold))
+                      Container(
+                          width: 90,
+                          height: 40,
+                          decoration: BoxDecoration(color: Colors.white)),
+                      const SizedBox(
+                        height: 20,
+                      ),
                     ],
                   ),
                 ),
