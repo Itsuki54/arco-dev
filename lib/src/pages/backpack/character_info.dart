@@ -99,12 +99,11 @@ class _CharacterInfo extends State<CharacterInfo> {
               SizedBox(
                   width: 280,
                   child: SingleChildScrollView(
-                      child: Flexible(
-                          child: Text(
+                      child: Text(
                     widget.description,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
-                  )))),
+                  ))),
               const SizedBox(height: 42),
               const Text("装備",
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
