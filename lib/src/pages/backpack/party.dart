@@ -51,6 +51,7 @@ class PartyPage extends StatefulWidget {
 class _PartyPage extends State<PartyPage> {
   List<Map<String, dynamic>> characters = [];
   Database db = Database();
+  final int maxPartyMember = 4;
 
   // partyのデータを取得する
   Future<void> getMembers() async {
@@ -75,6 +76,14 @@ class _PartyPage extends State<PartyPage> {
   void initState() {
     super.initState();
     getMembers();
+
+    print("gene");
+    for (int i = 0; i < characters.length; i++) {
+      print(i);
+      print(characters[i]['name']);
+      print(characters[i]['level']);
+      print(characters[i]['job']);
+    }
   }
 
   @override
@@ -121,14 +130,14 @@ class _PartyPage extends State<PartyPage> {
                 for (int i = 0; i < characters.length; i++)
                   PartyRouteButton(
                     title: characters[i]['name'],
-                    icon: characters[i]['image'],
+                    icon: const Icon(Icons.account_box),
                     level: characters[i]['level'],
                     job: characters[i]['job'],
                     nextPage: CharacterInfo(
                         name: characters[i]['name'],
                         level: characters[i]['level'],
                         description: characters[i]['description'],
-                        exp: characters[i]['exp']),
+                        exp: characters[i]['exp'] ?? 0),
                   ),
               ],
             )),
@@ -136,7 +145,7 @@ class _PartyPage extends State<PartyPage> {
             ElevatedButton(
                 style:
                     ElevatedButton.styleFrom(backgroundColor: AppColors.indigo),
-                onPressed: characters.isEmpty ? () {} : null,
+                onPressed: characters.length <= maxPartyMember ? () {} : null,
                 child: const SizedBox(
                   height: 48,
                   width: 250,
