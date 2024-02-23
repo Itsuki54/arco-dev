@@ -21,7 +21,6 @@ class _AchievementState extends State<Achievement> {
   int sumWalk = 0;
   int sumDistance = 0;
 
-  int myRank = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,24 +34,6 @@ class _AchievementState extends State<Achievement> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: 80,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.workspace_premium, size: 40),
-                      Text('世界ランク:${myRank}', style: TextStyle(fontSize: 24))
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
                 height: 100,
