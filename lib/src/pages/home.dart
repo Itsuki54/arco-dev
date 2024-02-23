@@ -4,6 +4,8 @@ import 'package:arco_dev/src/pages/todo/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:arco_dev/src/pages/shop/shop_page.dart';
 
+import 'achievement/Achievement.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.uid}) : super(key: key);
 
@@ -104,11 +106,11 @@ class HomePage extends StatelessWidget {
                         height: 120,
                         child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             Achievement(uid: uid)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Achievement(uid: uid)));
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
