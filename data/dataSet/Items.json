@@ -18,11 +18,11 @@
     }
   },
   {
-    "description": "消化器",
-    "image": "ITEM_ICONS/Digeston.png",
+    "description": "消防車",
+    "image": "ITEM_ICONS/FireTruck.png",
     "avility": {
       "heal": 0,
-      "attack": 10,
+      "attack": 30,
       "defence": 5
     }
   },
@@ -45,8 +45,8 @@
     }
   },
   {
-    "description": "カツラ",
-    "image": "ITEM_ICONS/Katsura.png",
+    "description": "ハサミ",
+    "image": "ITEM_ICONS/Scissors.png",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -54,10 +54,10 @@
     }
   },
   {
-    "description": "装束",
-    "image": "ITEM_ICONS/Landscap.png",
+    "description": "お経",
+    "image": "ITEM_ICONS/Okyo.png",
     "avility": {
-      "heal": 0,
+      "heal": 15,
       "attack": 15,
       "defence": 15
     }
@@ -81,17 +81,17 @@
     }
   },
   {
-    "description": "ヘルメット",
-    "image": "ITEM_ICONS/Helmet.png",
+    "description": "ハンマー",
+    "image": "ITEM_ICONS/Hunmer.png",
     "avility": {
       "heal": 0,
-      "attack": 0,
-      "defence": 15
+      "attack": 30,
+      "defence": 0
     }
   },
   {
-    "description": "バッジ",
-    "image": "ITEM_ICONS/Badge.png",
+    "description": "ガベル",
+    "image": "ITEM_ICONS/Gabel.png",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -99,11 +99,11 @@
     }
   },
   {
-    "description": "体育技",
-    "image": "ITEM_ICONS/Wear.png",
+    "description": "給食",
+    "image": "ITEM_ICONS/Lunch.png",
     "avility": {
-      "heal": 5,
-      "attack": 5,
+      "heal": 15,
+      "attack": 0,
       "defence": 10
     }
   },
