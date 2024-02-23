@@ -119,5 +119,160 @@
     "point": 100,
     "state": "未完了",
     "frequency": "daily"
+  },
+  {
+    "condition": ["loginday >= 7"],
+    "description": "7日連続ログインする",
+    "image": "QUEST-ICONS/week.png",
+    "name": "クエスト名3",
+    "rewardId": "0",
+    "rewardType": "経験値",
+    "point": 500,
+    "state": "未完了",
+    "frequency": "weekly"
+  },
+  {
+    "condition": ["steps>= 50000"],
+    "description": "50000歩歩く",
+    "image": "QUEST-ICONS/50000steps.png",
+    "name": "クエスト名3",
+    "rewardId": "0",
+    "rewardType": "経験値",
+    "point": 500,
+    "state": "未完了",
+    "frequency": "weekly"
+  },
+  {
+    "condition": ["calorie>= 2000"],
+    "description": "2000キロカロリー消費する",
+    "image": "QUEST-ICONS/calorie2000.png",
+    "name": "クエスト名3",
+    "rewardId": "0",
+    "rewardType": "経験値",
+    "point": 500,
+    "state": "未完了",
+    "frequency": "weekly"
+  },
+
+  {
+    "condition": ["questCount >= 20"],
+    "description": "20個のクエストを達成する",
+    "image": "QUEST-ICONS/quest20.png",
+    "name": "クエスト名3",
+    "rewardId": "0",
+    "rewardType": "経験値",
+    "point": 500,
+    "state": "未完了",
+    "frequency": "weekly"
+  },
+  {
+    "condition": ["questCount >= 70"],
+    "description": "70個のクエストを達成する",
+    "image": "QUEST-ICONS/quest70.png",
+    "name": "クエスト名3",
+    "rewardId": "0",
+    "rewardType": "経験値",
+    "point": 500,
+    "state": "未完了",
+    "frequency": "weekly"
+  },
+  {
+    "condition": ["winCount >= 20"],
+    "description": "20回勝つ",
+    "image": "QUEST-ICONS/win20.png",
+    "name": "クエスト名3",
+    "rewardId": "0",
+    "rewardType": "経験値",
+    "point": 500,
+    "state": "未完了",
+    "frequency": "weekly"
+  },
+  {
+    "condition": ["calorie>= 3000"],
+    "description": "3000キロカロリー消費する",
+    "image": "QUEST-ICONS/calorie3000.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 500,
+    "state": "未完了",
+    "frequency": "weekly"
+  },
+  {
+    "condition": ["calorie>= 10000"],
+    "description": "10000キロカロリー消費する",
+    "image": "QUEST-ICONS/calorie10000.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 10000,
+    "state": "未完了",
+    "frequency": "challenge"
+  },
+  {
+    "condition": ["calorie>= 50000"],
+    "description": "50000キロカロリー消費する",
+    "image": "QUEST-ICONS/calorie50000.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 10000,
+    "state": "未完了",
+    "frequency": "challenge"
+  },
+  {
+    "condition": ["steps>= 100000"],
+    "description": "100000歩歩く",
+    "image": "QUEST-ICONS/100000steps.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 10000,
+    "state": "未完了",
+    "frequency": "challenge"
+  },
+  {
+    "condition": ["questCount >= 100"],
+    "description": "100個のクエストを達成する",
+    "image": "QUEST-ICONS/quest100.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 10000,
+    "state": "未完了",
+    "frequency": "challenge"
+  },
+  {
+    "condition": ["questCount >= 1000"],
+    "description": "1000個のクエストを達成する",
+    "image": "QUEST-ICONS/quest1000.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 10000,
+    "state": "未完了",
+    "frequency": "challenge"
+  },
+  {
+    "condition": ["winCount >= 50"],
+    "description": "50回勝つ",
+    "image": "QUEST-ICONS/win50.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 10000,
+    "state": "未完了",
+    "frequency": "challenge"
+  },
+  {
+    "condition": ["winCount >= 100"],
+    "description": "100回勝つ",
+    "image": "QUEST-ICONS/win100.png",
+    "name": "クエスト名3",
+    "rewardId": "お金",
+    "rewardType": "money",
+    "point": 10000,
+    "state": "未完了",
+    "frequency": "challenge"
   }
 ]
