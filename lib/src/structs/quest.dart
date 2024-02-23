@@ -32,7 +32,7 @@ class Quest {
       name: e["name"],
       description: e["description"],
       image: e["image"],
-      condition: e["condition"].toString().split(","),
+      condition: e["condition"],
       conditionDescription: e["conditionDetail"] ?? "",
       rewardId: e["rewardId"],
       rewardType: e["rewardType"],
