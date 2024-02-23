@@ -70,10 +70,10 @@ class HealthData {
     return healthDataList;
   }
 
-  Future<int> fetchStepData() async {
+  Future<int> fetchStepData([int day = 0]) async {
     int? steps;
 
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: day));
     final midnight = DateTime(now.year, now.month, now.day);
 
     try {
@@ -84,10 +84,10 @@ class HealthData {
     return steps ?? 0;
   }
 
-  Future<int> fetchDistanceData() async {
+  Future<int> fetchDistanceData([int day = 0]) async {
     double distance = 0;
 
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: day));
     final midnight = DateTime(now.year, now.month, now.day);
 
     try {
@@ -102,10 +102,10 @@ class HealthData {
     return distance.round();
   }
 
-  Future<int> fetchActiveEnergy() async {
+  Future<int> fetchActiveEnergy([int day = 0]) async {
     double activeEnergy = 0;
 
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: day));
     final midnight = DateTime(now.year, now.month, now.day);
 
     try {
@@ -123,10 +123,10 @@ class HealthData {
     return activeEnergy.round();
   }
 
-  Future<int> fetchSleepData() async {
+  Future<int> fetchSleepData([int day = 0]) async {
     int sleepMinutes = 0;
 
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: day));
     final lastNoon = DateTime(now.year, now.month, now.day, 12)
         .subtract(const Duration(days: 1));
     final nextNoon = lastNoon.add(const Duration(days: 1));
@@ -146,10 +146,10 @@ class HealthData {
     return sleepMinutes;
   }
 
-  Future<int> fetchExerciseMinutes() async {
+  Future<int> fetchExerciseMinutes([int day = 0]) async {
     int exerciseMinutes = 0;
 
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: day));
     final midnight = DateTime(now.year, now.month, now.day);
 
     try {
@@ -165,10 +165,10 @@ class HealthData {
     return exerciseMinutes;
   }
 
-  Future<int> fetchAvgHeartRate() async {
+  Future<int> fetchAvgHeartRate([int day = 0]) async {
     int avgHeartRate = 0;
 
-    final now = DateTime.now();
+    final now = DateTime.now().subtract(Duration(days: day));
     final midnight = DateTime(now.year, now.month, now.day);
 
     try {
@@ -185,6 +185,29 @@ class HealthData {
       debugPrint("Caught exception in getHeartRateInInterval: $error");
     }
     return avgHeartRate;
+  }
+
+  Future<List<Map<String, dynamic>>> fetchDaysData(int days) async {
+    List<Map<String, dynamic>> result = [];
+    for (int i = 0; i < days; i++) {
+      final before = DateTime.now().subtract(Duration(days: i));
+      final steps = await fetchStepData(i);
+      final distance = await fetchDistanceData(i);
+      final activeEnergy = await fetchActiveEnergy(i);
+      final sleep = await fetchSleepData(i);
+      final exercise = await fetchExerciseMinutes(i);
+      final heartRate = await fetchAvgHeartRate(i);
+      result.add({
+        "steps": steps,
+        "distance": distance,
+        "activeEnergy": activeEnergy,
+        "sleep": sleep,
+        "exercise": exercise,
+        "heartRate": heartRate,
+        "date": before
+      });
+    }
+    return result;
   }
 
   Stream<AppState> getState() async* {
