@@ -46,7 +46,7 @@ class QuestDialog extends StatelessWidget {
                     ? () {
                         db
                             .userQuestsCollection(uid)
-                            .update("id2", {"state": "完了"});
+                            .update(quest.questId, {"state": "完了"});
                         onChanged();
                         Navigator.of(context).pop(quest.point);
                       }
