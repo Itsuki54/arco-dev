@@ -1,6 +1,7 @@
 [
   {
-    "description": "人参",
+    "description": "説明",
+    "name": "人参",
     "image": "ITEM_ICONS/Callot.png",
     "avility": {
       "heal": 10,
@@ -10,6 +11,7 @@
   },
   {
     "description": "切符",
+    "name": "切符",
     "image": "ITEM_ICONS/Ticket.png",
     "avility": {
       "heal": 0,
@@ -19,6 +21,7 @@
   },
   {
     "description": "消防車",
+    "name": "消防車",
     "image": "ITEM_ICONS/FireTruck.png",
     "avility": {
       "heal": 0,
@@ -28,6 +31,7 @@
   },
   {
     "description": "手錠",
+    "name": "手錠",
     "image": "ITEM_ICONS/Catch.png",
     "avility": {
       "heal": 0,
@@ -37,6 +41,7 @@
   },
   {
     "description": "100万ボルト",
+    "name": "100万ボルト",
     "image": "ITEM_ICONS/Volt.png",
     "avility": {
       "heal": 0,
@@ -46,6 +51,7 @@
   },
   {
     "description": "ハサミ",
+    "name": "ハサミ",
     "image": "ITEM_ICONS/Scissors.png",
     "avility": {
       "heal": 0,
@@ -55,6 +61,7 @@
   },
   {
     "description": "お経",
+    "name": "お経",
     "image": "ITEM_ICONS/Okyo.png",
     "avility": {
       "heal": 15,
@@ -64,6 +71,7 @@
   },
   {
     "description": "札束",
+    "name": "札束",
     "image": "ITEM_ICONS/Satu.png",
     "avility": {
       "heal": 0,
@@ -73,6 +81,7 @@
   },
   {
     "description": "プロテイン",
+    "name": "プロテイン",
     "image": "ITEM_ICONS/Protein.png",
     "avility": {
       "heal": 5,
@@ -82,6 +91,7 @@
   },
   {
     "description": "ハンマー",
+    "name": "ハンマー",
     "image": "ITEM_ICONS/Hunmer.png",
     "avility": {
       "heal": 0,
@@ -91,6 +101,7 @@
   },
   {
     "description": "ガベル",
+    "name": "ガベル",
     "image": "ITEM_ICONS/Gabel.png",
     "avility": {
       "heal": 0,
@@ -100,6 +111,7 @@
   },
   {
     "description": "給食",
+    "name": "給食",
     "image": "ITEM_ICONS/Lunch.png",
     "avility": {
       "heal": 15,
@@ -109,6 +121,7 @@
   },
   {
     "description": "切手",
+    "name": "切手",
     "image": "ITEM_ICONS/Kitte.png",
     "avility": {
       "heal": 0,
@@ -117,16 +130,18 @@
     }
   },
   {
-    "description": "ガソリン",
-    "image": "ITEM_ICONS/Gasoline.png",
+    "description": "車",
+    "name": "車",
+    "image": "ITEM_ICONS/Car.png",
     "avility": {
       "heal": 0,
-      "attack": 15,
+      "attack": 30,
       "defence": 10
     }
   },
   {
     "description": "ジェット機",
+    "name": "ジェット機",
     "image": "ITEM_ICONS/Jet.png",
     "avility": {
       "heal": 20,
@@ -136,6 +151,7 @@
   },
   {
     "description": "証明書",
+    "name": "証明書",
     "image": "ITEM_ICONS/Certificate.png",
     "avility": {
       "heal": 0,
@@ -145,6 +161,7 @@
   },
   {
     "description": "ポップコーン",
+    "name": "ポップコーン",
     "image": "ITEM_ICONS/Popcorn.png",
     "avility": {
       "heal": 10,
@@ -153,16 +170,18 @@
     }
   },
   {
-    "description": "辞書",
-    "image": "ITEM_ICONS/Dictionary.png",
+    "description": "魔導書",
+    "name": "魔導書",
+    "image": "ITEM_ICONS/Magic.png",
     "avility": {
-      "heal": 10,
-      "attack": 0,
+      "heal": 20,
+      "attack": 30,
       "defence": 10
     }
   },
   {
     "description": "おにぎり",
+    "name": "おにぎり",
     "image": "ITEM_ICONS/Rice.png",
     "avility": {
       "heal": 15,
@@ -172,6 +191,7 @@
   },
   {
     "description": "バイキング",
+    "name": "バイキング",
     "image": "ITEM_ICONS/Viking.png",
     "avility": {
       "heal": 50,
@@ -181,6 +201,7 @@
   },
   {
     "description": "薬",
+    "name": "薬",
     "image": "ITEM_ICONS/Drag.png",
     "avility": {
       "heal": 50,
@@ -190,6 +211,7 @@
   },
   {
     "description": "ハンバーグ",
+    "name": "ハンバーグ",
     "image": "ITEM_ICONS/meet.png",
     "avility": {
       "heal": 30,
@@ -199,6 +221,7 @@
   },
   {
     "description": "バナナ",
+    "name": "バナナ",
     "image": "ITEM_ICONS/Banana.png",
     "avility": {
       "heal": 15,
@@ -208,6 +231,7 @@
   },
   {
     "description": "コーヒー",
+    "name": "コーヒー",
     "image": "ITEM_ICONS/Coffee.png",
     "avility": {
       "heal": 20,
