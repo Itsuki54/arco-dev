@@ -185,7 +185,8 @@ class _ToDoPageState extends State<ToDoPage> {
                         child: Column(
                       children: [
                         const SizedBox(height: 16),
-                        Row(
+                        SingleChildScrollView(
+                            child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FilterButton(
@@ -247,7 +248,7 @@ class _ToDoPageState extends State<ToDoPage> {
                               },
                             ),
                           ],
-                        ),
+                        )),
                         for (int i = 0; i < displayedDailyQuests.length; i++)
                           QuestContent(
                             quest: displayedDailyQuests[i],
@@ -266,7 +267,8 @@ class _ToDoPageState extends State<ToDoPage> {
                         child: Column(
                       children: [
                         const SizedBox(height: 16),
-                        Row(
+                        SingleChildScrollView(
+                            child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FilterButton(
@@ -328,7 +330,7 @@ class _ToDoPageState extends State<ToDoPage> {
                               },
                             ),
                           ],
-                        ),
+                        )),
                         for (int i = 0; i < displayedWeeklyQuests.length; i++)
                           QuestContent(
                             quest: displayedWeeklyQuests[i],
