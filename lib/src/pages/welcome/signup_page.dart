@@ -209,7 +209,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: AppColors.lightIndigo,
-                        labelText: 'パスワードを再入力',
+                        hintText: 'パスワードを再入力',
                         prefixIcon: Icon(Icons.key),
                         suffix: IconButton(
                           icon: Icon(

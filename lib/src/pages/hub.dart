@@ -258,7 +258,7 @@ class _Hub extends State<Hub> {
     exp = db
         .usersCollection()
         .findById(widget.uid)
-        .then((value) => value["exp"] as int) as int;
+        .then((value) => (value["exp"] as double).toInt());
     Timer.periodic(const Duration(hours: 24), (Timer t) async {
       exp += (await HealthExp().getExp(lastDay)).toInt();
       db.usersCollection().update(widget.uid, {"exp": exp});
