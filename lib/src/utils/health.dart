@@ -187,6 +187,26 @@ class HealthData {
     return avgHeartRate;
   }
 
+  Future<Map<String, dynamic>> fetcDayData(int days) async {
+    final now = DateTime.now();
+    final yesterday = now.subtract(Duration(days: days));
+    final steps = await fetchStepData();
+    final distance = await fetchDistanceData();
+    final activeEnergy = await fetchActiveEnergy();
+    final sleep = await fetchSleepData();
+    final exercise = await fetchExerciseMinutes();
+    final heartRate = await fetchAvgHeartRate();
+    return {
+      "steps": steps,
+      "distance": distance,
+      "activeEnergy": activeEnergy,
+      "sleep": sleep,
+      "exercise": exercise,
+      "heartRate": heartRate,
+      "date": yesterday
+    };
+  }
+
   Stream<AppState> getState() async* {
     yield AppState.FETCHING_DATA;
     bool authorized = await authorize();
