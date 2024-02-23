@@ -10,6 +10,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
+import '../../utils/spot_get.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -169,9 +170,16 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.black,
                                       foregroundColor: Colors.white),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                                  onPressed: SpotGet().isNear(
+                                    spot.geometry!.location.lat,
+                                    spot.geometry!.location.lng,
+                                    _myPosition.latitude,
+                                    _myPosition.longitude,
+                                  )
+                                      ? () {
+                                          Navigator.pop(context);
+                                        }
+                                      : null,
                                   child: const Text("閉じる")))
                         ],
                       ));

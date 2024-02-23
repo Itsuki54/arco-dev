@@ -5,6 +5,8 @@ import 'package:arco_dev/src/utils/auto_battle.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,6 +43,7 @@ class _Hub extends State<Hub> {
   List<String> connectedUids = [];
   Map<String, dynamic> battleResults = {};
   final List<String> _connectedDevices = [];
+  final messaging = FirebaseMessaging.instance;
 
   String generateNonce([int length = 32]) {
     const charset =
@@ -72,6 +75,8 @@ class _Hub extends State<Hub> {
   }
 
   Future<permission.PermissionStatus> whileRequest() async {
+    await messaging.requestPermission(
+        announcement: true, badge: true, sound: true);
     final locationStatus = await permission.Permission.location.request();
     permission.PermissionStatus status;
     AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
