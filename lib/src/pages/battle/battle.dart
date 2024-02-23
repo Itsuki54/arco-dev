@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 import '../../components/battle/battle_controller.dart';
 // components
@@ -44,32 +45,28 @@ class Enemy extends StatelessWidget {
   }
 }
 
-//SvgPicture.asset("assets/images/invader.svg",
-//        width: 120,
-//        colorFilter: ColorFilter.mode(Colors.black87, BlendMode.srcIn))
-
 class BattleCharacter {
   BattleCharacter({
     required this.name,
     required this.fullHP,
-    this.attribute = "nemo",
-    this.power = 1,
-    this.defense = 1,
-    this.offensive = 15,
-    this.helth = 1,
-    this.image = const Icon(Icons.bug_report, size: 120),
+    required this.job,
+    required this.atk,
+    required this.def,
+    required this.spd,
+    required this.description,
+    required this.image,
   }) {
     crtHP = fullHP;
   }
 
+  late int crtHP;
   final String name;
   final int fullHP;
-  late int crtHP;
-  final String attribute;
-  final int power;
-  final int defense;
-  final int offensive;
-  final double helth;
+  final String job;
+  final int atk;
+  final int def;
+  final int spd;
+  final String description;
   final dynamic image;
 }
 
@@ -84,24 +81,27 @@ class _BattlePage extends State<BattlePage> {
   _BattlePage();
 
   // テスト
-  BattleCharacter invader = BattleCharacter(name: "Invader", fullHP: 30);
-  BattleCharacter player = BattleCharacter(name: "player", fullHP: 30);
-
   List<BattleCharacter> enemies = [
     BattleCharacter(
-        name: "bug", fullHP: 30, image: const Icon(Icons.bug_report, size: 80)),
-    BattleCharacter(
-        name: "rabbit",
-        fullHP: 30,
-        image: const Icon(Icons.cruelty_free, size: 80)),
-    BattleCharacter(
-        name: "rabbit",
-        fullHP: 30,
-        image: const Icon(Icons.cruelty_free, size: 80)),
+        name: "Invader",
+        fullHP: 2,
+        job: "attacker",
+        atk: 2,
+        def: 2,
+        spd: 2,
+        description: "",
+        image: const Icon(Icons.bug_report))
   ];
   List<BattleCharacter> party = [
-    BattleCharacter(name: "player", fullHP: 30),
-    BattleCharacter(name: "player2", fullHP: 30),
+    BattleCharacter(
+        name: "勇者",
+        fullHP: 2,
+        job: "attacker",
+        atk: 2,
+        def: 2,
+        spd: 2,
+        description: "",
+        image: const Icon(Icons.bug_report))
   ];
 
   String turn = "party";
@@ -119,17 +119,12 @@ class _BattlePage extends State<BattlePage> {
   }
 
   void updateDialogMessage(String message) {
-    String dialogMessage = "";
-    setState(() {
-      dialogMessage = message;
-    });
-
     // ダイアログを表示
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("バトル結果"),
+          title: const Text("バトル結果"),
           content: Text(message),
         );
       },
@@ -225,9 +220,9 @@ class _BattlePage extends State<BattlePage> {
                                 await Future.delayed(
                                     const Duration(seconds: 2), () {});
                                 setState(() {
-                                  enemies[0].crtHP -= player.offensive;
+                                  enemies[0].crtHP -= player.atk;
                                   battleMessage =
-                                      "${enemies[0].name}に${player.offensive}のダメージ";
+                                      "${enemies[0].name}に${player.atk}のダメージ";
                                   updateBattleState();
                                 });
                                 battleLog.add(commandList[i]);
@@ -243,10 +238,10 @@ class _BattlePage extends State<BattlePage> {
                                   "command": "attack"
                                 });
                                 setState(() {
-                                  party[currentTurn].crtHP -=
-                                      enemies[0].offensive;
+                                  party[currentTurn].crtHP -= enemies[0].atk;
+
                                   battleMessage =
-                                      "${party[currentTurn].name}に${enemies[0].offensive}のダメージ";
+                                      "${party[currentTurn].name}に${enemies[0].atk}のダメージ";
                                   updateBattleState();
                                   Future.delayed(const Duration(seconds: 2),
                                       () {
