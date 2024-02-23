@@ -327,25 +327,22 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
         if (rand == 0) {
           final data = await db.charactersCollection().getRandomDoc(attribute);
           if (data != {}) {
-            final dataId = data["id"];
             data.remove("id");
-            await db.userMembersCollection(uid).set(dataId, data);
+            await db.userMembersCollection(uid).add(data);
             break;
           }
         } else if (rand == 1) {
           final data = await db.weaponsCollection().getRandomDoc(attribute);
           if (data != {}) {
-            final dataId = data["id"];
             data.remove("id");
-            await db.userWeaponsCollection(uid).set(dataId, data);
+            await db.userWeaponsCollection(uid).add(data);
             break;
           }
         } else {
           final data = await db.itemsCollection().getRandomDoc(attribute);
           if (data != {}) {
-            final dataId = data["id"];
             data.remove("id");
-            await db.userItemsCollection(uid).set(dataId, data);
+            await db.userItemsCollection(uid).add(data);
             break;
           }
         }
