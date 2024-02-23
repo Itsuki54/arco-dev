@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class BaseCollection {
   final String ref;
@@ -95,6 +96,13 @@ class BaseCollection {
       return getDataFromDocumentData(doc);
     }).toList();
   }
+
+  Future<Map<String, dynamic>> getRandomDoc() async {
+    List<Map<String, dynamic>> allData = await all();
+    int length = allData.length;
+    int rand = Random().nextInt(length);
+    return allData[rand];
+  }
 }
 
 class CharactersCollection extends BaseCollection {
@@ -112,6 +120,10 @@ class EnemiesCollection extends BaseCollection {
 
 class QuestsCollection extends BaseCollection {
   QuestsCollection(FirebaseFirestore firestore) : super('QUESTS', firestore);
+}
+
+class WeaponsCollection extends BaseCollection {
+  WeaponsCollection(FirebaseFirestore firestore) : super('WEAPONS', firestore);
 }
 
 class UsersCollection extends BaseCollection {
@@ -235,6 +247,10 @@ class Database {
 
   QuestsCollection questsCollection() {
     return QuestsCollection(firestore);
+  }
+
+  WeaponsCollection weaponsCollection() {
+    return WeaponsCollection(firestore);
   }
 
   UsersCollection usersCollection() {

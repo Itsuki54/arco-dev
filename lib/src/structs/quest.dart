@@ -1,29 +1,27 @@
 class Quest {
-  final String questId;
+  final String id;
   final String name;
   final String description;
   final String image;
   final List<String> condition;
-  final String conditionDescription;
+  final String? conditionDescription;
   final String rewardId;
   final String rewardType;
   final int point;
-  final String id;
   final String state;
   final dynamic options;
   final String frequency;
 
   Quest({
-    required this.questId,
+    required this.id,
     required this.name,
     required this.description,
     required this.image,
     required this.condition,
-    required this.conditionDescription,
+    this.conditionDescription,
     required this.rewardId,
     required this.rewardType,
     required this.point,
-    required this.id,
     required this.state,
     required this.options,
     required this.frequency,
@@ -31,17 +29,16 @@ class Quest {
 
   static fromMap(Map<String, dynamic> e) {
     return Quest(
-      questId: e["questId"],
       name: e["name"],
       description: e["description"],
       image: e["image"],
-      condition: e["condition"].cast<String>(),
+      condition: e["condition"].toString().split(","),
       conditionDescription: e["conditionDetail"] ?? "",
       rewardId: e["rewardId"],
       rewardType: e["rewardType"],
       point: e["point"] ?? 0,
-      id: e["questId"],
-      state: e["state"] ?? "",
+      id: e["id"],
+      state: e["state"] ?? "未完了",
       options: e["options"],
       frequency: e["frequency"],
     );

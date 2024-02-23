@@ -27,7 +27,7 @@ class Hub extends StatefulWidget {
 
 class _Hub extends State<Hub> {
   List<Widget> _pages() => [
-        MapPage(),
+        MapPage(uid: widget.uid),
         HomePage(uid: widget.uid),
         BackpackPage(
           uid: widget.uid,

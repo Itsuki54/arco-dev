@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'dart:math';
+import 'package:arco_dev/src/utils/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,7 +15,9 @@ import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
 import '../../utils/spot_get.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key});
+  const MapPage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -29,8 +33,10 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
   Location location = Location();
   StreamSubscription? _locationChangedListen;
   List<NearBy.Place> _spots = [];
+  List<String> _received = [];
   Set<Marker> markers = Set();
   Map<String, BitmapDescriptor> _markerIcons = {};
+  Database db = Database();
 
   void showCurrentLocation() {
     mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
@@ -67,7 +73,7 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
       });
       showCurrentLocation();
     } catch (e) {
-      log('Could not get the location: $e');
+      debugPrint('Could not get the location: $e');
     }
   }
 
@@ -171,15 +177,48 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
                                       backgroundColor: Colors.black,
                                       foregroundColor: Colors.white),
                                   onPressed: SpotGet().isNear(
-                                    spot.geometry!.location.lat,
-                                    spot.geometry!.location.lng,
-                                    _myPosition.latitude,
-                                    _myPosition.longitude,
-                                  )
+                                            spot.geometry!.location.lat,
+                                            spot.geometry!.location.lng,
+                                            _myPosition.latitude,
+                                            _myPosition.longitude,
+                                          ) &&
+                                          !_received.contains(spot.placeId!)
                                       ? () {
+                                          getSomething(
+                                                  widget.uid, spot.placeId!)
+                                              .then((value) => {
+                                                    if (value)
+                                                      {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                const SnackBar(
+                                                                    content: Text(
+                                                                        "受け取りました")))
+                                                      }
+                                                    else
+                                                      {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                const SnackBar(
+                                                                    content: Text(
+                                                                        "受け取りに失敗しました")))
+                                                      }
+                                                  });
                                           Navigator.pop(context);
                                         }
                                       : null,
+                                  child: const Text("受け取る"))),
+                          SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black,
+                                      foregroundColor: Colors.white),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
                                   child: const Text("閉じる")))
                         ],
                       ));
@@ -248,10 +287,66 @@ class _MapPageState extends State<MapPage> with WidgetsBindingObserver {
     _showSpots();
   }
 
+  Future<bool> getSomething(String uid, String spotId) async {
+    try {
+      while (true) {
+        int rand = Random().nextInt(3);
+        if (rand == 0) {
+          final data = await db.charactersCollection().getRandomDoc();
+          if (data != {}) {
+            final dataId = data["id"];
+            data.remove("id");
+            await db.userMembersCollection(uid).set(dataId, data);
+            break;
+          }
+        } else if (rand == 1) {
+          final data = await db.weaponsCollection().getRandomDoc();
+          if (data != {}) {
+            final dataId = data["id"];
+            data.remove("id");
+            await db.userWeaponsCollection(uid).set(dataId, data);
+            break;
+          }
+        } else {
+          final data = await db.itemsCollection().getRandomDoc();
+          if (data != {}) {
+            final dataId = data["id"];
+            data.remove("id");
+            await db.userItemsCollection(uid).set(dataId, data);
+            break;
+          }
+        }
+      }
+      await db.usersCollection().update(uid, {
+        "received": FieldValue.arrayUnion([spotId])
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<void> _getReceived() async {
+    debugPrint(widget.uid);
+    Map<String, dynamic> user =
+        (await db.usersCollection().findById(widget.uid));
+    if (user["received"] != null) {
+      List<String> received = List<String>.from(user["received"]);
+      setState(() {
+        _received = received;
+      });
+    } else {
+      setState(() {
+        _received = [];
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _getReceived();
     _getCurrentLocation();
     update();
   }
