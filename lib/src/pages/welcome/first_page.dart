@@ -15,26 +15,22 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.indigo,
-        appBar: AppBar(
-          backgroundColor: AppColors.indigo,
-          title: const Text("Welcome",
-              style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold)),
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-          ),
-        ),
+        appBar: AppBar(backgroundColor: AppColors.indigo),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Center(
-                child: Image.asset(
-                  'assets/images/appicon.png',
-                  width: 300,
-                  height: 300,
-                ),
+              Image.asset(
+                'assets/images/appicon.png',
+                width: 300,
+                height: 300,
               ),
+              const SizedBox(height: 80),
+              const Text("ようこそ",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold))
             ],
           ),
         ),
