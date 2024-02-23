@@ -33,7 +33,7 @@ class Quest {
       description: e["description"],
       image: e["image"],
       condition: e["condition"],
-      conditionDescription: e["conditionDetail"] ?? "",
+      conditionDescription: e["conditionDescription"] ?? "",
       rewardId: e["rewardId"],
       rewardType: e["rewardType"],
       point: e["point"] ?? 0,
