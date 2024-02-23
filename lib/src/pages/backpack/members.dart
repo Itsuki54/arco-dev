@@ -54,10 +54,13 @@ class _MemberPage extends State<MembersPage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CharacterInfo(
-                            name: member["name"],
-                            level: member["level"] ?? 1,
-                            description: member["description"] ?? "説明がありません",
-                            exp: 0.3)));
+                              name: member["name"],
+                              level: member["level"] ?? 1,
+                              description: member["description"] ?? "説明がありません",
+                              exp: member["exp"] ?? 0,
+                              weapons: member["weapons"] ?? [],
+                              memberId: member["id"],
+                            )));
                   },
                 );
               }).toList())),

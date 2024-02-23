@@ -1,5 +1,6 @@
 import 'package:arco_dev/src/utils/colors.dart';
 import 'package:arco_dev/src/utils/database.dart';
+import 'package:arco_dev/src/utils/health.dart';
 import 'package:flutter/material.dart';
 // components
 import '../../components/button/filter_button.dart';
@@ -24,6 +25,7 @@ class _ToDoPageState extends State<ToDoPage> {
   */
   String filterState = "None";
   Database db = Database();
+  HealthData healthData = HealthData();
 
   // 表示用
   int totalExp = 100;
@@ -37,6 +39,100 @@ class _ToDoPageState extends State<ToDoPage> {
   late List<Quest> displayedDailyQuests = quests;
   late List<Quest> displayedWeeklyQuests = quests;
   late List<Quest> displayedAchievedQuests = quests;
+
+  Future<bool> checkCondition(Quest quest) async {
+    List<bool> results = [];
+    for (var condition in quest.condition) {
+      final [field, operand, value] = condition.split(",");
+      // field: calorie | steps | winCount | loginDay | sleep
+      // operand: >=
+      // value: int
+      if (field == "loginDay") {
+        if (operand == ">=") {
+          final loginCount =
+              (await db.usersCollection().findById(widget.uid))['loginCount'];
+          if (loginCount >= int.parse(value)) {
+            results.add(true);
+            continue;
+          }
+        }
+      }
+      if (field == "winCount") {
+        if (operand == ">=") {
+          final winCount =
+              (await db.usersCollection().findById(widget.uid))['winCount'];
+          if (winCount >= int.parse(value)) {
+            results.add(true);
+            continue;
+          }
+        }
+      }
+      if (quest.frequency == "daily") {
+        if (field == "calorie") {
+          if (operand == ">=") {
+            if (await healthData.fetchActiveEnergy() >= int.parse(value)) {
+              results.add(true);
+            }
+          }
+        } else if (field == "steps") {
+          if (operand == ">=") {
+            if (await healthData.fetchStepData() >= int.parse(value)) {
+              results.add(true);
+            }
+          }
+        } else if (field == "sleep") {
+          if (operand == ">=") {
+            if (await healthData.fetchSleepData() >= int.parse(value)) {
+              results.add(true);
+            }
+          }
+        }
+      } else if (quest.frequency == "weekly") {
+        final weeklyData = await healthData.fetchDaysData(7);
+        if (field == "calorie") {
+          if (operand == ">=") {
+            if (weeklyData.map(
+                  (e) {
+                    return e["activeEnergy"];
+                  },
+                ).reduce((value, element) {
+                  return value + element;
+                }) >=
+                int.parse(value)) {
+              results.add(true);
+            }
+          }
+        } else if (field == "steps") {
+          if (operand == ">=") {
+            if (weeklyData.map(
+                  (e) {
+                    return e["steps"];
+                  },
+                ).reduce((value, element) {
+                  return value + element;
+                }) >=
+                int.parse(value)) {
+              results.add(true);
+            }
+          }
+        } else if (field == "sleep") {
+          if (operand == ">=") {
+            if (weeklyData.map(
+                  (e) {
+                    return e["sleep"];
+                  },
+                ).reduce((value, element) {
+                  return value + element;
+                }) >=
+                int.parse(value)) {
+              results.add(true);
+            }
+          }
+        }
+      }
+    }
+    return results.every((element) => element == true);
+  }
 
   // フィルターに応じて表示DailyQuestのソートを行う
   void sortDailyQuests() {
@@ -113,10 +209,18 @@ class _ToDoPageState extends State<ToDoPage> {
 
   // FireStoreから、USERの持つQuestデータをとってくる
   Future<void> getQuests() async {
-    db.userQuestsCollection(widget.uid).all().then((value) {
+    db.userQuestsCollection(widget.uid).all().then((value) async {
       debugPrint('value: $value');
+      List<Quest> questsData =
+          value.map((e) => Quest.fromMap(e)).toList().cast<Quest>();
+      for (var quest in questsData) {
+        if (await checkCondition(quest)) {
+          quest.state = "受取り";
+        }
+      }
       setState(() {
-        quests = value.map((e) => Quest.fromMap(e)).toList().cast<Quest>();
+        quests = questsData;
+        // checkConditionを使って、条件を満たしている場合はstateを受取りにする
         sortDailyQuests();
         sortWeeklyQuests();
         sortAchievedQuests();
@@ -154,7 +258,7 @@ class _ToDoPageState extends State<ToDoPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    "レベル: ${level}",
+                    "レベル: $level",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

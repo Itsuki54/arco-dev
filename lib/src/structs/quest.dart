@@ -8,7 +8,7 @@ class Quest {
   final String rewardId;
   final String rewardType;
   final int point;
-  final String state;
+  String state;
   final dynamic options;
   final String frequency;
 

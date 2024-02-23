@@ -119,6 +119,7 @@ class _BattlePage extends State<BattlePage> {
       }
       await db.usersCollection().update(widget.uid, {
         "exp": FieldValue.increment(exp),
+        "winCount": FieldValue.increment(1),
       });
       if (user['exp'] + exp >= user['level'] * 50) {
         await db
