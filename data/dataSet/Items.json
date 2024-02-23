@@ -233,7 +233,7 @@
   {
     "description": "ハンバーグ",
     "name": "ハンバーグ",
-    "image": "ITEM_ICONS/meet.png",
+    "image": "ITEM_ICONS/meat.png",
     "attribute": "food",
     "avility": {
       "heal": 30,

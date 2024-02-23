@@ -1,9 +1,7 @@
 //tamplate
-import 'package:arco_dev/src/components/button/simple_route_button.dart';
 import 'package:arco_dev/src/pages/achievement/ranking.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/common/child_appbar.dart';
 
