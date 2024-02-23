@@ -1,11 +1,12 @@
 //tamplate
-import 'package:arco_dev/src/pages/home.dart';
+import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
 
 class Achievement extends StatelessWidget {
   const Achievement({Key? key, required this.uid}) : super(key: key);
 
   final String uid;
+  Database db = Database();
 
   @override
   Widget build(BuildContext context) {
@@ -22,27 +23,21 @@ class Achievement extends StatelessWidget {
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 280,
+                height: 100,
                 child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePage(
-                                    uid: uid,
-                                  )));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.monitor_heart, size: 120),
-                          Text("健康",
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold))
-                        ])),
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(Icons.assignment, size: 44),
+                      Text("健康", style: TextStyle(fontSize: 24)),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
