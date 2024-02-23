@@ -32,7 +32,7 @@ class Quest {
       name: e["name"],
       description: e["description"],
       image: e["image"],
-      condition: e["condition"],
+      condition: e["condition"].map<String>((e) => e.toString()).toList(),
       conditionDescription: e["conditionDescription"] ?? "",
       rewardId: e["rewardId"],
       rewardType: e["rewardType"],
