@@ -3,6 +3,7 @@
     "description": "着ぐるみ",
     "name": "着ぐるみ",
     "image": "WEPONS_ICONS/Costume.png",
+    "level": 1,
     "avility": {
       "heal": 10,
       "attack": 20,
@@ -13,6 +14,7 @@
     "description": "定期券",
     "name": "定期券",
     "image": "WEPONS_ICONS/Teiki.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -23,6 +25,7 @@
     "description": "消化器",
     "name": "消化器",
     "image": "WEPONS_ICONS/Digeston.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -33,6 +36,7 @@
     "description": "拳銃",
     "name": "拳銃",
     "image": "WEPONS_ICONS/Gun.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 20,
@@ -43,6 +47,7 @@
     "description": "電気椅子",
     "name": "電気椅子",
     "image": "WEPONS_ICONS/Chair.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 20,
@@ -53,6 +58,7 @@
     "description": "カツラ",
     "name": "カツラ",
     "image": "WEPONS_ICONS/Hair.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -63,6 +69,7 @@
     "description": "装束",
     "name": "装束",
     "image": "WEPONS_ICONS/Landscap.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 15,
@@ -73,6 +80,7 @@
     "description": "金庫",
     "name": "金庫",
     "image": "WEPONS_ICONS/Safe.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 100,
@@ -83,6 +91,7 @@
     "description": "筋肉",
     "name": "筋肉",
     "image": "WEPONS_ICONS/Muscle.png",
+    "level": 1,
     "avility": {
       "heal": 5,
       "attack": 5,
@@ -93,6 +102,7 @@
     "description": "ヘルメット",
     "name": "ヘルメット",
     "image": "WEPONS_ICONS/Helmet.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 0,
@@ -103,6 +113,7 @@
     "description": "バッジ",
     "name": "バッジ",
     "image": "WEPONS_ICONS/Badge.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -113,6 +124,7 @@
     "description": "体育技",
     "name": "体育技",
     "image": "WEPONS_ICONS/Wear.png",
+    "level": 1,
     "avility": {
       "heal": 5,
       "attack": 5,
@@ -123,6 +135,7 @@
     "description": "郵便受け",
     "name": "郵便受け",
     "image": "WEPONS_ICONS/Kitte.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 20,
@@ -133,6 +146,7 @@
     "description": "ガソリン",
     "name": "ガソリン",
     "image": "WEPONS_ICONS/Gasoline.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 15,
@@ -143,6 +157,7 @@
     "description": "パスポート",
     "name": "パスポート",
     "image": "WEPONS_ICONS/PassPort.png",
+    "level": 1,
     "avility": {
       "heal": 20,
       "attack": 15,
@@ -153,6 +168,7 @@
     "description": "スーツ",
     "name": "スーツ",
     "image": "WEPONS_ICONS/Suit.png",
+    "level": 1,
     "avility": {
       "heal": 0,
       "attack": 0,
@@ -163,6 +179,7 @@
     "description": "3Dメガネ",
     "name": "3Dメガネ",
     "image": "WEPONS_ICONS/3Dgrass.png",
+    "level": 1,
     "avility": {
       "heal": 10,
       "attack": 5,
@@ -173,6 +190,7 @@
     "description": "辞書",
     "name": "辞書",
     "image": "WEPONS_ICONS/Dictionary.png",
+    "level": 1,
     "avility": {
       "heal": 10,
       "attack": 0,
@@ -183,6 +201,7 @@
     "description": "レジ袋",
     "name": "レジ袋",
     "image": "WEPONS_ICONS/Bag.png",
+    "level": 1,
     "avility": {
       "heal": 15,
       "attack": 0,
@@ -193,6 +212,7 @@
     "description": "ポーター",
     "name": "ポーター",
     "image": "WEPONS_ICONS/Porter.png",
+    "level": 1,
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -203,6 +223,7 @@
     "description": "包帯",
     "name": "包帯",
     "image": "WEPONS_ICONS/Bandage.png",
+    "level": 1,
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -213,6 +234,7 @@
     "description": "ナイフ",
     "name": "ナイフ",
     "image": "WEPONS_ICONS/knife.png",
+    "level": 1,
     "avility": {
       "heal": 10,
       "attack": 25,
@@ -223,6 +245,7 @@
     "description": "かご",
     "name": "かご",
     "image": "WEPONS_ICONS/Shopping.png",
+    "level": 1,
     "avility": {
       "heal": 15,
       "attack": 10,
@@ -233,6 +256,7 @@
     "description": "ケーキ",
     "name": "ケーキ",
     "image": "WEPONS_ICONS/Cake.png",
+    "level": 1,
     "avility": {
       "heal": 20,
       "attack": 5,
