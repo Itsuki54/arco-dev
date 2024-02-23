@@ -6,11 +6,12 @@ import 'package:arco_dev/src/pages/home.dart';
 import 'package:arco_dev/src/utils/auto_battle.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+//import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:permission_handler/permission_handler.dart' as permission;
 
@@ -39,8 +40,8 @@ class _Hub extends State<Hub> {
   int pageIndex = 1;
   String serviceArco = "FA2DBDC2-409A-4DD3-95F6-698758FCCC0B";
   String characteristicArco = "20FF0003-4807-466E-971B-E4CA982055D3";
-  final FlutterReactiveBle _ble = FlutterReactiveBle();
-  late StreamSubscription<ConnectionStateUpdate> _connection;
+  //final FlutterReactiveBle _ble = FlutterReactiveBle();
+  //late StreamSubscription<ConnectionStateUpdate> _connection;
   String advertisingError = '';
   List<String> connectedUids = [];
   Map<String, dynamic> battleResults = {};
@@ -161,9 +162,9 @@ class _Hub extends State<Hub> {
     }
   }
 
-  Future<void> readUid(DiscoveredDevice device) async {
+  Future<void> readUid(BluetoothDevice device) async {
     try {
-      final characteristic = QualifiedCharacteristic(
+      /*final characteristic = QualifiedCharacteristic(
           characteristicId: Uuid.parse(characteristicArco),
           serviceId: Uuid.parse(serviceArco),
           deviceId: device.id);
@@ -188,16 +189,45 @@ class _Hub extends State<Hub> {
           battleResults[value]["opponent"] = autoBattle.opponent;
           battleResults[value]["endTime"] = autoBattle.endTime;
         });
+      }*/
+      final services = await device.discoverServices();
+      final service = services.firstWhere(
+          (service) => service.uuid == Guid(serviceArco),
+          orElse: () => throw Exception('Service not found'));
+      final characteristics = service.characteristics;
+      for (BluetoothCharacteristic characteristic in characteristics) {
+        if (characteristic.properties.read) {
+          if (characteristic.uuid == Guid(characteristicArco)) {
+            final value = await characteristic.read();
+            final uid = utf8.decode(value);
+            setState(() {
+              connectedUids.add(uid);
+            });
+            AutoBattle autoBattle = AutoBattle(widget.uid, uid);
+            bool res = await autoBattle.start();
+            setState(() {
+              battleResults[uid] = {
+                "result": autoBattle.finalResult,
+                "exp": autoBattle.finalExp,
+                "win": res,
+                "party": autoBattle.finalParties,
+                "opponent": autoBattle.opponent,
+                "endTime": autoBattle.endTime
+              };
+            });
+          }
+        }
       }
-      await disconnectFromDevice();
+
+      await disconnectFromDevice(device);
     } catch (e) {
       debugPrint('Failed to read characteristic: $e');
-      await disconnectFromDevice();
+      await disconnectFromDevice(device);
     }
   }
 
   Future<void> searchForDevices() async {
-    await for (final scanResult in _ble.scanForDevices(
+    /*await for (final scanResult in _ble.scanForDevices(
         withServices: [Uuid.parse(serviceArco)],
         scanMode: ScanMode.lowLatency)) {
       if (!_connectedDevices.contains(scanResult.id)) {
@@ -205,11 +235,20 @@ class _Hub extends State<Hub> {
         _connectedDevices.add(scanResult.id);
         if (!connectLock) connectToDevice(scanResult);
       }
-    }
+    }*/
+    FlutterBluePlus.onScanResults.listen((List<ScanResult> results) {
+      for (ScanResult result in results) {
+        if (!_connectedDevices.contains(result.advertisementData.advName)) {
+          debugPrint('Found device: ${result.advertisementData.advName}');
+          _connectedDevices.add(result.advertisementData.advName);
+          if (!connectLock) connectToDevice(result.device);
+        }
+      }
+    });
   }
 
-  Future<void> connectToDevice(DiscoveredDevice device) async {
-    _connection = _ble
+  Future<void> connectToDevice(BluetoothDevice device) async {
+    /*_connection = _ble
         .connectToDevice(
             id: device.id,
             servicesWithCharacteristicsToDiscover: {
@@ -223,12 +262,25 @@ class _Hub extends State<Hub> {
         debugPrint('Connected to device');
         readUid(device);
       }
-    });
+    });*/
+    try {
+      await device.connect();
+      debugPrint('Connected to device');
+      readUid(device);
+    } catch (e) {
+      debugPrint('Failed to connect to device: $e');
+      connectLock = false;
+    }
   }
 
-  Future<void> disconnectFromDevice() async {
+  Future<void> disconnectFromDevice(BluetoothDevice device) async {
     debugPrint('Disconnecting from device');
-    await _connection.cancel();
+    //await _connection.cancel();
+    try {
+      await device.disconnect();
+    } catch (e) {
+      debugPrint('Failed to disconnect from device: $e');
+    }
     connectLock = false;
   }
 
