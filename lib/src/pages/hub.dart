@@ -1,20 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:arco_dev/src/utils/auto_battle.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 
+import 'package:arco_dev/src/pages/home.dart';
+import 'package:arco_dev/src/utils/auto_battle.dart';
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
-import 'package:firebase_core/firebase_core.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:permission_handler/permission_handler.dart' as permission;
 
 import './backpack/backpack.dart';
-import 'package:permission_handler/permission_handler.dart' as permission;
 import './map/map.dart';
-import 'package:arco_dev/src/pages/home.dart';
 
 class Hub extends StatefulWidget {
   const Hub({super.key, required this.uid});

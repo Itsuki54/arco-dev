@@ -1,17 +1,18 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:ui' as ui;
+import 'dart:convert';
 import 'dart:math';
+import 'dart:ui' as ui;
+
+import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:arco_dev/src/structs/nearbysearch.dart' as NearBy;
+import 'package:location/location.dart';
+
 import '../../utils/spot_get.dart';
 
 class MapPage extends StatefulWidget {
