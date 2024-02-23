@@ -34,17 +34,21 @@ class _RankingState extends State<Ranking> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                          width: 90,
-                          height: 40,
-                          decoration: BoxDecoration(color: Colors.white)),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      Row(
+                        children: [
+                          Container(
+                            width: 90,
+                            height: 40,
+                            decoration: BoxDecoration(color: Colors.white),
+                          ),
+                          Container(
+                            width: 90,
+                            height: 40,
+                            decoration: BoxDecoration(color: Colors.white),
+                          ),
+                        ],
+                      )),
                 ),
               ),
               SizedBox(
