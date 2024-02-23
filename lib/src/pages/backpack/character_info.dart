@@ -90,7 +90,7 @@ class _CharacterInfo extends State<CharacterInfo> {
                       fontSize: 19, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               ExpBar(
-                expValue: 0.1,
+                expValue: widget.exp,
                 width: 250,
                 height: 13,
                 color: Colors.green,
