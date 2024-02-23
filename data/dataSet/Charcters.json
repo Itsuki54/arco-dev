@@ -120,11 +120,11 @@
     }
   },
   {
-    "description": "弁護士",
+    "description": "物事を天秤に計るのが得意",
     "image": "CHARACTER_ICONS/Lowyer.png",
     "job": "Tank",
     "level": 5,
-    "name": "弁護士",
+    "name": "天秤さん",
     "attribute": "service",
     "rarity": 1,
     "status": {

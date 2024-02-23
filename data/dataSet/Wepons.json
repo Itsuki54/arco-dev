@@ -1,7 +1,7 @@
 [
   {
-    "description": "着ぐるみ",
-    "name": "着ぐるみ",
+    "description": "子どもののみならず、大人にも人気の着ぐるみ。ナイスな見た目をしているが、キビキビと動けるパワードスーツでもある。",
+    "name": "ナイスな着ぐるみ",
     "image": "WEPONS_ICONS/Costume.png",
     "attribute": "nature",
     "level": 1,
@@ -12,8 +12,8 @@
     }
   },
   {
-    "description": "定期券",
-    "name": "定期券",
+    "description": "鉄道会社に出資する財閥家に限定で提供されている定期券。線路敷設中の「地球発火星行き」路線の途中駅にも行けるとのこと。",
+    "name": "強い定期券",
     "image": "WEPONS_ICONS/Teiki.png",
     "attribute": "public",
     "level": 1,
@@ -24,8 +24,8 @@
     }
   },
   {
-    "description": "消化器",
-    "name": "消化器",
+    "description": "使い捨てされるのはもったいないと考案された。白い泡がリコッタパンケーキのようにほくほくしている。もちろん、しっかり火を消す。",
+    "name": "食べられる消化器",
     "image": "WEPONS_ICONS/Digeston.png",
     "attribute": "public",
     "level": 1,
@@ -36,8 +36,8 @@
     }
   },
   {
-    "description": "拳銃",
-    "name": "拳銃",
+    "description": "拳銃初心者の子供向けに作られた。ソフト加工されたボディがやわらかく軽いため、お風呂でも沈まない。",
+    "name": "やわらかい拳銃",
     "image": "WEPONS_ICONS/Gun.png",
     "attribute": "service",
     "level": 1,
@@ -48,8 +48,8 @@
     }
   },
   {
-    "description": "電気椅子",
-    "name": "電気椅子",
+    "description": "マッサージチェアを見た開発者が考案。無重力空間にいるような姿勢でしっかり電気をかけてくれる。普通のマッサージチェアより肩こりが治ると評判。",
+    "name": "無重力電気椅子",
     "image": "WEPONS_ICONS/Chair.png",
     "attribute": "service",
     "level": 1,
@@ -60,8 +60,8 @@
     }
   },
   {
-    "description": "カツラ",
-    "name": "カツラ",
+    "description": "漫画のマッドサイエンティストのような見た目になってしまうカツラ。見た目はアレだが、電子チップが内蔵されている機能派で、思考をアシストしてくれる。",
+    "name": "博士のカツラ",
     "image": "WEPONS_ICONS/Hair.png",
     "attribute": "service",
     "level": 1,
@@ -72,8 +72,8 @@
     }
   },
   {
-    "description": "装束",
-    "name": "装束",
+    "description": "厳粛と弔い、信仰の象徴。これを着て砂浜を歩くと、放浪の旅人になれる。神通力が身に付くとの噂も。",
+    "name": "白装束",
     "image": "WEPONS_ICONS/Landscap.png",
     "attribute": "nature",
     "level": 1,
@@ -84,8 +84,8 @@
     }
   },
   {
-    "description": "金庫",
-    "name": "金庫",
+    "description": "メーカーでさえも開けられない金庫。泥棒はもちろん、利用者も開けられない。セキュリティ万全である。",
+    "name": "開かない金庫",
     "image": "WEPONS_ICONS/Safe.png",
     "attribute": "service",
     "level": 1,
@@ -96,8 +96,8 @@
     }
   },
   {
-    "description": "筋肉",
-    "name": "筋肉",
+    "description": "さっぱりした味わいのお肉。有機飼料で栽培された鶏である。カレーに入れると美味しい。",
+    "name": "とりむね肉",
     "image": "WEPONS_ICONS/Muscle.png",
     "attribute": "food",
     "level": 1,
@@ -108,8 +108,8 @@
     }
   },
   {
-    "description": "ヘルメット",
-    "name": "ヘルメット",
+    "description": "眩しいヘルメット。太陽の下で被ると、周囲の人が失明する恐れがあるため、気をつけましょう。",
+    "name": "蛍光ヘルメット",
     "image": "WEPONS_ICONS/Helmet.png",
     "attribute": "service",
     "level": 1,
@@ -120,7 +120,7 @@
     }
   },
   {
-    "description": "バッジ",
+    "description": "低電力広範囲で接続できる無線機が内蔵されている。探偵ごっこに最適。",
     "name": "バッジ",
     "image": "WEPONS_ICONS/Badge.png",
     "attribute": "service",
@@ -132,7 +132,7 @@
     }
   },
   {
-    "description": "体育技",
+    "description": "優美頑健な体育技の数々が収められた写真集。月間「体育礼賛」特集のムック本。",
     "name": "体育技",
     "image": "WEPONS_ICONS/Wear.png",
     "attribute": "nature",
@@ -144,8 +144,8 @@
     }
   },
   {
-    "description": "郵便受け",
-    "name": "郵便受け",
+    "description": "インターネット全盛時代に生き残りを図る郵便受け。生成AIを内蔵しており、心のこもった絵手紙やダイレクトメールを自動生成して投函してくれる。",
+    "name": "生成郵便受け",
     "image": "WEPONS_ICONS/Kitte.png",
     "attribute": "service",
     "level": 1,
@@ -156,7 +156,7 @@
     }
   },
   {
-    "description": "ガソリン",
+    "description": "天ぷら油から合成したガソリン。脱炭素が期待されている。",
     "name": "ガソリン",
     "image": "WEPONS_ICONS/Gasoline.png",
     "attribute": "service",
@@ -168,8 +168,8 @@
     }
   },
   {
-    "description": "パスポート",
-    "name": "パスポート",
+    "description": "宙の旅人が忘れていったもの。有効期限は2132年まで。",
+    "name": "全銀河共通パスポート",
     "image": "WEPONS_ICONS/PassPort.png",
     "level": 1,
     "avility": {
@@ -179,8 +179,8 @@
     }
   },
   {
-    "description": "スーツ",
-    "name": "スーツ",
+    "description": "ダイヤルがついており、シチュエーションに応じてスーツのパリッと度が調整できる。",
+    "name": "パリッとスーツ",
     "image": "WEPONS_ICONS/Suit.png",
     "attribute": "service",
     "level": 1,
@@ -191,7 +191,7 @@
     }
   },
   {
-    "description": "3Dメガネ",
+    "description": "自分自身が3D的存在になれる。つまり、四次元空間のうち時間軸ががなくなるということです。",
     "name": "3Dメガネ",
     "image": "WEPONS_ICONS/3Dgrass.png",
     "attribute": "service",
@@ -203,8 +203,8 @@
     }
   },
   {
-    "description": "辞書",
-    "name": "辞書",
+    "description": "必要な単語や文法がが、縮小印刷された辞書決定版。圧縮されているため、重量は変わらない。",
+    "name": "薄い辞書",
     "image": "WEPONS_ICONS/Dictionary.png",
     "attribute": "service",
     "level": 1,
@@ -215,8 +215,8 @@
     }
   },
   {
-    "description": "レジ袋",
-    "name": "レジ袋",
+    "description": "水につけると、勝手に増える生命体。その特異な性質から、スーパーで水に浸けて利用されている。",
+    "name": "自己複製レジ袋",
     "image": "WEPONS_ICONS/Bag.png",
     "attribute": "service",
     "level": 1,
@@ -227,8 +227,8 @@
     }
   },
   {
-    "description": "ポーター",
-    "name": "ポーター",
+    "description": "天狗の末裔だという。脅威的な運搬力と脅威的な頑固さで、なかなか働きたがらない。エンジンがかかると良い人。",
+    "name": "天狗ポーター",
     "image": "WEPONS_ICONS/Porter.png",
     "attribute": "service",
     "level": 1,
@@ -239,8 +239,8 @@
     }
   },
   {
-    "description": "包帯",
-    "name": "包帯",
+    "description": "ミイラが巻いていた包帯。三千年間眠れるため、睡眠不足解消に最適。",
+    "name": "ミイラの包帯",
     "image": "WEPONS_ICONS/Bandage.png",
     "attribute": "nature",
     "level": 1,
@@ -251,7 +251,7 @@
     }
   },
   {
-    "description": "ナイフ",
+    "description": "阿呆とナイフはよく切れますから。",
     "name": "ナイフ",
     "image": "WEPONS_ICONS/knife.png",
     "attribute": "service",
@@ -263,8 +263,8 @@
     }
   },
   {
-    "description": "かご",
-    "name": "かご",
+    "description": "茶摘み乙女が使っていた。緑茶の残り香が爽やか。",
+    "name": "昔のかご",
     "image": "WEPONS_ICONS/Shopping.png",
     "attribute": "service",
     "level": 1,
@@ -275,8 +275,8 @@
     }
   },
   {
-    "description": "ケーキ",
-    "name": "ケーキ",
+    "description": "舶来のミルクチョコレットふんだんに使用。肉桂が良い感じ。",
+    "name": "チョコレットケーキ",
     "image": "WEPONS_ICONS/Cake.png",
     "attribute": "food",
     "level": 1,
