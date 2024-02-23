@@ -135,11 +135,11 @@
     }
   },
   {
-    "description": "教師 生徒を守るヒーロー",
+    "description": "ちょっと怖い先生。でも言っていることは正しいし、ちゃんと褒めてくれる。人気。",
     "image": "CHARACTER_ICONS/Teacher.png",
     "job": "Tank",
     "level": 0,
-    "name": "教師",
+    "name": "こわい教師",
     "attribute": "public",
     "rarity": 0,
     "status": {
@@ -150,11 +150,11 @@
     }
   },
   {
-    "description": "郵便配達 世界中の新聞を届けている",
+    "description": "世界中に新聞を届けているつわもの。愛用の自転車は、ジェットエンジン付き。",
     "image": "CHARACTER_ICONS/Delivery.png",
     "job": "Tank",
     "level": 0,
-    "name": "郵便配達",
+    "name": "郵便配達人",
     "attribute": "public",
     "rarity": 0,
     "status": {
@@ -165,11 +165,11 @@
     }
   },
   {
-    "description": "タイヤマン タイヤを交換のプロフェッショナル",
+    "description": "タイヤ交換に長けており、いつも体にタイヤを巻き付けている。ドーナツマンとも言われており、ちょっと違うなと本人は述べる。",
     "image": "CHARACTER_ICONS/TireMan.png",
     "job": "Tank",
     "level": 0,
-    "name": "タイヤマン",
+    "name": "シュンランマン",
     "attribute": "service",
     "rarity": 0,
     "status": {
@@ -180,11 +180,11 @@
     }
   },
   {
-    "description": "パイロット 世界中を飛び回る冒険家",
+    "description": "ちとせの空を掛け回る。北海道が好き。実は戦闘機の操縦体験がある。",
     "image": "CHARACTER_ICONS/Pilot.png",
     "job": "Wizard",
     "level": 15,
-    "name": "パイロット",
+    "name": "千歳パイロット",
     "attribute": "service",
     "rarity": 3,
     "status": {
@@ -195,11 +195,11 @@
     }
   },
   {
-    "description": "銀行員 銀行の番人",
+    "description": "いつも仮面をかぶっている。ポーカーフェイスで、無理な融資は断固として断る。最近は、仮想的存在になろうかと考えている。",
     "image": "CHARACTER_ICONS/Banker.png",
     "job": "Wizard",
     "level": 10,
-    "name": "銀行員",
+    "name": "仮装銀行員",
     "attribute": "public",
     "rarity": 1,
     "status": {
@@ -210,7 +210,7 @@
     }
   },
   {
-    "description": "役人 地方公務員の鏡",
+    "description": "地方公務員の鏡。アマテラスオオミカミを映されたことで話題に。",
     "image": "CHARACTER_ICONS/Official.png",
     "job": "Wizard",
     "level": 5,
@@ -225,7 +225,7 @@
     }
   },
   {
-    "description": "司書 本を操る愛読家",
+    "description": "本を操る愛読家。必殺技は、ペーパーバックプレス。",
     "image": "CHARACTER_ICONS/Librarian.png",
     "job": "Wizard",
     "level": 5,
@@ -240,7 +240,7 @@
     }
   },
   {
-    "description": "レジ打ち レジ打ちの魔術師",
+    "description": "レジ打ちの魔術師。特殊な技巧でPOSレジを遠隔操作する。",
     "image": "CHARACTER_ICONS/Casher.png",
     "job": "Wizard",
     "level": 0,
@@ -255,7 +255,7 @@
     }
   },
   {
-    "description": "ホテルマン ホテル内の守り人",
+    "description": "ホテルの守り人。精霊がご宿泊されることで有名なホテルを任されている。",
     "image": "CHARACTER_ICONS/Hotelman.png",
     "job": "Wizard",
     "level": 0,
@@ -270,11 +270,11 @@
     }
   },
   {
-    "description": "僧侶 信仰の力を操る聖職者",
+    "description": "仏像が好きで入信。最近悟りを開いたらしく、後光が絶えない。夜は節電になると、家族が喜んでいる。",
     "image": "CHARACTER_ICONS/Monk.png",
     "job": "Healer",
     "level": 10,
-    "name": "僧侶",
+    "name": "お坊さま",
     "attribute": "nature",
     "rarity": 10,
     "status": {
@@ -285,11 +285,11 @@
     }
   },
   {
-    "description": "医者 人々を救うヒーロー",
+    "description": "人々を救うヒーロー。死者を復活させたこともあり、神々の間で論争が絶えない。",
     "image": "CHARACTER_ICONS/Docter.png",
     "job": "Healer",
     "level": 10,
-    "name": "医者",
+    "name": "お医者さま",
     "attribute": "public",
     "rarity": 2,
     "status": {
@@ -300,11 +300,11 @@
     }
   },
   {
-    "description": "コック おいしい料理を作る職人",
+    "description": "おいしい料理を作る職人。素材本来の味を倍増させる。",
     "image": "CHARACTER_ICONS/Cock.png",
     "job": "Healer",
     "level": 0,
-    "name": "コック",
+    "name": "調理人",
     "attribute": "food",
     "rarity": 0,
     "status": {
@@ -315,7 +315,7 @@
     }
   },
   {
-    "description": "試食販売員 試食を操る職人",
+    "description": "通り人全ての口に試食品を届ける。アレルギーに配慮しているのはさすが。",
     "image": "CHARACTER_ICONS/Tasting.png",
     "job": "Healer",
     "level": 0,
@@ -330,7 +330,7 @@
     }
   },
   {
-    "description": "バリスタ おいしいコーヒーを淹れる職人",
+    "description": "おいしいコーヒーを淹れる職人。名古屋の老舗喫茶出身。",
     "image": "CHARACTER_ICONS/Barista.png",
     "job": "Healer",
     "level": 0,
@@ -345,7 +345,7 @@
     }
   },
   {
-    "description": "美容師 人々を美しくする職人",
+    "description": "人々を美しくする。幼い頃からSNSで人気の神童であった。",
     "image": "CHARACTER_ICONS/Hairdresser.png",
     "job": "Healer",
     "level": 0,
