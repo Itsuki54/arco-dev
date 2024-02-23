@@ -3,6 +3,7 @@
     "description": "説明",
     "name": "人参",
     "image": "ITEM_ICONS/Callot.png",
+    "attribute": "food",
     "avility": {
       "heal": 10,
       "attack": 20,
@@ -13,6 +14,7 @@
     "description": "切符",
     "name": "切符",
     "image": "ITEM_ICONS/Ticket.png",
+    "attribute": "public",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -23,6 +25,7 @@
     "description": "消防車",
     "name": "消防車",
     "image": "ITEM_ICONS/FireTruck.png",
+    "attribute": "public",
     "avility": {
       "heal": 0,
       "attack": 30,
@@ -33,6 +36,7 @@
     "description": "手錠",
     "name": "手錠",
     "image": "ITEM_ICONS/Catch.png",
+    "attribute": "public",
     "avility": {
       "heal": 0,
       "attack": 20,
@@ -43,6 +47,7 @@
     "description": "100万ボルト",
     "name": "100万ボルト",
     "image": "ITEM_ICONS/Volt.png",
+    "attribute": "service",
     "avility": {
       "heal": 0,
       "attack": 20,
@@ -53,6 +58,7 @@
     "description": "ハサミ",
     "name": "ハサミ",
     "image": "ITEM_ICONS/Scissors.png",
+    "attribute": "service",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -63,6 +69,7 @@
     "description": "お経",
     "name": "お経",
     "image": "ITEM_ICONS/Okyo.png",
+    "attribute": "nature",
     "avility": {
       "heal": 15,
       "attack": 15,
@@ -73,6 +80,7 @@
     "description": "札束",
     "name": "札束",
     "image": "ITEM_ICONS/Satu.png",
+    "attribute": "service",
     "avility": {
       "heal": 0,
       "attack": 100,
@@ -83,6 +91,7 @@
     "description": "プロテイン",
     "name": "プロテイン",
     "image": "ITEM_ICONS/Protein.png",
+    "attribute": "food",
     "avility": {
       "heal": 5,
       "attack": 5,
@@ -93,6 +102,7 @@
     "description": "ハンマー",
     "name": "ハンマー",
     "image": "ITEM_ICONS/Hunmer.png",
+    "attribute": "service",
     "avility": {
       "heal": 0,
       "attack": 30,
@@ -103,6 +113,7 @@
     "description": "ガベル",
     "name": "ガベル",
     "image": "ITEM_ICONS/Gabel.png",
+    "attribute": "public",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -113,6 +124,7 @@
     "description": "給食",
     "name": "給食",
     "image": "ITEM_ICONS/Lunch.png",
+    "attribute": "food",
     "avility": {
       "heal": 15,
       "attack": 0,
@@ -123,6 +135,7 @@
     "description": "切手",
     "name": "切手",
     "image": "ITEM_ICONS/Kitte.png",
+    "attribute": "public",
     "avility": {
       "heal": 0,
       "attack": 10,
@@ -133,6 +146,7 @@
     "description": "車",
     "name": "車",
     "image": "ITEM_ICONS/Car.png",
+    "attribute": "service",
     "avility": {
       "heal": 0,
       "attack": 30,
@@ -143,6 +157,7 @@
     "description": "ジェット機",
     "name": "ジェット機",
     "image": "ITEM_ICONS/Jet.png",
+    "attribute": "service",
     "avility": {
       "heal": 20,
       "attack": 35,
@@ -153,6 +168,7 @@
     "description": "証明書",
     "name": "証明書",
     "image": "ITEM_ICONS/Certificate.png",
+    "attribute": "public",
     "avility": {
       "heal": 0,
       "attack": 0,
@@ -163,6 +179,7 @@
     "description": "ポップコーン",
     "name": "ポップコーン",
     "image": "ITEM_ICONS/Popcorn.png",
+    "attribute": "food",
     "avility": {
       "heal": 10,
       "attack": 5,
@@ -173,6 +190,7 @@
     "description": "魔導書",
     "name": "魔導書",
     "image": "ITEM_ICONS/Magic.png",
+    "attribute": "nature",
     "avility": {
       "heal": 20,
       "attack": 30,
@@ -183,6 +201,7 @@
     "description": "おにぎり",
     "name": "おにぎり",
     "image": "ITEM_ICONS/Rice.png",
+    "attribute": "food",
     "avility": {
       "heal": 15,
       "attack": 0,
@@ -193,6 +212,7 @@
     "description": "バイキング",
     "name": "バイキング",
     "image": "ITEM_ICONS/Viking.png",
+    "attribute": "food",
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -203,6 +223,7 @@
     "description": "薬",
     "name": "薬",
     "image": "ITEM_ICONS/Drag.png",
+    "attribute": "nature",
     "avility": {
       "heal": 50,
       "attack": 0,
@@ -213,6 +234,7 @@
     "description": "ハンバーグ",
     "name": "ハンバーグ",
     "image": "ITEM_ICONS/meet.png",
+    "attribute": "food",
     "avility": {
       "heal": 30,
       "attack": 0,
@@ -223,6 +245,7 @@
     "description": "バナナ",
     "name": "バナナ",
     "image": "ITEM_ICONS/Banana.png",
+    "attribute": "food",
     "avility": {
       "heal": 15,
       "attack": 10,
@@ -233,6 +256,7 @@
     "description": "コーヒー",
     "name": "コーヒー",
     "image": "ITEM_ICONS/Coffee.png",
+    "attribute": "food",
     "avility": {
       "heal": 20,
       "attack": 5,

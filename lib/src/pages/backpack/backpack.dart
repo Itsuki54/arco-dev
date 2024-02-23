@@ -1,6 +1,6 @@
 import 'package:arco_dev/src/components/battle/battle_log.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
 // components
 import '../../components/button/simple_route_button.dart';
 import '../../components/common/ripples.dart';
