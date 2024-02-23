@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/utils/database.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_svg/flutter_svg.dart";
 // componets
@@ -13,22 +14,45 @@ class CharacterInfo extends StatefulWidget {
     required this.level,
     required this.description,
     required this.exp,
+    this.characterId = "",
+    this.party = false,
+    this.uid = "",
   });
 
   final String name;
   final int level;
   final String description;
   final double exp;
+  final bool party;
+  final String uid;
+  final String characterId;
 
   @override
   State<CharacterInfo> createState() => _CharacterInfo();
 }
 
 class _CharacterInfo extends State<CharacterInfo> {
+  Database db = Database();
+
+  Future<void> deleteCharacterFromParty() async {
+    await db.userPartyCollection(widget.uid).delete(widget.characterId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          actions: [
+            if (widget.party)
+              IconButton(
+                  onPressed: () {
+                    deleteCharacterFromParty().then((value) {
+                      Navigator.pop(context, "deleted");
+                    });
+                  },
+                  icon: const Icon(Icons.delete, size: 32))
+          ],
+        ),
         body: SingleChildScrollView(
           child: Center(
               child: Column(

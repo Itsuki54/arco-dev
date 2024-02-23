@@ -39,6 +39,11 @@ class _SignInPageState extends State<SignInPage> {
         'userId': _auth.currentUser!.uid,
         'money': 0
       });
+      final randomCharacter = await db.charactersCollection().getRandomDoc("");
+      randomCharacter.remove("id");
+      await db
+          .userMembersCollection(_auth.currentUser!.uid)
+          .add(randomCharacter);
       await db
           .userQuestsCollection(_auth.currentUser!.uid)
           .copyFromQuestsCollection();

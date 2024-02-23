@@ -51,6 +51,16 @@ class BaseCollection {
     }).toList();
   }
 
+  Future<List<Map<String, dynamic>>> getByOrder(
+      String field, bool descending) async {
+    Query<Map<String, dynamic>> ref = collection;
+    ref = ref.orderBy(field, descending: descending);
+    final snapshot = await ref.get();
+    return snapshot.docs.map((doc) {
+      return getDataFromDocumentData(doc);
+    }).toList();
+  }
+
   Future<List<Map<String, dynamic>>> getByQuery(
       Map<String, dynamic> query) async {
     Query<Map<String, dynamic>> ref = collection;
@@ -99,7 +109,7 @@ class BaseCollection {
 
   Future<Map<String, dynamic>> getRandomDoc(String? attribute) async {
     List<Map<String, dynamic>> allData = [];
-    if (attribute != null) {
+    if (attribute != null && attribute.isNotEmpty) {
       allData = await getByQuery(
           {'type': 'isEqualTo', 'field': 'attribute', 'value': attribute});
     } else {

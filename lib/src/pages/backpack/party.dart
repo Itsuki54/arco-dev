@@ -1,3 +1,4 @@
+import 'package:arco_dev/src/pages/backpack/character_select.dart';
 import 'package:arco_dev/src/pages/backpack/items.dart';
 import 'package:arco_dev/src/pages/backpack/members.dart';
 import 'package:arco_dev/src/pages/backpack/weapons.dart';
@@ -25,55 +26,57 @@ class PartyPage extends StatefulWidget {
 // キャラクターの仮のクラス
 class Character {
   Character({
+    this.exp = 0,
     required this.icon,
     required this.name,
     required this.level,
     required this.job,
+    required this.id,
+    this.partyId,
+    this.description = "",
   });
+  int? exp;
   Icon icon;
   String name;
   int level;
   String job;
+  String id;
+  String? partyId;
+  String description = "";
 }
 
 class _PartyPage extends State<PartyPage> {
   // キャラクター
   List<Character> characters = [];
-  List<Character> test_characters = [
-    Character(
-        icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
-        name: "高橋 真琴",
-        level: 10,
-        job: "忍者"),
-    Character(
-        icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
-        name: "竹内 悠斗",
-        level: 8,
-        job: "武士"),
-    Character(
-        icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
-        name: "望月 美咲",
-        level: 12,
-        job: "妖術師"),
-    Character(
-        icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
-        name: " 岡田 龍之介",
-        level: 6,
-        job: "茶道士兼剣術家"),
-  ];
 
   Database db = Database();
 
   // partyのデータを取得する
-  Future<List<Map<String, dynamic>>> getMembers() async {
+  Future<void> getMembers() async {
     List<Map<String, dynamic>> data =
-        await db.userMembersCollection(widget.uid).all();
-    return data;
+        await db.userPartyCollection(widget.uid).all();
+    List<Map<String, dynamic>> members = await Future.wait(data.map((e) async {
+      return await db.userMembersCollection(widget.uid).findById(e["memberId"]);
+    }));
+    for (int i = 0; i < members.length; i++) {
+      setState(() {
+        characters.add(Character(
+          partyId: data[i]["id"],
+          id: members[i]["id"],
+          icon: const Icon(Icons.person, size: 45),
+          name: members[i]["name"],
+          level: members[i]["level"],
+          job: members[i]["job"],
+          description: members[i]["description"],
+        ));
+      });
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    getMembers();
   }
 
   @override
@@ -86,11 +89,6 @@ class _PartyPage extends State<PartyPage> {
             color: Colors.black,
           ),
           title: "編成"),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          getMembers();
-        },
-      ),
       body: Center(
         child: Column(
           children: [
@@ -119,19 +117,82 @@ class _PartyPage extends State<PartyPage> {
               ),
             ),
             const SizedBox(height: 12),
-            for (int i = 0; i < test_characters.length; i++)
-              PartyRouteButton(
-                title: test_characters[i].name,
-                icon: test_characters[i].icon,
-                level: test_characters[i].level,
-                job: test_characters[i].job,
-                nextPage: const CharacterInfo(
-                    name: "桜井 雪音",
-                    level: 32,
-                    description:
-                        "和風の世界で生まれ育った若き剣士である。彼女は銀色の髪と氷のような青い目を持ち、優美な美しさと優れた剣術で知られている。雪音は厳しい修行の末に、氷の力を操る特殊な剣術を身につけた。彼女は氷のエネルギーを武器として利用し、敵を凍りつかせる技術を極めている。冷静沈着でありながら、心の中には熱い情熱と義侠心を秘めている。彼女は旅の中で己の力を試し、正義を貫くために戦い続ける。",
-                    exp: 0.3),
-              ),
+            for (int i = 0; i < 4; i++)
+              if (characters.length > i)
+                PartyRouteButton(
+                  title: characters[i].name,
+                  icon: characters[i].icon,
+                  level: characters[i].level,
+                  job: characters[i].job,
+                  onPressed: () {
+                    final result = Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CharacterInfo(
+                              name: characters[i].name,
+                              level: characters[i].level,
+                              description: characters[i].description != ""
+                                  ? characters[i].description
+                                  : "",
+                              exp: characters[i].exp != null
+                                  ? characters[i].exp!.toDouble()
+                                  : 0,
+                              party: true,
+                              characterId: characters[i].partyId!,
+                              uid: widget.uid,
+                            )));
+                    result.then((value) {
+                      if (value == "deleted") {
+                        setState(() {
+                          characters.removeAt(i);
+                        });
+                      }
+                    });
+                  },
+                )
+              else
+                Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              final result = Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CharacterSelect(uid: widget.uid)));
+                              result.then((value) {
+                                if (value != null &&
+                                    characters
+                                            .map((e) => e.id)
+                                            .toList()
+                                            .contains(value["id"]) ==
+                                        false) {
+                                  db.userPartyCollection(widget.uid).add(
+                                      {...value, "memberId": value["id"]}).then(
+                                    (_) {
+                                      setState(() {
+                                        characters.add(Character(
+                                            id: value["id"],
+                                            partyId: _.id,
+                                            icon: const Icon(Icons.person,
+                                                size: 45),
+                                            name: value["name"],
+                                            level: value["level"],
+                                            job: value["job"]));
+                                      });
+                                    },
+                                  );
+                                }
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: const SizedBox(
+                                width: 120,
+                                height: 120,
+                                child: Icon(Icons.add, size: 60))))),
           ],
         ),
       ),
