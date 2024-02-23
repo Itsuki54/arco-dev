@@ -7,13 +7,13 @@ class PartyRouteButton extends StatelessWidget {
       required this.icon,
       required this.level,
       required this.job,
-      required this.nextPage});
+      required this.onPressed});
 
   final String title;
   final Icon icon;
   final int level;
   final String job;
-  final Widget nextPage;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,9 @@ class PartyRouteButton extends StatelessWidget {
         TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
 
     return Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
         child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => nextPage));
-            },
+            onPressed: onPressed,
             style: ElevatedButton.styleFrom(
                 elevation: 2,
                 shape: RoundedRectangleBorder(

@@ -2,6 +2,9 @@ import 'package:arco_dev/src/pages/health/health_view_page.dart';
 import 'package:arco_dev/src/pages/settings/settings.dart';
 import 'package:arco_dev/src/pages/todo/todo.dart';
 import 'package:flutter/material.dart';
+import 'package:arco_dev/src/pages/shop/shop_page.dart';
+
+import 'achievement/achievement.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.uid}) : super(key: key);
@@ -42,29 +45,59 @@ class HomePage extends StatelessWidget {
                       ])),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-                width: double.infinity,
-                height: 120,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ToDoPage(uid: uid)));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.assignment, size: 44),
-                          SizedBox(width: 16),
-                          Text("クエスト",
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold))
-                        ]))),
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                      height: 120,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ToDoPage(uid: uid)));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(Icons.assignment, size: 44),
+                                SizedBox(width: 16),
+                                Text("クエスト",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold))
+                              ]))),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                    child: SizedBox(
+                        height: 120,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ShopPage(uid: uid)));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.store, size: 45),
+                                  Text("ショップ",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold))
+                                ])))),
+              ],
+            ),
             const SizedBox(height: 20),
             Row(
               children: [
@@ -73,11 +106,11 @@ class HomePage extends StatelessWidget {
                         height: 120,
                         child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             Achievement(uid: uid)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Achievement(uid: uid)));
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

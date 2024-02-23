@@ -53,7 +53,10 @@ class _QuestContent extends State<QuestContent> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.quest.name,
+                    Text(
+                        widget.quest.name.length > 8
+                            ? "${widget.quest.name.substring(0, 8)}..."
+                            : widget.quest.name,
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     Text(

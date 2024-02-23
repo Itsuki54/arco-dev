@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:arco_dev/src/utils/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
 import '../../components/battle/battle_controller.dart';
-// components
 import '../../components/common/exp_bar.dart';
 
 class Enemy extends StatelessWidget {
@@ -40,38 +42,15 @@ class Enemy extends StatelessWidget {
                     expValue: enemyCrtHp / enemyFullHp,
                     color: Colors.green),
               ])),
-          image,
         ]));
   }
 }
 
-class BattleCharacter {
-  BattleCharacter({
-    required this.name,
-    required this.fullHP,
-    required this.job,
-    required this.atk,
-    required this.def,
-    required this.spd,
-    required this.description,
-    required this.image,
-  }) {
-    crtHP = fullHP;
-  }
-
-  late int crtHP;
-  final String name;
-  final int fullHP;
-  final String job;
-  final int atk;
-  final int def;
-  final int spd;
-  final String description;
-  final dynamic image;
-}
-
 class BattlePage extends StatefulWidget {
-  const BattlePage({super.key});
+  const BattlePage({super.key, required this.uid, required this.enemies});
+
+  final String uid;
+  final List<Map<String, dynamic>> enemies;
 
   @override
   State<BattlePage> createState() => _BattlePage();
@@ -80,33 +59,13 @@ class BattlePage extends StatefulWidget {
 class _BattlePage extends State<BattlePage> {
   _BattlePage();
 
-  // テスト
-  List<BattleCharacter> enemies = [
-    BattleCharacter(
-        name: "Invader",
-        fullHP: 2,
-        job: "attacker",
-        atk: 2,
-        def: 2,
-        spd: 2,
-        description: "",
-        image: const Icon(Icons.bug_report))
-  ];
-  List<BattleCharacter> party = [
-    BattleCharacter(
-        name: "勇者",
-        fullHP: 2,
-        job: "attacker",
-        atk: 2,
-        def: 2,
-        spd: 2,
-        description: "",
-        image: const Icon(Icons.bug_report))
-  ];
+  List<Map<String, dynamic>> members = [];
+  List<Map<String, dynamic>> enemies = [];
+  Database db = Database();
 
   String turn = "party";
   int currentTurn = 0;
-  String battleMessage = "コマンド？";
+  String battleMessage = "コマンドを入力";
 
   bool showShade = true;
 
@@ -116,11 +75,19 @@ class _BattlePage extends State<BattlePage> {
   @override
   void initState() {
     super.initState();
+    db.userPartyCollection(widget.uid).all().then((value) {
+      setState(() {
+        members = value.map((e) => {...e, "crtHp": e["status"]["hp"]}).toList();
+        enemies = widget.enemies
+            .map((e) => {...e, "crtHp": e["status"]["hp"]})
+            .toList();
+      });
+    });
   }
 
-  void updateDialogMessage(String message) {
+  Future<void> updateDialogMessage(String message) async {
     // ダイアログを表示
-    showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -131,160 +98,223 @@ class _BattlePage extends State<BattlePage> {
     );
   }
 
-  void updateBattleState() {
-    int enemyNum = enemies.length;
-    int partyNum = party.length;
-
+  Future<void> updateBattleState() async {
     String newDialogMessage = "";
-    if (enemyNum == 0) {
-      newDialogMessage = "敵を全滅させた！";
-    } else {
-      for (BattleCharacter enemy in enemies) {
-        if (enemy.crtHP <= 0) {
-          newDialogMessage = "${enemy.name}を倒した！";
-          updateDialogMessage(newDialogMessage);
+    if (enemies.isNotEmpty) {
+      for (final enemy in enemies) {
+        if (enemy["crtHp"] <= 0) {
+          newDialogMessage = "${enemy["name"]}を倒した！";
+          await updateDialogMessage(newDialogMessage);
         }
       }
-      enemies.removeWhere((enemy) => enemy.crtHP <= 0);
+      setState(() {
+        enemies.removeWhere((enemy) => enemy["crtHp"] <= 0);
+      });
+    }
+    if (enemies.isEmpty) {
+      final user = await db.usersCollection().findById(widget.uid);
+      num exp = 0;
+      for (int i = 0; i < enemies.length; i++) {
+        exp += (enemies[i]['level'] + enemies[i]['rarity'] * 2) * 10;
+      }
+      await db.usersCollection().update(widget.uid, {
+        "exp": FieldValue.increment(exp),
+        "winCount": FieldValue.increment(1),
+      });
+      if (user['exp'] + exp >= user['level'] * 50) {
+        await db
+            .usersCollection()
+            .update(widget.uid, {'level': FieldValue.increment(1)});
+      }
+      for (int i = 0; i < members.length; i++) {
+        Map<String, dynamic> character = members[i];
+        character['exp'] += exp;
+        if (character['exp'] >=
+            (character['level'] + character['rarity'] * 2) * 15) {
+          character['level']++;
+          character['exp'] = 0;
+        }
+        await db
+            .userMembersCollection(widget.uid)
+            .update(character['id'], character);
+      }
+      Navigator.pop(context, true);
     }
 
-    if (partyNum == 0) {
-      newDialogMessage = "全滅した！";
-    } else {
-      for (BattleCharacter character in party) {
-        if (character.crtHP <= 0) {
-          newDialogMessage = "${character.name}は倒れた！";
-          updateDialogMessage(newDialogMessage);
+    if (members.isNotEmpty) {
+      for (final character in members) {
+        if (character["crtHp"] <= 0) {
+          newDialogMessage = "${character["name"]}は倒れた！";
+          await updateDialogMessage(newDialogMessage);
         }
       }
-      party.removeWhere((character) => character.crtHP <= 0);
+      setState(() {
+        members.removeWhere((character) => character["crtHp"] <= 0);
+      });
+    }
+    if (members.isEmpty) {
+      Navigator.pop(context, false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: Container(
-          decoration: const BoxDecoration(),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    width: 360,
-                    height: 380,
-                    child: Wrap(
-                      direction: Axis.vertical,
-                      runAlignment: WrapAlignment.center,
-                      spacing: 2.0,
-                      runSpacing: 2.0,
-                      children: [
-                        for (int i = 0; i < enemies.length; i++)
-                          Enemy(
-                            enemyName: enemies[i].name,
-                            enemyFullHp: enemies[i].fullHP,
-                            enemyCrtHp: enemies[i].crtHP,
-                            image: enemies[i].image,
-                          ),
-                      ],
-                    )),
-                const Expanded(child: SizedBox()),
-                Text(
-                  battleMessage,
-                  style: const TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.bold),
-                ),
-                const Expanded(child: SizedBox()),
-                Stack(
+    return members.isEmpty
+        ? const Center(child: CircularProgressIndicator())
+        : Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+            ),
+            body: Container(
+              decoration: const BoxDecoration(),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BattleController(
-                        playerCrtHp: party[currentTurn].crtHP,
-                        playerFullHp: party[currentTurn].fullHP,
-                        playerName: party[currentTurn].name,
-                        onAttack: () async {
-                          if (currentTurn == party.length - 1) {
-                            commandList.add({
-                              "player": party[currentTurn],
-                              "command": "attack"
-                            });
-                            setState(() {
-                              turn = "enemy";
-                            });
-                            debugPrint(commandList.length.toString());
-                            for (int i = 0; i < commandList.length; i++) {
-                              if (commandList[i]["command"] == "attack") {
-                                BattleCharacter player =
-                                    commandList[i]["player"];
-                                debugPrint("${player.name} attack");
-                                await Future.delayed(
-                                    const Duration(seconds: 2), () {});
-                                setState(() {
-                                  enemies[0].crtHP -= player.atk;
-                                  battleMessage =
-                                      "${enemies[0].name}に${player.atk}のダメージ";
-                                  updateBattleState();
-                                });
-                                battleLog.add(commandList[i]);
-                              }
-                            }
-                            Future.delayed(const Duration(seconds: 2), () {
-                              setState(() {
-                                battleMessage = "${enemies[0].name}の攻撃！";
-                              });
-                              Future.delayed(const Duration(seconds: 2), () {
-                                battleLog.add({
-                                  "player": enemies[0],
+                    SizedBox(
+                        width: 360,
+                        height: 380,
+                        child: Wrap(
+                          direction: Axis.vertical,
+                          runAlignment: WrapAlignment.center,
+                          spacing: 2.0,
+                          runSpacing: 2.0,
+                          children: [
+                            for (int i = 0; i < enemies.length; i++)
+                              Enemy(
+                                enemyName: enemies[i]["name"],
+                                enemyFullHp: enemies[i]["status"]["hp"],
+                                enemyCrtHp: enemies[i]["crtHp"],
+                                image: enemies[i]["image"],
+                              ),
+                          ],
+                        )),
+                    const Expanded(child: SizedBox()),
+                    Text(
+                      battleMessage,
+                      style: const TextStyle(
+                          fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
+                    const Expanded(child: SizedBox()),
+                    Column(
+                      children: [
+                        BattleController(
+                            playerCrtHp: members[currentTurn]["crtHp"],
+                            playerFullHp: members[currentTurn]["status"]["hp"],
+                            playerName: members[currentTurn]["name"],
+                            onAttack: () async {
+                              if (currentTurn == members.length - 1) {
+                                commandList.add({
+                                  "player": members[currentTurn],
                                   "command": "attack"
                                 });
                                 setState(() {
-                                  party[currentTurn].crtHP -= enemies[0].atk;
-
-                                  battleMessage =
-                                      "${party[currentTurn].name}に${enemies[0].atk}のダメージ";
-                                  updateBattleState();
+                                  turn = "enemy";
+                                });
+                                debugPrint(commandList.length.toString());
+                                for (int i = 0; i < commandList.length; i++) {
+                                  if (enemies.isNotEmpty) {
+                                    if (commandList[i]["command"] == "attack") {
+                                      Map<String, dynamic> player =
+                                          commandList[i]["player"];
+                                      debugPrint("${player["name"]} attack");
+                                      await Future.delayed(
+                                          const Duration(seconds: 2), () {});
+                                      setState(() {
+                                        int attack = (player["status"]["atk"] *
+                                                player["status"]["spd"]) -
+                                            (enemies[0]["status"]["def"] *
+                                                enemies[0]["status"]["spd"]);
+                                        int newHp = attack.isNegative
+                                            ? Random().nextInt(10)
+                                            : attack;
+                                        enemies[0]["crtHp"] =
+                                            enemies[0]["crtHp"] - newHp < 0
+                                                ? 0
+                                                : enemies[0]["crtHp"] - newHp;
+                                        battleMessage =
+                                            "${enemies[0]["name"]}に${player["status"]["atk"]}のダメージ";
+                                      });
+                                      await updateBattleState();
+                                      battleLog.add(commandList[i]);
+                                    }
+                                  }
+                                }
+                                if (enemies.isNotEmpty) {
                                   Future.delayed(const Duration(seconds: 2),
                                       () {
                                     setState(() {
-                                      battleMessage = "コマンド？";
-                                      turn = "party";
-                                      currentTurn = 0;
-                                      commandList = [];
+                                      battleMessage =
+                                          "${enemies[0]["name"]}の攻撃！";
+                                    });
+                                    Future.delayed(const Duration(seconds: 2),
+                                        () async {
+                                      battleLog.add({
+                                        "player": enemies[0],
+                                        "command": "attack"
+                                      });
+                                      setState(() {
+                                        int attack = (enemies[0]["status"]
+                                                    ["atk"] *
+                                                enemies[0]["status"]["spd"]) -
+                                            (members[0]["status"]["def"] *
+                                                members[0]["status"]["spd"]);
+                                        int newHp = attack.isNegative
+                                            ? Random().nextInt(10)
+                                            : attack;
+                                        members[currentTurn]["crtHp"] =
+                                            members[currentTurn]["crtHp"] -
+                                                        newHp <
+                                                    0
+                                                ? 0
+                                                : members[currentTurn]
+                                                        ["crtHp"] -
+                                                    newHp;
+                                        battleMessage =
+                                            "${members[currentTurn]["name"]}に${enemies[0]["status"]["atk"]}のダメージ";
+                                      });
+                                      await updateBattleState();
+                                      Future.delayed(const Duration(seconds: 2),
+                                          () {
+                                        setState(() {
+                                          battleMessage = "コマンドを入力";
+                                          turn = "party";
+                                          currentTurn = 0;
+                                          commandList = [];
+                                        });
+                                      });
                                     });
                                   });
+                                }
+                              } else {
+                                commandList.add({
+                                  "player": members[currentTurn],
+                                  "command": "attack"
                                 });
-                              });
-                            });
-                          } else {
-                            commandList.add({
-                              "player": party[currentTurn],
-                              "command": "attack"
-                            });
-                            setState(() {
-                              turn = "party";
-                              currentTurn++;
-                            });
-                          }
-                        },
-                        onItem: () {},
-                        onShield: () {},
-                        onEscape: () {}),
-                    Visibility(
-                        visible: turn == "enemy",
-                        child: Card(
-                          elevation: 0,
-                          color: Colors.black.withOpacity(0.2),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3)),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: 250,
-                          ),
-                        ))
-                  ],
-                ),
-                const SizedBox(height: 30)
-              ]),
-        ));
+                                setState(() {
+                                  turn = "party";
+                                  currentTurn++;
+                                });
+                              }
+                            },
+                            onItem: () {},
+                            onShield: () {},
+                            onEscape: () {}),
+                        Visibility(
+                            visible: turn == "enemy",
+                            child: Card(
+                              elevation: 0,
+                              color: Colors.black.withOpacity(0.2),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(3)),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: 250,
+                              ),
+                            ))
+                      ],
+                    ),
+                  ]),
+            ));
   }
 }

@@ -18,6 +18,8 @@ class AutoBattle {
   final List<String>? enemies = []; // 敵のドキュメントIDリスト
   List<num> finalExp = []; // 得られる経験値
   List<Map<String, dynamic>> finalParties = [];
+  String opponent = "";
+  DateTime endTime = DateTime.now();
 
   AutoBattle(this.playerUid, this.player2Uid);
 
@@ -25,6 +27,18 @@ class AutoBattle {
   Future<bool> start() async {
     List<String> result = [];
     bool win = false;
+    if (player2Uid != null) {
+      opponent =
+          (await database.usersCollection().findById(player2Uid!))["name"];
+    } else {
+      if (enemies!.length == 1) {
+        opponent =
+            (await database.enemiesCollection().findById(enemies![0]))["name"];
+      } else {
+        opponent =
+            "${(await database.enemiesCollection().findById(enemies![0]))["name"]}の群れ";
+      }
+    }
     List<Map<String, dynamic>> playerCharacters =
         await database.userPartyCollection(playerUid).all();
     List<Map<String, dynamic>>? player2Characters;
@@ -88,9 +102,10 @@ class AutoBattle {
     for (int i = 0; i < enemies.length; i++) {
       exp += (enemies[i]['level'] + enemies[i]['rarity'] * 2) * 10;
     }
-    await database
-        .usersCollection()
-        .update(uid, {'exp': FieldValue.increment(exp)});
+    await database.usersCollection().update(uid, {
+      'exp': FieldValue.increment(exp),
+      'winCount': FieldValue.increment(1)
+    });
     if (user['exp'] + exp >= user['level'] * 50) {
       await database
           .usersCollection()
@@ -113,7 +128,7 @@ class AutoBattle {
           .userPartyCollection(uid)
           .update(character['id'], character);
     }
-
+    endTime = DateTime.now();
     return result;
   }
 

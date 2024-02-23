@@ -6,6 +6,7 @@ import 'package:arco_dev/src/pages/home.dart';
 import 'package:arco_dev/src/utils/auto_battle.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:ble_peripheral/ble_peripheral.dart' as bp;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,7 @@ class _Hub extends State<Hub> {
   final messaging = FirebaseMessaging.instance;
   Database db = Database();
   int exp = 0;
+  bool connectLock = false;
 
   String generateNonce([int length = 32]) {
     const charset =
@@ -131,12 +133,11 @@ class _Hub extends State<Hub> {
     ]));
     bp.BlePeripheral.setReadRequestCallback(
         (deviceId, characteristicId, offset, value) {
-      // ユーザーIDを取得
-      return bp.ReadRequestResult(value: utf8.encode("N7B3bek9a8WL9lYXMJhh"));
+      return bp.ReadRequestResult(value: utf8.encode(widget.uid));
     });
     bp.BlePeripheral.setAdvertingStartedCallback((String? error) {
       if (error != null) {
-        print("AdvertisingFailed: $error");
+        debugPrint("AdvertisingFailed: $error");
         setState(() {
           advertisingError = error;
         });
@@ -149,6 +150,7 @@ class _Hub extends State<Hub> {
       services: [serviceArco],
       localName: "arco${generateNonce(3)}",
     );
+    debugPrint('Advertising started');
   }
 
   Future<void> stopAdvertising() async {
@@ -160,28 +162,38 @@ class _Hub extends State<Hub> {
   }
 
   Future<void> readUid(DiscoveredDevice device) async {
-    final characteristic = QualifiedCharacteristic(
-        characteristicId: Uuid.parse(characteristicArco),
-        serviceId: Uuid.parse(serviceArco),
-        deviceId: device.id);
-    final response = await _ble.readCharacteristic(characteristic);
-    if (response.isEmpty) {
-      debugPrint('Failed to read characteristic');
-    } else {
-      final value = utf8.decode(response);
-      setState(() {
-        connectedUids.add(value);
-      });
-      AutoBattle autoBattle = AutoBattle(widget.uid, value);
-      bool res = await autoBattle.start();
-      setState(() {
-        battleResults[value]["result"] = autoBattle.finalResult;
-        battleResults[value]["exp"] = autoBattle.finalExp;
-        battleResults[value]["win"] = res;
-        battleResults[value]["party"] = autoBattle.finalParties;
-      });
+    try {
+      final characteristic = QualifiedCharacteristic(
+          characteristicId: Uuid.parse(characteristicArco),
+          serviceId: Uuid.parse(serviceArco),
+          deviceId: device.id);
+      debugPrint(characteristic.toString());
+      final response = await _ble.readCharacteristic(characteristic);
+      debugPrint('Read characteristic: $response');
+      if (response.isEmpty) {
+        debugPrint('Failed to read characteristic');
+      } else {
+        final value = utf8.decode(response);
+        debugPrint('Read characteristic: $value');
+        setState(() {
+          connectedUids.add(value);
+        });
+        AutoBattle autoBattle = AutoBattle(widget.uid, value);
+        bool res = await autoBattle.start();
+        setState(() {
+          battleResults[value]["result"] = autoBattle.finalResult;
+          battleResults[value]["exp"] = autoBattle.finalExp;
+          battleResults[value]["win"] = res;
+          battleResults[value]["party"] = autoBattle.finalParties;
+          battleResults[value]["opponent"] = autoBattle.opponent;
+          battleResults[value]["endTime"] = autoBattle.endTime;
+        });
+      }
+      await disconnectFromDevice();
+    } catch (e) {
+      debugPrint('Failed to read characteristic: $e');
+      await disconnectFromDevice();
     }
-    await disconnectFromDevice();
   }
 
   Future<void> searchForDevices() async {
@@ -191,7 +203,7 @@ class _Hub extends State<Hub> {
       if (!_connectedDevices.contains(scanResult.id)) {
         debugPrint('Found device: ${scanResult.name}');
         _connectedDevices.add(scanResult.id);
-        connectToDevice(scanResult);
+        if (!connectLock) connectToDevice(scanResult);
       }
     }
   }
@@ -201,11 +213,13 @@ class _Hub extends State<Hub> {
         .connectToDevice(
             id: device.id,
             servicesWithCharacteristicsToDiscover: {
-              Uuid.parse(serviceArco): [Uuid.parse(characteristicArco)]
+              Uuid.parse(serviceArco): [Uuid.parse(characteristicArco)],
             },
-            connectionTimeout: const Duration(seconds: 5))
+            connectionTimeout: const Duration(seconds: 2))
         .listen((event) {
-      if (event.connectionState == DeviceConnectionState.connecting) {
+      if (connectLock) return;
+      connectLock = true;
+      if (event.connectionState == DeviceConnectionState.connected) {
         debugPrint('Connected to device');
         readUid(device);
       }
@@ -215,6 +229,35 @@ class _Hub extends State<Hub> {
   Future<void> disconnectFromDevice() async {
     debugPrint('Disconnecting from device');
     await _connection.cancel();
+    connectLock = false;
+  }
+
+  Future<void> lastLogin() async {
+    final lastLogin = await db.usersCollection().findById(widget.uid);
+    if (lastLogin.containsKey("lastLogin")) {
+      final lastLoginTime = lastLogin["lastLogin"];
+      final now = DateTime.now();
+      final diff = DateTime(now.year, now.month, now.day)
+          .difference(lastLoginTime.toDate())
+          .inDays;
+      if (diff == 1) {
+        await db.usersCollection().update(widget.uid, {
+          "lastLogin": DateTime(now.year, now.month, now.day),
+          "loginCount": FieldValue.increment(1)
+        });
+      } else if (diff > 1) {
+        await db.usersCollection().update(widget.uid, {
+          "lastLogin": DateTime(now.year, now.month, now.day),
+          "loginCount": 1
+        });
+      }
+    } else {
+      final now = DateTime.now();
+      await db.usersCollection().update(widget.uid, {
+        "lastLogin": DateTime(now.year, now.month, now.day),
+        "loginCount": 1
+      });
+    }
   }
 
   @override
@@ -223,6 +266,7 @@ class _Hub extends State<Hub> {
     whileRequest().then((permission.PermissionStatus status) {
       if (status == permission.PermissionStatus.granted) {
         isAlwaysGranted.then((bool isAlwaysGranted) {
+          debugPrint("TEST");
           if (!isAlwaysGranted) {
             alwaysRequest().then((LocationPermissionStatus status) {
               if (status == LocationPermissionStatus.granted) {
@@ -234,6 +278,16 @@ class _Hub extends State<Hub> {
                     searchForDevices();
                   }
                 });
+              }
+            });
+          } else {
+            debugPrint("TEST2");
+            initBle().then((value) {
+              if (advertisingError.isNotEmpty) {
+                debugPrint('Advertising error: $advertisingError');
+              } else {
+                startAdvertising();
+                searchForDevices();
               }
             });
           }
@@ -254,17 +308,19 @@ class _Hub extends State<Hub> {
                 ));
       }
     });
-    int lastDay = DateTime.now().day;
-    exp = db
-        .usersCollection()
-        .findById(widget.uid)
-        .then((value) => (value["exp"] as double).toInt());
-    Timer.periodic(const Duration(hours: 24), (Timer t) async {
-      exp += (await HealthExp().getExp(lastDay)).toInt();
-      db.usersCollection().update(widget.uid, {"exp": exp});
-    });
-    setState(() {
-      lastDay = DateTime.now().day;
+    Future(() async {
+      int lastDay = DateTime.now().day;
+      exp = await db
+          .usersCollection()
+          .findById(widget.uid)
+          .then((value) => (value["exp"] as double).toInt());
+      Timer.periodic(const Duration(hours: 24), (Timer t) async {
+        exp += (await HealthExp().getExp(lastDay)).toInt();
+        db.usersCollection().update(widget.uid, {"exp": exp});
+      });
+      setState(() {
+        lastDay = DateTime.now().day;
+      });
     });
   }
 
