@@ -2,6 +2,7 @@ import 'package:arco_dev/src/pages/health/health_view_page.dart';
 import 'package:arco_dev/src/pages/settings/settings.dart';
 import 'package:arco_dev/src/pages/todo/todo.dart';
 import 'package:flutter/material.dart';
+import 'package:arco_dev/src/pages/shop/shop_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.uid}) : super(key: key);
@@ -79,7 +80,7 @@ class HomePage extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          SettingsPage(uid: uid)));
+                                          ShopPage(uid: uid)));
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -87,8 +88,8 @@ class HomePage extends StatelessWidget {
                             child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.settings, size: 45),
-                                  Text("設定",
+                                  Icon(Icons.store, size: 45),
+                                  Text("ショップ",
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold))
