@@ -34,6 +34,7 @@ class Character {
     required this.id,
     this.partyId,
     this.description = "",
+    this.weapons = const [],
   });
   int? exp;
   Icon icon;
@@ -43,6 +44,7 @@ class Character {
   String id;
   String? partyId;
   String description = "";
+  List<Map<String, dynamic>> weapons;
 }
 
 class _PartyPage extends State<PartyPage> {
@@ -136,8 +138,10 @@ class _PartyPage extends State<PartyPage> {
                                   ? characters[i].exp!.toDouble()
                                   : 0,
                               party: true,
+                              memberId: characters[i].id,
                               characterId: characters[i].partyId!,
                               uid: widget.uid,
+                              weapons: characters[i].weapons,
                             )));
                     result.then((value) {
                       if (value == "deleted") {

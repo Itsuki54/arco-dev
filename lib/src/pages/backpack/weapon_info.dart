@@ -6,11 +6,15 @@ class WeaponInfo extends StatefulWidget {
     required this.name,
     required this.level,
     required this.description,
+    this.uid = "",
+    this.characterId = "",
   });
 
   final String name;
   final int level;
   final String description;
+  final String uid;
+  final String characterId;
 
   @override
   State<WeaponInfo> createState() => _WeaponInfo();
@@ -20,7 +24,16 @@ class _WeaponInfo extends State<WeaponInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          actions: [
+            if (widget.characterId != "")
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context, "deleted");
+                  },
+                  icon: const Icon(Icons.delete, size: 32))
+          ],
+        ),
         body: SingleChildScrollView(
           child: Center(
               child: Column(
