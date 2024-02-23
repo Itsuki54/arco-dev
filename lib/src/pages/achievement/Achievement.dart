@@ -61,7 +61,7 @@ class _AchievementState extends State<Achievement> {
                 width: double.infinity,
                 height: 240,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: null,
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),

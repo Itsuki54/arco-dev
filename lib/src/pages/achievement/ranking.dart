@@ -32,7 +32,7 @@ class _RankingState extends State<Ranking> {
                 width: double.infinity,
                 height: 280,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: null,
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -171,26 +171,6 @@ class _RankingState extends State<Ranking> {
               SizedBox(
                 width: double.infinity,
                 height: 100,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "睡眠",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
