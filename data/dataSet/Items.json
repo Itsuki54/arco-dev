@@ -2,7 +2,7 @@
   {
     "description": "説明",
     "name": "人参",
-    "image": "ITEM_ICONS/Callot.png",
+    "image": "ITEM_ICONS/Carrot.png",
     "attribute": "food",
     "avility": {
       "heal": 10,
