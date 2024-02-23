@@ -10,6 +10,8 @@ import '../../components/common/child_appbar.dart';
 import '../../components/button/party_route_button.dart';
 // pages
 import './character_info.dart';
+// utils
+import 'package:arco_dev/src/utils/database.dart';
 
 class PartyPage extends StatefulWidget {
   const PartyPage({super.key, required this.uid});
@@ -35,8 +37,9 @@ class Character {
 }
 
 class _PartyPage extends State<PartyPage> {
-  // キャラクターのダミーデータ
-  List<Character> characters = [
+  // キャラクター
+  List<Character> characters = [];
+  List<Character> test_characters = [
     Character(
         icon: const Icon(Icons.assignment_ind, size: 42, color: Colors.black),
         name: "高橋 真琴",
@@ -59,6 +62,20 @@ class _PartyPage extends State<PartyPage> {
         job: "茶道士兼剣術家"),
   ];
 
+  Database db = Database();
+
+  // partyのデータを取得する
+  Future<List<Map<String, dynamic>>> getMembers() async {
+    List<Map<String, dynamic>> data =
+        await db.userMembersCollection(widget.uid).all();
+    return data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +86,11 @@ class _PartyPage extends State<PartyPage> {
             color: Colors.black,
           ),
           title: "編成"),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          getMembers();
+        },
+      ),
       body: Center(
         child: Column(
           children: [
@@ -97,12 +119,12 @@ class _PartyPage extends State<PartyPage> {
               ),
             ),
             const SizedBox(height: 12),
-            for (int i = 0; i < characters.length; i++)
+            for (int i = 0; i < test_characters.length; i++)
               PartyRouteButton(
-                title: characters[i].name,
-                icon: characters[i].icon,
-                level: characters[i].level,
-                job: characters[i].job,
+                title: test_characters[i].name,
+                icon: test_characters[i].icon,
+                level: test_characters[i].level,
+                job: test_characters[i].job,
                 nextPage: const CharacterInfo(
                     name: "桜井 雪音",
                     level: 32,
