@@ -72,17 +72,32 @@ class _BattlePage extends State<BattlePage> {
   List<Map> battleLog = [];
   List<Map> commandList = [];
 
+  Future<void> getMembers() async {
+    List<Map<String, dynamic>> data =
+        await db.userPartyCollection(widget.uid).all();
+    List<Map<String, dynamic>> members = await Future.wait(data.map((e) async {
+      return await db.userMembersCollection(widget.uid).findById(e["memberId"]);
+    }));
+    for (int i = 0; i < members.length; i++) {
+      setState(() {
+        members.add({
+          "id": members[i]["id"],
+          "name": members[i]["name"],
+          "level": members[i]["level"],
+          "rarity": members[i]["rarity"],
+          "status": members[i]["status"],
+          "exp": members[i]["exp"],
+          "crtHp": members[i]["status"]["hp"],
+          "image": members[i]["image"],
+        });
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    db.userPartyCollection(widget.uid).all().then((value) {
-      setState(() {
-        members = value.map((e) => {...e, "crtHp": e["status"]["hp"]}).toList();
-        enemies = widget.enemies
-            .map((e) => {...e, "crtHp": e["status"]["hp"]})
-            .toList();
-      });
-    });
+    getMembers();
   }
 
   Future<void> updateDialogMessage(String message) async {
