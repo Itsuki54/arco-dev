@@ -93,11 +93,39 @@ class _ShopPage extends State<ShopPage> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
-            Center(
-              child: Text("It's cloudy here"),
-            ),
+            SingleChildScrollView(
+                child: Column(
+              children: [
+                const SizedBox(height: 16),
+                Wrap(spacing: 8, runSpacing: 8, children: [
+                  for (int i = 0; i < 12; i++)
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        onPressed: () {},
+                        child: const SizedBox(
+                            width: 110,
+                            height: 150,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(Icons.category, size: 72),
+                                SizedBox(height: 20),
+                                Text(
+                                  "アイテム名",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: 10),
+                              ],
+                            )))
+                ])
+              ],
+            )),
             Center(
               child: Text("It's rainy here"),
             ),
