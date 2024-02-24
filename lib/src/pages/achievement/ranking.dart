@@ -32,7 +32,7 @@ class _RankingState extends State<Ranking> {
                 width: double.infinity,
                 height: 280,
                 child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),

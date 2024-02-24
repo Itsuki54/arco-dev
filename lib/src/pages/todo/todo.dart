@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:arco_dev/src/utils/colors.dart';
 import 'package:arco_dev/src/utils/database.dart';
 import 'package:arco_dev/src/utils/health.dart';
@@ -40,9 +42,22 @@ class _ToDoPageState extends State<ToDoPage> {
   late List<Quest> displayedWeeklyQuests = quests;
   late List<Quest> displayedAchievedQuests = quests;
 
+  List<List<Map<String, dynamic>>> healthDataList = [];
+  Future<bool> yesterdayData() async {
+    final yesterdayData = await healthData.fetchDaysData(1);
+    if (yesterdayData.isEmpty) {
+      return false;
+    }
+    healthDataList.add(yesterdayData);
+    return true;
+  }
+
   Future<bool> checkCondition(Quest quest) async {
-    final dailyHealthData = await healthData.fetchDaysData(1);
-    final weeklyHealthData = await healthData.fetchDaysData(7);
+    final dailyHealthData = healthDataList[healthDataList.length - 1];
+    final weeklyHealthData = healthDataList
+        .sublist(healthDataList.length - 7, healthDataList.length)
+        .expand((element) => element)
+        .toList();
     List<bool> results = [];
     for (var condition in quest.condition) {
       debugPrint(condition);
@@ -261,6 +276,11 @@ class _ToDoPageState extends State<ToDoPage> {
     getLevel().then((value) {
       setState(() {
         level = value;
+      });
+    });
+    Future(() async {
+      Timer.periodic(const Duration(hours: 24), (Timer t) async {
+        yesterdayData();
       });
     });
   }

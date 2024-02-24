@@ -43,17 +43,6 @@ class _AchievementState extends State<Achievement> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(
-                  alignment: Alignment.topRight,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Ranking(uid: widget.uid)));
-                    },
-                    child: const Icon(Icons.workspace_premium, size: 40),
-                  )),
               const SizedBox(
                 height: 20,
               ),
@@ -61,7 +50,7 @@ class _AchievementState extends State<Achievement> {
                 width: double.infinity,
                 height: 240,
                 child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
@@ -193,6 +182,17 @@ class _AchievementState extends State<Achievement> {
               SizedBox(
                 height: 20,
               ),
+              Align(
+                  alignment: Alignment.topRight,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Ranking(uid: widget.uid)));
+                    },
+                    child: const Icon(Icons.workspace_premium, size: 40),
+                  )),
             ],
           ),
         ),
