@@ -45,10 +45,6 @@ class _FourthTutorialPageState extends State<FourthTutorialPage> {
                     ),
                   ),
                   SizedBox(height: 16),
-                  SizedBox(
-                    width: 240,
-                    child: Image.asset('assets/images/fourth.png'),
-                  ),
                 ],
               ),
             ),
@@ -76,7 +72,7 @@ class _FourthTutorialPageState extends State<FourthTutorialPage> {
             alignment: Alignment.bottomRight,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Hub(uid: widget.uid),

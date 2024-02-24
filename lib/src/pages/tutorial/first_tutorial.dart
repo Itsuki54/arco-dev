@@ -115,16 +115,13 @@ class ToHealthConnect extends StatelessWidget {
             "https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata",
           )
         },
-        child: Image.asset(
-          'assets/images/HealthConnect.webp',
-          fit: BoxFit.cover,
-        ),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
           padding: EdgeInsets.zero,
         ),
+        child: const Text('Health\nConnect'),
       ),
     );
   }
@@ -148,10 +145,6 @@ class ToGoogleFit extends StatelessWidget {
             "https://play.google.com/store/apps/details?id=com.google.android.apps.fitness",
           )
         },
-        child: Image.asset(
-          'assets/images/GoogleFit.webp',
-          fit: BoxFit.cover,
-        ),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius:
@@ -159,6 +152,7 @@ class ToGoogleFit extends StatelessWidget {
           ),
           padding: EdgeInsets.all(10),
         ),
+        child: const Text('Google\nFit'),
       ),
     );
   }

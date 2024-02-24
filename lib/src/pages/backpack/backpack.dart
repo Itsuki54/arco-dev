@@ -43,40 +43,32 @@ class BackpackPage extends StatelessWidget {
                             "${battleResults![index]["endTime"]}\n${battleResults![index]["win"] ? "勝利" : "敗北"}"),
                       );
                     }))
-            : const Column(children: [
-                SizedBox(height: 40),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            : const Expanded(
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Align(
-                              alignment: Alignment(0, 0),
-                              child: SizedBox(
-                                  height: 250,
-                                  width: 250,
-                                  child: WaterRipple())),
-                          Align(
-                              alignment: Alignment(0, 0),
-                              child: Icon(
-                                Icons.smartphone,
-                                size: 120,
-                              )),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        "探索中...",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
+                      Align(
+                          alignment: Alignment(0, 0),
+                          child: SizedBox(
+                              height: 250, width: 250, child: WaterRipple())),
+                      Align(
+                          alignment: Alignment(0, 0),
+                          child: Icon(
+                            Icons.smartphone,
+                            size: 120,
+                          )),
                     ],
                   ),
-                ),
-                SizedBox(height: 40),
-              ]),
+                  SizedBox(height: 20),
+                  Text(
+                    "探索中...",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )),
         SimpleRouteButton(
           title: "編成",
           icon: const Icon(Icons.assignment_ind, size: 45),

@@ -53,12 +53,17 @@ class _ToDoPageState extends State<ToDoPage> {
   }
 
   Future<bool> checkCondition(Quest quest) async {
+    List<bool> results = [];
+
+    if (healthDataList.isEmpty) {
+      results.add(false);
+      return results.every((element) => element == true);
+    }
     final dailyHealthData = healthDataList[healthDataList.length - 1];
     final weeklyHealthData = healthDataList
         .sublist(healthDataList.length - 7, healthDataList.length)
         .expand((element) => element)
         .toList();
-    List<bool> results = [];
     for (var condition in quest.condition) {
       debugPrint(condition);
       final [field, operand, value] = condition.split(" ");
@@ -88,6 +93,10 @@ class _ToDoPageState extends State<ToDoPage> {
         }
       }
       if (quest.frequency == "daily") {
+        if (dailyHealthData.isEmpty) {
+          results.add(false);
+          continue;
+        }
         if (field == "calorie") {
           if (operand == ">=") {
             if (dailyHealthData.map(
@@ -129,6 +138,10 @@ class _ToDoPageState extends State<ToDoPage> {
           }
         }
       } else if (quest.frequency == "weekly") {
+        if (weeklyHealthData.isEmpty) {
+          results.add(false);
+          continue;
+        }
         if (field == "calorie") {
           if (operand == ">=") {
             if (weeklyHealthData.map(
@@ -271,6 +284,7 @@ class _ToDoPageState extends State<ToDoPage> {
   @override
   void initState() {
     super.initState();
+    yesterdayData();
     debugPrint('uid: ${widget.uid}');
     getQuests();
     getLevel().then((value) {
