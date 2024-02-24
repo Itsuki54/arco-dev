@@ -12,38 +12,40 @@ class BackpackPage extends StatelessWidget {
       : super(key: key);
 
   final String uid;
-  final Map<String, dynamic>? battleResults;
+  final List<Map<String, dynamic>>? battleResults;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 30),
       body: Center(
-        child: battleResults != null && battleResults!.isNotEmpty
-            ? ListView.builder(
-                itemCount: battleResults!.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return BattleLog(
-                              expLog: battleResults![index]["exp"],
-                              log: battleResults![index]["result"],
-                              win: battleResults![index]["win"],
-                              party: battleResults![index]["party"],
-                            );
-                          });
-                    },
-                    title: Text(battleResults![index]["opponent"]),
-                    subtitle: Text(
-                        "${battleResults![index]["endTime"]}\n${battleResults![index]["win"] ? "勝利" : "敗北"}"),
-                  );
-                })
-            : Column(children: [
-                const SizedBox(height: 40),
-                const Expanded(
+          child: Column(children: [
+        battleResults != null && battleResults!.isNotEmpty
+            ? Expanded(
+                child: ListView.builder(
+                    itemCount: battleResults!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return BattleLog(
+                                  expLog: battleResults![index]["exp"],
+                                  log: battleResults![index]["result"],
+                                  win: battleResults![index]["win"],
+                                  party: battleResults![index]["party"],
+                                );
+                              });
+                        },
+                        title: Text(battleResults![index]["opponent"]),
+                        subtitle: Text(
+                            "${battleResults![index]["endTime"]}\n${battleResults![index]["win"] ? "勝利" : "敗北"}"),
+                      );
+                    }))
+            : const Column(children: [
+                SizedBox(height: 40),
+                Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -73,15 +75,15 @@ class BackpackPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 40),
-                SimpleRouteButton(
-                  title: "編成",
-                  icon: const Icon(Icons.assignment_ind, size: 45),
-                  nextPage: PartyPage(uid: uid),
-                ),
-                const SizedBox(height: 40),
+                SizedBox(height: 40),
               ]),
-      ),
+        SimpleRouteButton(
+          title: "編成",
+          icon: const Icon(Icons.assignment_ind, size: 45),
+          nextPage: PartyPage(uid: uid),
+        ),
+        const SizedBox(height: 40),
+      ])),
     );
   }
 }
