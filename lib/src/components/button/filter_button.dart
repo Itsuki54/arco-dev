@@ -23,7 +23,7 @@ class _FilterButton extends State<FilterButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.all(2),
+        margin: const EdgeInsets.all(0.5),
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
               backgroundColor: widget.state ? widget.color : Colors.white,
