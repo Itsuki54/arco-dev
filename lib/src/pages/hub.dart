@@ -375,10 +375,8 @@ class _Hub extends State<Hub> {
     });
     Future(() async {
       int lastDay = DateTime.now().day;
-      exp = await db
-          .usersCollection()
-          .findById(widget.uid)
-          .then((value) => (value["exp"] as double).toInt());
+      final user = await db.usersCollection().findById(widget.uid);
+      exp = user["exp"] != null ? (user["exp"] as double).toInt() : 0;
       Timer.periodic(const Duration(hours: 24), (Timer t) async {
         exp += (await HealthExp().getExp(lastDay)).toInt();
         db.usersCollection().update(widget.uid, {"exp": exp});
