@@ -45,10 +45,6 @@ class _FourthTutorialPageState extends State<FourthTutorialPage> {
                     ),
                   ),
                   SizedBox(height: 16),
-                  SizedBox(
-                    width: 240,
-                    child: Image.asset('assets/images/fourth.png'),
-                  ),
                 ],
               ),
             ),

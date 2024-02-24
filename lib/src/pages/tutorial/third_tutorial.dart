@@ -44,10 +44,6 @@ class _ThirdTutorialPageState extends State<ThirdTutorialPage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  SizedBox(
-                    width: 240,
-                    child: Image.asset('assets/images/third.png'),
-                  ),
                 ],
               ),
             ),
