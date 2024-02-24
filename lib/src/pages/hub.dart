@@ -44,7 +44,8 @@ class _Hub extends State<Hub> {
   //late StreamSubscription<ConnectionStateUpdate> _connection;
   String advertisingError = '';
   List<String> connectedUids = [];
-  Map<String, dynamic> battleResults = {};
+  List<String> battledUids = [];
+  List<Map<String, dynamic>> battleResults = [];
   final List<String> _connectedDevices = [];
   final messaging = FirebaseMessaging.instance;
   Database db = Database();
@@ -203,18 +204,6 @@ class _Hub extends State<Hub> {
             setState(() {
               connectedUids.add(uid);
             });
-            AutoBattle autoBattle = AutoBattle(widget.uid, uid);
-            bool res = await autoBattle.start();
-            setState(() {
-              battleResults[uid] = {
-                "result": autoBattle.finalResult,
-                "exp": autoBattle.finalExp,
-                "win": res,
-                "party": autoBattle.finalParties,
-                "opponent": autoBattle.opponent,
-                "endTime": autoBattle.endTime
-              };
-            });
           }
         }
       }
@@ -223,6 +212,28 @@ class _Hub extends State<Hub> {
     } catch (e) {
       debugPrint('Failed to read characteristic: $e');
       await disconnectFromDevice(device);
+    }
+
+    connectLock = false;
+    if (connectedUids.isNotEmpty) {
+      for (int i = 0; i < connectedUids.length; i++) {
+        if (!battledUids.contains(connectedUids[i])) {
+          AutoBattle autoBattle = AutoBattle(widget.uid, connectedUids[i]);
+          bool res = await autoBattle.start();
+          setState(() {
+            battledUids.add(connectedUids[i]);
+            battleResults.add({
+              "result": autoBattle.finalResult,
+              "exp": autoBattle.finalExp,
+              "win": res,
+              "party": autoBattle.finalParties,
+              "name": autoBattle.name,
+              "opponent": autoBattle.opponent,
+              "endTime": autoBattle.endTime
+            });
+          });
+        }
+      }
     }
   }
 
@@ -244,7 +255,11 @@ class _Hub extends State<Hub> {
           if (!connectLock) connectToDevice(result.device);
         }
       }
+    }, onError: (Object error) {
+      debugPrint('Error: $error');
     });
+    await FlutterBluePlus.startScan(
+        withServices: [Guid(serviceArco)], timeout: const Duration(seconds: 2));
   }
 
   Future<void> connectToDevice(BluetoothDevice device) async {
@@ -318,7 +333,6 @@ class _Hub extends State<Hub> {
     whileRequest().then((permission.PermissionStatus status) {
       if (status == permission.PermissionStatus.granted) {
         isAlwaysGranted.then((bool isAlwaysGranted) {
-          debugPrint("TEST");
           if (!isAlwaysGranted) {
             alwaysRequest().then((LocationPermissionStatus status) {
               if (status == LocationPermissionStatus.granted) {
@@ -333,7 +347,6 @@ class _Hub extends State<Hub> {
               }
             });
           } else {
-            debugPrint("TEST2");
             initBle().then((value) {
               if (advertisingError.isNotEmpty) {
                 debugPrint('Advertising error: $advertisingError');
