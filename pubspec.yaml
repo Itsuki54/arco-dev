@@ -54,6 +54,7 @@ dependencies:
   firebase_messaging: ^14.7.15
   url_launcher: ^6.1.5
   flutter_blue_plus: ^1.31.15
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -110,3 +111,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icon_ios.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icon_android.png"
