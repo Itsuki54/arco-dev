@@ -291,7 +291,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     'アカウントを持っていますか?',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                   TextButton(
@@ -309,7 +309,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Text('サインイン',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         )),
                   )
                 ]))
