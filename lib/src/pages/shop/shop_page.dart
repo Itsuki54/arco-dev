@@ -220,17 +220,17 @@ class _ShopPage extends State<ShopPage> {
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
-                  icon: Icon(Icons.restaurant, size: 29),
-                  child: Text("Foods",
+                  icon: Icon(Icons.category_rounded, size: 29),
+                  child: Text("Items",
                       style: TextStyle(fontWeight: FontWeight.bold))),
-              Tab(
-                  icon: Icon(Icons.build, size: 29),
-                  child: Text("Wepons",
-                      style: TextStyle(fontWeight: FontWeight.bold))),
-              Tab(
-                  icon: Icon(Icons.support_agent, size: 29),
-                  child: Text("Services",
-                      style: TextStyle(fontWeight: FontWeight.bold))),
+              //Tab(
+              //    icon: Icon(Icons.build, size: 29),
+              //    child: Text("Wepons",
+              //        style: TextStyle(fontWeight: FontWeight.bold))),
+              //Tab(
+              //    icon: Icon(Icons.support_agent, size: 29),
+              //    child: Text("Services",
+              //        style: TextStyle(fontWeight: FontWeight.bold))),
             ],
           ),
         ),
@@ -263,11 +263,36 @@ class _ShopPage extends State<ShopPage> {
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
+                                      const Icon(Icons.category_rounded,
+                                          size: 125),
+                                      const SizedBox(height: 32),
                                       Text(items[i]['description'],
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold)),
                                       const SizedBox(height: 10),
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  AppColors.orange),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: SizedBox(
+                                              width: 200,
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "${(i + 1) * 100}point で購入する",
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    )
+                                                  ]))),
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor:
@@ -289,7 +314,7 @@ class _ShopPage extends State<ShopPage> {
                                                           fontWeight: FontWeight
                                                               .normal),
                                                     )
-                                                  ])))
+                                                  ]))),
                                     ],
                                   ),
                                 );
@@ -301,7 +326,7 @@ class _ShopPage extends State<ShopPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                const Icon(Icons.category, size: 72),
+                                const Icon(Icons.category_rounded, size: 72),
                                 const SizedBox(height: 20),
                                 Text(
                                   items[i]['name'],
