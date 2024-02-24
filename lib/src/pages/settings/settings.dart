@@ -1,5 +1,6 @@
 import 'package:arco_dev/src/pages/tutorial/first_tutorial.dart';
 import 'package:arco_dev/src/pages/welcome/signin_page.dart';
+import 'package:arco_dev/src/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       icon: SvgPicture.asset("assets/images/swords.svg",
                           width: 42,
                           height: 42,
-                          theme: const SvgTheme(currentColor: Colors.black)),
+                          theme: SvgTheme(currentColor: AppColors.indigo)),
                       nextPage: Scaffold(appBar: AppBar())),
                   SimpleRouteButton(
                       title: "チュートリアル",

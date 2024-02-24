@@ -207,8 +207,8 @@ class _ShopPage extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
+      initialIndex: 0,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           title: const Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -340,7 +340,7 @@ class _ShopPage extends State<ShopPage> {
                 ])
               ],
             )),
-            SingleChildScrollView(
+            /*SingleChildScrollView(
                 child: Column(
               children: [
                 const SizedBox(height: 16),
@@ -401,7 +401,7 @@ class _ShopPage extends State<ShopPage> {
                             )))
                 ])
               ],
-            )),
+            )),*/
           ],
         ),
       ),
