@@ -72,7 +72,7 @@ class _FourthTutorialPageState extends State<FourthTutorialPage> {
             alignment: Alignment.bottomRight,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Hub(uid: widget.uid),
